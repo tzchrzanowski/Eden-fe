@@ -36,11 +36,16 @@ export function Contact() {
         <div className={"contactWrapper"}>
             <TopNavigation />
             <div className={"pageContent"}>
-                <div className={'big-icon-wrapper'}>
-                    <img src={bubble} alt={"bubble"} />
+                <div className={"header-wrapper"}>
+                    <div className={'big-icon-wrapper'}>
+                        <img src={bubble} alt={"bubble"} />
+                    </div>
+                    <div className={"description-wrapper"}>
+                        <p>If you want to do business, it is best to find someone who has already been there! Contact us now and lets start your's!</p>
+                    </div>
                 </div>
-                <div className={'smallCaption'}>
-                    <p>If you want to do business, it is best to find someone who has already been there! Contact us now and lets start your's!</p>
+
+                <div className={'small-caption-wrapper'}>
                     {contactOptions && contactOptions.map((option, id) => {
                         return (
                             <div className='caption-row-wrapper' key={id}>
@@ -52,7 +57,7 @@ export function Contact() {
                             </div>
                         )
                     })}
-                    
+
                 </div>
             </div>
         </div>

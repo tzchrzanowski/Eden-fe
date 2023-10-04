@@ -37,8 +37,10 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
                     <p>{node.name}</p>
                     <p>{node.caption}</p>
                 </div>
-                <div className={"left-child-node"}>{renderNode(node.leftNode)}</div>
-                <div className={"right-child-node"}>{renderNode(node.rightNode)}</div>
+                <div className={"children-nodes-wrapper"}>
+                    <div className={"left-child-node"}>{renderNode(node.leftNode)}</div>
+                    <div className={"right-child-node"}>{renderNode(node.rightNode)}</div>
+                </div>
             </div>
         )
     }

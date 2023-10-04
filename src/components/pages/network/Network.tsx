@@ -5,17 +5,17 @@ import BinaryTree, {TreeNodeInterface } from "./binary-tree/BinaryTree";
 export function Network() {
 
     const rootNode: TreeNodeInterface = {
-        name: 'Root',
-        caption: 'The Root Node',
+        name: 'Bartek',
+        caption: 'The boss',
         leftNode: {
-            name: 'Left Node',
-            caption: 'A Left Child Node',
+            name: 'left package',
+            caption: '100 box',
             leftNode: null,
             rightNode: null,
         },
         rightNode: {
-            name: 'Right Node',
-            caption: 'A Right Child Node',
+            name: 'Right package',
+            caption: '100 box',
             leftNode: null,
             rightNode: null,
         },

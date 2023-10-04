@@ -1,5 +1,6 @@
 import React from 'react';
 import './TopNavigation.css';
+import { Link } from "react-router-dom";
 
 
 interface buttonsInterface {
@@ -8,10 +9,10 @@ interface buttonsInterface {
 };
 
 const buttons: buttonsInterface[] = [
-    {route: "/", caption: "home"},
+    {route: "/", caption: "Home"},
     {route: "/ways-to-earn", caption: "Ways to earn"},
     {route: "/products", caption: "Products"},
-    {route: "/constact", caption: "Contact"},
+    {route: "/contact", caption: "Contact"},
     {route: "/network-chart", caption: "Network"},
     {route: "/login", caption: "Login"},
 ]
@@ -28,13 +29,15 @@ export function TopNavigation() {
     return (
         <div className={"nav-container"}>
             {buttons && buttons.map((button, id) => {
-                return <div
-                    className={(hoveredButtons[id] ? "isHovered button-box" : "button-box")}
-                    onMouseOver={() => handleHover(id, true)}
-                    onMouseLeave={() => handleHover(id, false)}
-                >
-                    {button.caption}
-                </div>
+                return <Link to={button.route} key={id}>
+                    <div
+                        className={(hoveredButtons[id] ? "isHovered button-box" : "button-box")}
+                        onMouseOver={() => handleHover(id, true)}
+                        onMouseLeave={() => handleHover(id, false)}
+                    >
+                        {button.caption}
+                    </div>
+                </Link>
             })}
         </div>
     )

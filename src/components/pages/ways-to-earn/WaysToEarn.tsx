@@ -1,0 +1,17 @@
+import React from 'react';
+import './WaysToEarn.css';
+import TopNavigation from "components/top-navigation/TopNavigation";
+
+export function WaysToEarn() {
+    return (
+        <div className={"pageWrapper"}>
+            <TopNavigation />
+            <div className={"pageContent"}>
+                <p>Ways to Earn Page</p>
+                <p>...</p>
+            </div>
+        </div>
+    )
+}
+
+export default WaysToEarn;

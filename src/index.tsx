@@ -1,32 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider, createHashRouter} from 'react-router-dom';
-import TopNavigation from "./components/top-navigation/TopNavigation";
+import {Home} from "./components/pages/home/Home";
+import WaysToEarn from "./components/pages/ways-to-earn/WaysToEarn";
+import Products from "./components/pages/products/Products";
+import Contact from "./components/pages/Contact/Contact";
+import Network from "./components/pages/network/Network";
+import Login from "./components/pages/login/Login";
 
 
 const router = createBrowserRouter([
         {
             path: "/",
-            element: <div>Home</div>,
+            element: <Home />,
         },
         {
             path: "/ways-to-earn",
-            element: <div>Ways to earn</div>,
+            element: <WaysToEarn />,
+        },
+        {
+            path: "/products",
+            element: <Products />,
         },
         {
             path: "/contact",
-            element: <div>Contact</div>,
+            element: <Contact />,
         },
         {
             path: "/network-chart",
-            element: <div>Network</div>,
+            element: <Network />,
         },
         {
             path: "/login",
-            element: <div>Login page</div>,
+            element: <Login />,
         }
     ]
 );
@@ -36,7 +44,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <TopNavigation />
       <RouterProvider router={router} />
   </React.StrictMode>
 );

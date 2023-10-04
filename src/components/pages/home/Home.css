@@ -1,15 +1,21 @@
 .HomeWrapper {
+    margin-top: 10vh;
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
     justify-items: center;
     align-items: center;
-    margin: auto;
     background-color: black;
     color: white;
 }
 
-.pageContent {
+.homePageContent {
+    width: 100vw;
     height: 100vh;
+}
+
+.landing-page-caption {
+    font-size: 40px;
+    font-weight: bolder;
 }

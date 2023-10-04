@@ -4,7 +4,7 @@ import TopNavigation from "components/top-navigation/TopNavigation";
 
 export function WaysToEarn() {
     return (
-        <div className={"pageWrapper"}>
+        <div className={"ways-to-earn-page-wrapper"}>
             <TopNavigation />
             <div className={"pageContent"}>
                 <p>Ways to Earn Page</p>

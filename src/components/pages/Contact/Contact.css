@@ -1,11 +1,11 @@
 .contactWrapper {
+    margin-top: 10vh;
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
     justify-items: center;
     align-items: center;
-    margin: auto;
     /*background-color: gray;*/
     background-image: url("../../../resources/contact-coffee.jpg");
     background-size: cover;

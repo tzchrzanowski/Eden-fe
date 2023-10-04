@@ -4,7 +4,7 @@ import TopNavigation from "components/top-navigation/TopNavigation";
 
 export function Login() {
     return (
-        <div className={"pageWrapper"}>
+        <div className={"loginWrapper"}>
             <TopNavigation />
             <div className={"pageContent"}>
                 <p>Login Page</p>

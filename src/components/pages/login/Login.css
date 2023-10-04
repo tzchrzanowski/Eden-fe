@@ -1,11 +1,11 @@
-.pageWrapper {
+.loginWrapper {
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
     justify-items: center;
     align-items: center;
-    margin: auto;
+    margin-top: 10vh;
     background-color: black;
     color: white;
 }

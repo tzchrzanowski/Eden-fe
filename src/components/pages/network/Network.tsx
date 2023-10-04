@@ -22,7 +22,7 @@ export function Network() {
     };
 
     return (
-        <div className={"pageWrapper"}>
+        <div className={"networkWrapper"}>
             <TopNavigation />
             <div className={"pageContent"}>
                 <p>Network Page</p>

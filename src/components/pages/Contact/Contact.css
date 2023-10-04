@@ -1,4 +1,4 @@
-.pageWrapper {
+.contactWrapper {
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -6,10 +6,49 @@
     justify-items: center;
     align-items: center;
     margin: auto;
-    background-color: black;
+    background-color: gray;
     color: white;
 }
 
 .pageContent {
     height: 100vh;
+}
+
+.bigCaption {
+    font-size: 25px;
+    font-style: italic;
+    
+}
+
+.smallCaption {
+    font-size: 15px;
+    color: lightgray;
+    font-style:italic;
+}
+
+.icon-style {
+    color: white;
+}
+
+.big-icon-wrapper {
+    height: 200px;
+    width: 200px;
+}
+
+.caption-row-wrapper {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.span-wrapper {
+    margin-left: 10px;
+}
+
+.fb-column {
+    display: flex;
+    flex-direction: column;
 }

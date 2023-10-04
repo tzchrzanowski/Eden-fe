@@ -3,13 +3,41 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createBrowserRouter, RouterProvider, createHashRouter} from 'react-router-dom';
+import TopNavigation from "./components/top-navigation/TopNavigation";
+
+
+const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <div>Home</div>,
+        },
+        {
+            path: "/ways-to-earn",
+            element: <div>Ways to earn</div>,
+        },
+        {
+            path: "/contact",
+            element: <div>Contact</div>,
+        },
+        {
+            path: "/network-chart",
+            element: <div>Network</div>,
+        },
+        {
+            path: "/login",
+            element: <div>Login page</div>,
+        }
+    ]
+);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+      <TopNavigation />
+      <RouterProvider router={router} />
   </React.StrictMode>
 );
 

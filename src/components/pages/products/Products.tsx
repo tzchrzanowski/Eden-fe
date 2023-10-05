@@ -1,13 +1,16 @@
 import React from 'react';
 import './Products.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
+import VideoProducts from "../../../resources/eden-products.mp4";
 
 export function Products() {
     return (
         <div className={"productWrapper"}>
             <TopNavigation />
-            <div className={"pageContent"}>
-                <p>Products Page</p>
+            <div className={"productPageContent"}>
+                <video autoPlay loop muted height={"100%"} width={"100%"}>
+                    <source src={VideoProducts} type={"video/mp4"}/>
+                </video>
                 <p>list of products...</p>
             </div>
         </div>

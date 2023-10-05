@@ -1,11 +1,12 @@
 .nav-container {
-     display: flex;
+    display: flex;
     top: 0;
     left: 0;
     position: fixed;
     height: 10vh;
     width: 100vw;
     background-color: darkslategrey;
+    z-index: 999;
 }
 
 .button-box {

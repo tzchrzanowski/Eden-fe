@@ -2,8 +2,8 @@ import React from 'react';
 import './Network.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 import BinaryTree, {TreeNodeInterface } from "./binary-tree/BinaryTree";
-export function Network() {
 
+export function Network() {
     const rootNode: TreeNodeInterface = {
         name: 'Bartek',
         caption: 'The boss',
@@ -24,8 +24,7 @@ export function Network() {
     return (
         <div className={"networkWrapper"}>
             <TopNavigation />
-            <div className={"pageContent"}>
-                <p>Network Page</p>
+            <div className={"network-page-content"}>
                 <BinaryTree rootNode={rootNode} />
             </div>
         </div>

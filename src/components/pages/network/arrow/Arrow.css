@@ -1,0 +1,32 @@
+
+.arrow-head {
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-right: 15px solid darkslategray;
+    border-bottom: 15px solid transparent;
+}
+
+.arrow-line {
+    width: 100px;
+    height: 0;
+    height: 0;
+    border-top: 5px solid darkslategray;
+    transform: translateX(45%) translateY(-40px) rotate(135deg);
+}
+
+.arrow-line-left {
+    transform: translateX(45%) translateY(-40px) rotate(135deg);
+}
+
+.arrow-line-right {
+    transform: translateX(-45%) translateY(-40px) rotate(45deg);
+}
+
+.arrow-head-left {
+    transform: translateY(-50%) rotate(315deg);
+}
+
+.arrow-head-right {
+    transform: translateY(-50%) rotate(225deg);
+}

@@ -7,17 +7,23 @@ export function Network() {
     const rootNode: TreeNodeInterface = {
         name: 'Bartek',
         caption: 'The boss',
+        nodePosition: 'center',
+        level: 0,
         leftNode: {
+            level: 1,
             name: 'left package',
             caption: '100 box',
             leftNode: null,
             rightNode: null,
+            nodePosition: "left",
         },
         rightNode: {
+            level: 1,
             name: 'Right package',
             caption: '100 box',
             leftNode: null,
             rightNode: null,
+            nodePosition: "right",
         },
     };
 

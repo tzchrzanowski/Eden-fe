@@ -1,6 +1,7 @@
 import React from 'react';
 import './BinaryTree.css';
 import {Arrow} from "../arrow/Arrow";
+import TreeNode from "../tree-node/TreeNode";
 
 export interface TreeNodeInterface {
     level: number;
@@ -15,21 +16,21 @@ interface BinaryTreeProps {
     rootNode: TreeNodeInterface | null;
 }
 
-function TreeNode() {
-    return (
-        <div>
-            Node
-        </div>);
-}
-
-const nodeMock: TreeNodeInterface = {
-    name: "Bartek",
-    caption: "is boss",
-    leftNode: null,
-    rightNode: null,
-    nodePosition: "center",
-    level: 0,
-}
+// function TreeNode() {
+//     return (
+//         <div>
+//             Node
+//         </div>);
+// }
+//
+// const nodeMock: TreeNodeInterface = {
+//     name: "Bartek",
+//     caption: "is boss",
+//     leftNode: null,
+//     rightNode: null,
+//     nodePosition: "center",
+//     level: 0,
+// }
 
 export function BinaryTree({rootNode} : BinaryTreeProps) {
     const [tree, setTree] = React.useState<TreeNodeInterface | null>(rootNode);
@@ -39,34 +40,31 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
         console.log("Tree updated");
     }, [treeUpdated]);
 
+    /*
+    * Renders root node and then recursively renders each children node from tree:
+    * */
     const renderNode = (node: TreeNodeInterface | null) => {
         if (!node) return null;
 
         return (
             <div className={"tree-wrapper"}>
-                <div className={"root-node"}>
-                    <p>{node.name}</p>
-                    Lv: {node.level}
-                    <p>{node.caption}</p>
-                    <button onClick={()=>addPackage(node.nodePosition, node.level)}>Add package</button>
-                </div>
-                <div className={"children-nodes-wrapper"}>
-                    {node.leftNode !== null &&
-                        <div className={"child-node-container"}>
-                            <Arrow direction={"left"}/>
-                            <div className={"left-child-node"}>{renderNode(node.leftNode)}</div>
-                        </div>
-                    }
-                    {node.rightNode !== null &&
-                        <div className={"child-node-container"}>
-                            <Arrow direction={"right"}/>
-                            <div className={"right-child-node"}>{renderNode(node.rightNode)}</div>
-                        </div>
-                    }
-                </div>
+                <TreeNode addPackageCallback={addPackage} node={node} renderNodeRecursiveCallback={renderNode}/>
             </div>
         )
     }
+
+
+    // const recursiveCheck = (level: number, node: TreeNodeInterface) => {
+    //     while (level > 0) {
+    //         level -=1;
+    //         if (node.leftNode != null && node.rightNode != null) {
+    //             return recursiveCheck(level, node.leftNode);
+    //         }
+    //         if (node.leftNode != null && node.rightNode == null) {
+    //             return node.rightNode;
+    //         }
+    //     }
+    // }
 
     const createNewPackage = (nodePosition: string, nodeLevel: number) => {
         const newTreeNodes = [
@@ -88,10 +86,10 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
             }
         ];
 
-        const newTree = setTree((prevState) => {
+        setTree((prevState) => {
                 const newTree = prevState;
                 if(newTree !== null) {
-                    if(nodePosition == "left") {
+                    if(nodePosition === "left") {
                         if (newTree.leftNode !== null) {
                             if (newTree.leftNode.leftNode == null) {
                                 newTree.leftNode.leftNode = newTreeNodes[0];
@@ -101,7 +99,7 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
                             }
                         }
                     }
-                    if(nodePosition == "right") {
+                    if(nodePosition === "right") {
                         if (newTree.rightNode !== null) {
                             if (newTree.rightNode.leftNode == null) {
                                 newTree.rightNode.leftNode = newTreeNodes[0];

@@ -1,7 +1,6 @@
 .categoryButton {
     display: flex;
     width: 100%;
-    justify-content: space-between;
     align-items: center;
     height: 60px;
     border-bottom: 1px solid #000;
@@ -12,6 +11,10 @@
 .categoryButton:hover {
     background-color: #000;
     color: #fff;
+}
+
+.category-icon {
+    margin-left: 15px;
 }
 
 .categoryButtonCaption {

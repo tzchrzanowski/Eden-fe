@@ -3,11 +3,13 @@ import "./SideNavCategory.css";
 
 interface SideNavCategoryProps {
     categoryName: string,
+    icon: string,
 }
 
-export function SideNavCategory({categoryName}: SideNavCategoryProps) {
+export function SideNavCategory({categoryName, icon}: SideNavCategoryProps) {
     return (
         <div className={"categoryButton"}>
+            <img className={"category-icon"} src={icon} alt={categoryName} />
             <span className={"categoryButtonCaption"}>{categoryName}</span>
         </div>
     )

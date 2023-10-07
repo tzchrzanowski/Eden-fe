@@ -8,8 +8,8 @@
     margin-top: 10vh;
     background-color: black;
     color: white;
+    height: auto;
 }
 
-.productPageContent {
-    height: 100vh;
+.product-page-content {
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Home.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
-import Video from "resources/eden-blue-only.mp4";
-import VideoSpray from "resources/eden-spray.mp4";
+import Video from "resources/videos/eden-blue-only.mp4";
+import VideoSpray from "resources/videos/eden-spray.mp4";
 export function Home() {
     return (
         <div className={"HomeWrapper"}>

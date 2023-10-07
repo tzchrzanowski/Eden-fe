@@ -1,10 +1,10 @@
 import React from 'react';
 import './Contact.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
-import bubble from 'resources/chat-bubble-icon.svg';
-import phone from 'resources/phone-icon.svg';
-import email from "resources/mail-icon.svg";
-import location from "resources/location-icon.svg"
+import bubble from 'resources/contact-icons/chat-bubble-icon.svg';
+import phone from 'resources/contact-icons/phone-icon.svg';
+import email from "resources/contact-icons/mail-icon.svg";
+import location from "resources/contact-icons/location-icon.svg"
 
 interface ContactOption {
     src: string,

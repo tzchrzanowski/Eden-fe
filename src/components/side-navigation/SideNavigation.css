@@ -1,0 +1,18 @@
+.sideNavigation {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    align-items: center;
+    width: 250px;
+    height: calc(100vh - 10vh);
+    top: 10vh;
+    right: -250px;
+    transition: all 400ms ease;
+    z-index: 999;
+    background-color: darkslategrey;
+}
+
+.sideNavigationOpen {
+    right: 0;
+    border-left: 1px solid #000;
+}

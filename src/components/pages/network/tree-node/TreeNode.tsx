@@ -22,9 +22,12 @@ export function TreeNode({node, renderNodeRecursiveCallback, addPackageCallback 
         * bottom view is more tight and no sliding
         * */
         setIsTopView([0, 1 ].includes(node.level));
-
-        /* set up the sliding class */
         setSlideClass(getSlidingClass);
+
+
+        if (node.level == 1 && (node.leftNode !== null || node.rightNode !== null)) {
+            isTopView ?? setIsSliding(true);
+        }
     });
 
     const addTopSlidingNodes = () => {

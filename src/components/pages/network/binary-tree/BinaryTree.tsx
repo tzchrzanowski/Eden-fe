@@ -1,6 +1,5 @@
 import React from 'react';
 import './BinaryTree.css';
-import {Arrow} from "../arrow/Arrow";
 import TreeNode from "../tree-node/TreeNode";
 
 export interface TreeNodeInterface {
@@ -86,9 +85,20 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
         ];
 
         setTree((prevState) => {
-                const newTree = prevState;
-                if(newTree !== null) {
-                    if(nodePosition === "left") {
+            const newTree = prevState;
+            if(newTree !== null) {
+                switch (nodePosition) {
+                    /* handle top of the tree if is alone: */
+                    case 'center':
+                        if (newTree.leftNode == null) {
+                            newTree.leftNode = newTreeNodes[0];
+                        }
+                        if (newTree.rightNode == null) {
+                            newTree.rightNode = newTreeNodes[1];
+                        }
+                        break;
+                    /* add left node */
+                    case 'left':
                         if (newTree.leftNode !== null) {
                             if (newTree.leftNode.leftNode == null) {
                                 newTree.leftNode.leftNode = newTreeNodes[0];
@@ -106,8 +116,9 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
                                 }
                             }
                         }
-                    }
-                    if(nodePosition === "right") {
+                        break;
+                    /* add right node */
+                    case 'right':
                         if (newTree.rightNode !== null) {
                             if (newTree.rightNode.leftNode == null) {
                                 newTree.rightNode.leftNode = newTreeNodes[0];
@@ -125,9 +136,10 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
                                 }
                             }
                         }
-                    }
-                }
-                return newTree;
+                        break;
+                };
+            }
+            return newTree;
         });
         setTreeUpdated(!treeUpdated);
     }

@@ -11,34 +11,44 @@ interface TreeNodeProps {
 
 export function TreeNode({node, renderNodeRecursiveCallback, addPackageCallback }: TreeNodeProps) {
     const [isSliding, setIsSliding] = React.useState(false);
+    const [isTopView, setIsTopView] = React.useState<Boolean>();
+    const [slideClass, setSlideClass] = React.useState<string>("");
 
-    const handleSlide = ()=>{
+    /* Constructor: */
+    React.useEffect(()=>{
+        /*
+        * if node.level is tier 0 or 1, then node belongs to top view, else its low view,
+        * top view has sliding and wider display
+        * bottom view is more tight and no sliding
+        * */
+        setIsTopView([0, 1 ].includes(node.level));
+
+        /* set up the sliding class */
+        setSlideClass(getSlidingClass);
+    });
+
+    const addTopSlidingNodes = () => {
         setIsSliding(!isSliding);
-    }
-
-    const onClickChain = () => {
-        handleSlide();
         setTimeout(() => {
             addPackageCallback(node.nodePosition, node.level)
         }, 500);
     }
 
-    let slideClass = '';
-    if (isSliding == true && node.nodePosition == 'right') {
-        slideClass =  'slide-right';
+    const addBottomNodes = () => {
+        addPackageCallback(node.nodePosition, node.level)
     }
 
-    if (isSliding == true && node.nodePosition == 'left') {
-        slideClass = 'slide-left';
-    }
-    // const slideClass = isSliding && node.nodePosition == '' ? 'slide-left' : 'slide-right';
-    // const slideClass = (): string => {
-    //     let slideDirection = '';
-    //     if (isSliding) {
-    //         slideDirection += (node.nodePosition == 'left') ? 'slide-left' : 'slide-right';
-    //     }
-    //     return slideDirection;
-    // }
+    const getSlidingClass = (): string => {
+        if(isTopView) {
+            if (isSliding == true && node.nodePosition == 'right') {
+                return 'slide-right';
+            }
+            if (isSliding == true && node.nodePosition == 'left') {
+                return 'slide-left';
+            }
+        }
+        return '';
+    };
 
     return (
         <>
@@ -46,7 +56,7 @@ export function TreeNode({node, renderNodeRecursiveCallback, addPackageCallback 
                 <p>{node.name}</p>
                 Lv: {node.level}
                 <p>{node.caption}</p>
-                <button onClick={onClickChain}>Add package</button>
+                <button onClick={isTopView ? addTopSlidingNodes : addBottomNodes}>Add package</button>
             </div>
             <div className={`children-nodes-wrapper ${slideClass}`}>
                 {node.leftNode !== null &&

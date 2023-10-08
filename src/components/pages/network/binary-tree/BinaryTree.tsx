@@ -97,6 +97,15 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
                             if (newTree.leftNode.rightNode == null) {
                                 newTree.leftNode.rightNode = newTreeNodes[1];
                             }
+                            /* if left node on level 2 has value: */
+                            else if (newTree.leftNode.leftNode !== null) {
+                                if (newTree.leftNode.leftNode.leftNode == null) {
+                                    newTree.leftNode.leftNode.leftNode = newTreeNodes[0];
+                                }
+                                if (newTree.leftNode.leftNode.rightNode == null) {
+                                    newTree.leftNode.leftNode.rightNode = newTreeNodes[1];
+                                }
+                            }
                         }
                     }
                     if(nodePosition === "right") {
@@ -106,6 +115,15 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
                             }
                             if (newTree.rightNode.rightNode == null) {
                                 newTree.rightNode.rightNode = newTreeNodes[1];
+                            }
+                            /* if right node on level 2 has value: */
+                            else if (newTree.rightNode.leftNode !== null) {
+                                if (newTree.rightNode.leftNode.leftNode == null) {
+                                    newTree.rightNode.leftNode.leftNode = newTreeNodes[0];
+                                }
+                                if (newTree.rightNode.leftNode.rightNode == null) {
+                                    newTree.rightNode.leftNode.rightNode = newTreeNodes[1];
+                                }
                             }
                         }
                     }

@@ -15,22 +15,6 @@ interface BinaryTreeProps {
     rootNode: TreeNodeInterface | null;
 }
 
-// function TreeNode() {
-//     return (
-//         <div>
-//             Node
-//         </div>);
-// }
-//
-// const nodeMock: TreeNodeInterface = {
-//     name: "Bartek",
-//     caption: "is boss",
-//     leftNode: null,
-//     rightNode: null,
-//     nodePosition: "center",
-//     level: 0,
-// }
-
 export function BinaryTree({rootNode} : BinaryTreeProps) {
     const [tree, setTree] = React.useState<TreeNodeInterface | null>(rootNode);
     const [treeUpdated, setTreeUpdated] = React.useState(false);
@@ -44,7 +28,7 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
     * */
     const renderNode = (node: TreeNodeInterface | null) => {
         if (!node) return null;
-        const treeWrapperClass = ([0,1,2].includes(node.level)) ? 'top-tree' : 'bottom-tree';
+        const treeWrapperClass = getTreeLevelClass(node.level);
         return (
             <div className={`tree-wrapper ${treeWrapperClass}`}>
                 <TreeNode addPackageCallback={addPackage} node={node} renderNodeRecursiveCallback={renderNode}/>
@@ -52,17 +36,22 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
         )
     }
 
-    // const recursiveCheck = (level: number, node: TreeNodeInterface) => {
-    //     while (level > 0) {
-    //         level -=1;
-    //         if (node.leftNode != null && node.rightNode != null) {
-    //             return recursiveCheck(level, node.leftNode);
-    //         }
-    //         if (node.leftNode != null && node.rightNode == null) {
-    //             return node.rightNode;
-    //         }
-    //     }
-    // }
+    const getTreeLevelClass = (nodeLevel: number): string => {
+        [0,1,2].includes(nodeLevel)
+        switch (nodeLevel) {
+            case 0 || 1:
+                return 'top-tree';
+                break;
+            case 2:
+                return 'middle-tree';
+                break;
+            case 3:
+                return 'bottom-tree';
+                break;
+            default:
+                return '';
+        }
+    }
 
     const createNewPackage = (nodePosition: string, nodeLevel: number) => {
         const newTreeNodes = [

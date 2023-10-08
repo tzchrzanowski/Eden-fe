@@ -12,11 +12,11 @@
 }
 
 .slide-right {
-    transform: translateX(100px);
+    transform: translateX(120px);
 }
 
 .slide-left {
-    transform: translateX(-100px);
+    transform: translateX(-120px);
 }
 
 /* children node styles : */

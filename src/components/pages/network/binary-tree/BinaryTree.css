@@ -6,11 +6,14 @@
 }
 
 .top-tree {
-    width: 400px;
+    width: 420px;
 }
 
+.middle-tree {
+    width: 360px;
+}
 .bottom-tree {
-    width: 200px;
+    width: 160px;
 }
 
 

@@ -25,7 +25,14 @@
     margin-top: 100px;
     display: flex;
     flex-direction: row;
+}
+
+.top-children-wrapper {
     justify-content: space-between;
+}
+
+bottom-children-wrapper {
+    justify-content: center;
 }
 
 .child-node-container {

@@ -45,14 +45,13 @@ export function BinaryTree({rootNode} : BinaryTreeProps) {
     * */
     const renderNode = (node: TreeNodeInterface | null) => {
         if (!node) return null;
-
+        const treeWrapperClass = ([0,1,2].includes(node.level)) ? 'top-tree' : 'bottom-tree';
         return (
-            <div className={"tree-wrapper"}>
+            <div className={`tree-wrapper ${treeWrapperClass}`}>
                 <TreeNode addPackageCallback={addPackage} node={node} renderNodeRecursiveCallback={renderNode}/>
             </div>
         )
     }
-
 
     // const recursiveCheck = (level: number, node: TreeNodeInterface) => {
     //     while (level > 0) {

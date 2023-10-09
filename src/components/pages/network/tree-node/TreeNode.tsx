@@ -2,11 +2,12 @@ import React, {ReactNode} from 'react';
 import './TreeNode.css';
 import {TreeNodeInterface} from '../binary-tree/BinaryTree';
 import {Arrow} from "../arrow/Arrow";
+import {TreeNodeInterfaceWithPath} from "../TreeMocksWithPath";
 
 interface TreeNodeProps {
-    addPackageCallback: (nodePosition: string, level: number)=> void,
-    renderNodeRecursiveCallback: (node: TreeNodeInterface | null) => ReactNode,
-    node: TreeNodeInterface,
+    addPackageCallback: (nodePosition: string, level: number, path: string[])=> void,
+    renderNodeRecursiveCallback: (node: TreeNodeInterfaceWithPath | null) => ReactNode,
+    node: TreeNodeInterfaceWithPath,
 }
 
 export function TreeNode({node, renderNodeRecursiveCallback, addPackageCallback }: TreeNodeProps) {
@@ -24,7 +25,7 @@ export function TreeNode({node, renderNodeRecursiveCallback, addPackageCallback 
         setIsTopView([0, 1 ].includes(node.level));
         setSlideClass(getSlidingClass);
 
-
+        /* slide initially if tree already has tier 1 node setup with children: */
         if (node.level == 1 && (node.leftNode !== null || node.rightNode !== null)) {
             isTopView ?? setIsSliding(true);
         }
@@ -33,12 +34,12 @@ export function TreeNode({node, renderNodeRecursiveCallback, addPackageCallback 
     const addTopSlidingNodes = () => {
         setIsSliding(!isSliding);
         setTimeout(() => {
-            addPackageCallback(node.nodePosition, node.level)
+            addPackageCallback(node.nodePosition, node.level, node.path)
         }, 500);
     }
 
     const addBottomNodes = () => {
-        addPackageCallback(node.nodePosition, node.level)
+        addPackageCallback(node.nodePosition, node.level, node.path)
     }
 
     const getSlidingClass = (): string => {

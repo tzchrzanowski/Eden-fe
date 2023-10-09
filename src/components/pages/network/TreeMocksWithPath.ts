@@ -1,5 +1,7 @@
 import {TreeNodeInterface} from "./binary-tree/BinaryTree";
 
+
+
 export interface TreeNodeInterfaceWithPath extends TreeNodeInterface {
     leftNode: TreeNodeInterfaceWithPath | null;
     rightNode: TreeNodeInterfaceWithPath | null;

@@ -2,11 +2,6 @@ import React from 'react';
 import './Network.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 import BinaryTree, {TreeNodeInterface } from "./binary-tree/BinaryTree";
-import {
-    singleNodeTreeCenter,
-    sevenNodesThree,
-    threeNodesThree,
-} from "./treeMocks";
 
 import {
     singleNodeTreeCenterWithPath,
@@ -20,12 +15,9 @@ export function Network() {
         <div className={"networkWrapper"}>
             <TopNavigation />
             <div className={"network-page-content"}>
-                {/*<BinaryTree rootNode={singleNodeTreeCenter} />*/}
-                {/*<BinaryTree rootNode={threeNodesThree} />*/}
-                {/*<BinaryTree rootNode={sevenNodesThree} />*/}
-
-                {/*<BinaryTree rootNodeWithPath={threeNodesThreeWithPath} />*/}
                 <BinaryTree rootNodeWithPath={singleNodeTreeCenterWithPath} />
+                {/*<BinaryTree rootNodeWithPath={threeNodesThreeWithPath} />*/}
+                {/*<BinaryTree rootNodeWithPath={sevenNodesThreeWithPath} />*/}
             </div>
         </div>
     )

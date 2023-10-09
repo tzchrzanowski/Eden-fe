@@ -1,6 +1,5 @@
 import React, {ReactNode} from 'react';
 import './TreeNode.css';
-import {TreeNodeInterface} from '../binary-tree/BinaryTree';
 import {Arrow} from "../arrow/Arrow";
 import {TreeNodeInterfaceWithPath} from "../TreeMocksWithPath";
 

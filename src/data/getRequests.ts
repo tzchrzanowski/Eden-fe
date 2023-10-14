@@ -1,15 +1,14 @@
 
 export async function getAllUsers() {
     const apiUrl = 'http://localhost:8080/api/public/users';
-    const authToken = 'temp-key0101';
 
     try {
         const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': authToken,
             },
+            credentials: 'include',
         });
 
         if (!response.ok) {

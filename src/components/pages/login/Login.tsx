@@ -3,19 +3,47 @@ import './Login.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 import { getAllUsers } from 'data/getRequests';
 import VideoSpray from "resources/videos/eden-spray.mp4";
+import {loginUser} from "../../../data/postRequests";
 
 export function Login() {
     const [users, setUsers] = React.useState<any>();
     const [dataFetched, setDataFetched] = React.useState<boolean>(false);
-    React.useEffect(()=> {
-        const users = getAllUsers();
-        setUsers(users);
-        setDataFetched((prevState) => !prevState);
-    }, []);
+    const [loginFormData, setLoginFormData] = React.useState({username: '', password: ''});
+    const [loading, setLoading] = React.useState<boolean>(false);
 
-    React.useEffect(()=>{
-        console.log("users fetched... refresh, users: ", users);
-    }, [dataFetched]);
+    // React.useEffect(()=> {
+    //     const users = getAllUsers();
+    //     setUsers(users);
+    //     setDataFetched((prevState) => !prevState);
+    // }, []);
+    //
+    // React.useEffect(()=>{
+    //     console.log("users fetched... refresh, users: ", users);
+    // }, [dataFetched]);
+
+
+    /*
+    * update state with login credentials on user input:
+    */
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
+        setLoginFormData({...loginFormData, [name]: value});
+    }
+
+
+    /*
+    * Login and Store authentication token into local storage:
+    * */
+    const sendLoginRequest = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        loginUser(loginFormData.username, loginFormData.password)
+            .then(()=>{
+                console.log("login success")
+            })
+            .catch(error => console.log("login error: ", error));
+        setLoading(false);
+    };
 
     return (
         <div className={"loginWrapper"}>
@@ -32,8 +60,31 @@ export function Login() {
                 </div>
                 <div className={'right-container'}>
                     <p>Login Page</p>
-                    <p>User name : </p> <input/>
-                    <p>Password : </p> <input/>
+                    <form onSubmit={sendLoginRequest}>
+                        <div>
+                            <label htmlFor={"username"}>Username: </label>
+                            <input
+                                type={"text"}
+                                id={"username"}
+                                name={"username"}
+                                value={loginFormData.username}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="password">Password:</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={loginFormData.password}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <button type={"submit"} disabled={loading}>
+                            {loading ? 'Logging in...' : 'Log In'}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

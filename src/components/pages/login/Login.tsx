@@ -3,7 +3,7 @@ import './Login.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 import { getAllUsers } from 'data/getRequests';
 import VideoSpray from "resources/videos/eden-spray.mp4";
-import {loginUser} from "../../../data/postRequests";
+import {loginUser} from "data/postRequests";
 
 export function Login() {
     const [users, setUsers] = React.useState<any>();
@@ -11,15 +11,23 @@ export function Login() {
     const [loginFormData, setLoginFormData] = React.useState({username: '', password: ''});
     const [loading, setLoading] = React.useState<boolean>(false);
 
-    // React.useEffect(()=> {
-    //     const users = getAllUsers();
-    //     setUsers(users);
-    //     setDataFetched((prevState) => !prevState);
-    // }, []);
-    //
-    // React.useEffect(()=>{
-    //     console.log("users fetched... refresh, users: ", users);
-    // }, [dataFetched]);
+    /*
+    * On initialization:
+    * Get all users from endpoint that does not require authentication for testing purpose
+    * and store users in local state variable
+    */
+    React.useEffect(()=> {
+        async function fetchData() {
+            const fetchedUsers = await getAllUsers();
+            setUsers(fetchedUsers);
+            setDataFetched(true);
+        }
+        fetchData();
+    }, []);
+
+    React.useEffect(()=>{
+        console.log("users fetched... refresh, users: ", users);
+    }, [dataFetched]);
 
 
     /*
@@ -30,7 +38,6 @@ export function Login() {
         setLoginFormData({...loginFormData, [name]: value});
     }
 
-
     /*
     * Login and Store authentication token into local storage:
     * */
@@ -39,7 +46,7 @@ export function Login() {
         setLoading(true);
         loginUser(loginFormData.username, loginFormData.password)
             .then(()=>{
-                console.log("login success")
+                console.log("in login then logic")
             })
             .catch(error => console.log("login error: ", error));
         setLoading(false);

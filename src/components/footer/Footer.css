@@ -1,0 +1,11 @@
+.footer-container {
+    width: 100vw;
+    height: 100px;
+    background-color: darkslategrey;
+    color: white;
+    display: flex;
+    flex-display: row;
+    justify-content: center;
+    padding-top: 20px;
+}
+

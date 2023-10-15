@@ -6,6 +6,7 @@ import F1_img from "resources/images/f1.png";
 import F2_img from "resources/images/f2.png";
 import M1_img from "resources/images/m1.png";
 import M4_img from "resources/images/m4.png";
+import Footer from "../../footer/Footer";
 
 const listOfProducts = [
     {
@@ -40,16 +41,19 @@ export function Products() {
                 </video>
             </div>
 
-            <p>list of products...</p>
-            {listOfProducts && listOfProducts.map((product, id)=>{
-                return (
-                    <div>
-                        <img src={product.imageSrc} alt={product.name}/>
-                        <p>{product.name}</p>
-                        <p>{product.description}</p>
-                    </div>
-                );
-            })}
+            <div className={"products-list-container"}>
+                <p>list of products...</p>
+                {listOfProducts && listOfProducts.map((product, id)=>{
+                    return (
+                        <div className={"product-card"}>
+                            <img src={product.imageSrc} alt={product.name} width={"200px"}/>
+                            <div className={"product-card-caption"}><p>Name: {product.name}</p> </div>
+                            <div className={"product-card-caption"}><p>Description: {product.description}</p></div>
+                        </div>
+                    );
+                })}
+            </div>
+            <Footer />
         </div>
     )
 }

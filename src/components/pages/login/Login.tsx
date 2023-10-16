@@ -4,6 +4,7 @@ import TopNavigation from "components/top-navigation/TopNavigation";
 import { getAllUsers } from 'data/getRequests';
 import VideoSpray from "resources/videos/eden-spray.mp4";
 import {loginUser} from "data/postRequests";
+import Logo from "resources/images/eden-crest-transparent-white.png"
 
 export function Login() {
     const [users, setUsers] = React.useState<any>();
@@ -66,6 +67,7 @@ export function Login() {
                     </div>
                 </div>
                 <div className={'right-container'}>
+                    <img src={Logo} alt={"logo"} width={"250px"} />
                     <p>Login Page</p>
                     <form onSubmit={sendLoginRequest}>
                         <div>

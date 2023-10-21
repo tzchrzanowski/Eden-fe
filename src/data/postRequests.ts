@@ -1,5 +1,5 @@
 export async function loginUser(username: String, password: String) {
-    const apiUrl = 'http://localhost:8080/api/auth/login';
+    const apiUrl = 'http://localhost:8080/api/public/login';
 
     try {
         const response = await fetch(apiUrl, {
@@ -14,8 +14,11 @@ export async function loginUser(username: String, password: String) {
             throw new Error(`Authentication failed with status: ${response.status}`);
         }
 
-        const { token } = await response.json();
-        localStorage.setItem('token', token);
+        await response.json().then((token)=> {
+            localStorage.setItem('token', token);
+            sessionStorage.setItem('token', token);
+        });
+
     } catch (error) {
         console.error('Error authenticating:', error);
     }

@@ -46,9 +46,6 @@ export function Login() {
         e.preventDefault();
         setLoading(true);
         loginUser(loginFormData.username, loginFormData.password)
-            .then(()=>{
-                console.log("in login then logic")
-            })
             .catch(error => console.log("login error: ", error));
         setLoading(false);
     };
@@ -56,9 +53,7 @@ export function Login() {
     return (
         <div className={"loginWrapper"}>
             <TopNavigation />
-
             <div className={"loginPageContent"}>
-
                 <div className={'left-container'}>
                     <div className={"videoContainer"}>
                         <video autoPlay loop muted height={"100%"} width={"100%"}>

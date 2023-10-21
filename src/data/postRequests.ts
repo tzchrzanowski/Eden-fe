@@ -14,9 +14,9 @@ export async function loginUser(username: String, password: String) {
             throw new Error(`Authentication failed with status: ${response.status}`);
         }
 
-        await response.json().then((token)=> {
-            localStorage.setItem('token', token);
-            sessionStorage.setItem('token', token);
+        await response.json().then((resp)=> {
+            localStorage.setItem('token', resp.token);
+            sessionStorage.setItem('token', resp.token);
         });
 
     } catch (error) {

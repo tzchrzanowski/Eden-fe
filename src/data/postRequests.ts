@@ -1,5 +1,10 @@
 import {endPointUrl} from "./staticData";
 
+interface LoginResponse {
+    status: string;
+    token: string;
+}
+
 export async function loginUser(username: String, password: String) {
     const apiUrl = endPointUrl + '/api/public/login';
 
@@ -15,11 +20,10 @@ export async function loginUser(username: String, password: String) {
         if (!response.ok) {
             throw new Error(`Authentication failed with status: ${response.status}`);
         }
-
-        await response.json().then((resp)=> {
-            localStorage.setItem('token', resp.token);
-            sessionStorage.setItem('token', resp.token);
-        });
+        const resp: LoginResponse = await response.json()
+        localStorage.setItem('token', resp.token);
+        sessionStorage.setItem('token', resp.token);
+        return resp;
 
     } catch (error) {
         console.error('Error authenticating:', error);

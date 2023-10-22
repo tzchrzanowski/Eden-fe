@@ -5,13 +5,20 @@ import { getAllUsers } from 'data/getRequests';
 import VideoSpray from "resources/videos/eden-spray.mp4";
 import {loginUser} from "data/postRequests";
 import Logo from "resources/images/eden-crest-transparent-white.png"
+import {useNavigate} from 'react-router-dom';
 
 export function Login() {
+    /* ------------------------------------------------
+    * Static fields definition:
+    * */
+    const navigate = useNavigate();
+
     const [users, setUsers] = React.useState<any>();
     const [dataFetched, setDataFetched] = React.useState<boolean>(false);
     const [loginFormData, setLoginFormData] = React.useState({username: '', password: ''});
     const [loading, setLoading] = React.useState<boolean>(false);
-
+    const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
+    const [attemptedLogin, setAttemptedLogin] = React.useState<boolean>(false);
     /*
     * On initialization:
     * Get all users from endpoint that does not require authentication for testing purpose
@@ -45,11 +52,22 @@ export function Login() {
     const sendLoginRequest = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        await loginUser(loginFormData.username, loginFormData.password)
-            .then((resp)=> {
-                console.log(resp);
-            })
-            .catch(error => console.log("login error: ", error));
+        setAttemptedLogin(true);
+        try {
+            const response = await loginUser(loginFormData.username, loginFormData.password)
+            console.log("response: ", response);
+            if (response) {
+                if (response.status === "200") {
+                    setLoggedIn(true);
+                    navigate('/network-chart');
+                } else if (response.status === "401") {
+                    setLoggedIn(false);
+                }
+            }
+        } catch (error) {
+            console.log("login error:", error);
+            setLoggedIn(false);
+        }
         setLoading(false);
     };
 
@@ -92,6 +110,19 @@ export function Login() {
                             {loading ? 'Logging in...' : 'Log In'}
                         </button>
                     </form>
+                    {attemptedLogin ? (
+                        <>
+                            {loggedIn ?
+                                (
+                                    <div>Login success</div>
+                                ) : (
+                                    <div>Login failed...</div>
+                                )
+                            }
+                        </>
+                    ) : (
+                            <></>
+                    )}
                 </div>
             </div>
         </div>

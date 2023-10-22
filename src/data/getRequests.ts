@@ -1,6 +1,7 @@
+import {endPointUrl} from "./staticData";
 
 export async function getAllUsers() {
-    const apiUrl = 'http://localhost:8080/api/public/users';
+    const apiUrl = endPointUrl + '/api/public/users';
 
     try {
         const response = await fetch(apiUrl, {

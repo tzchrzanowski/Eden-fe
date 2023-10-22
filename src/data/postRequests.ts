@@ -1,5 +1,7 @@
+import {endPointUrl} from "./staticData";
+
 export async function loginUser(username: String, password: String) {
-    const apiUrl = 'http://localhost:8080/api/public/login';
+    const apiUrl = endPointUrl + '/api/public/login';
 
     try {
         const response = await fetch(apiUrl, {

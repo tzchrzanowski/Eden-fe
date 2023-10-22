@@ -45,7 +45,10 @@ export function Login() {
     const sendLoginRequest = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        loginUser(loginFormData.username, loginFormData.password)
+        await loginUser(loginFormData.username, loginFormData.password)
+            .then((resp)=> {
+                console.log(resp);
+            })
             .catch(error => console.log("login error: ", error));
         setLoading(false);
     };

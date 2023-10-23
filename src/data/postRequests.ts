@@ -3,6 +3,7 @@ import {endPointUrl} from "./staticData";
 interface LoginResponse {
     status: string;
     token: string;
+    role_id: string;
 }
 
 export async function loginUser(username: String, password: String) {

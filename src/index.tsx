@@ -9,7 +9,7 @@ import Products from "./components/pages/products/Products";
 import Contact from "./components/pages/Contact/Contact";
 import Network from "./components/pages/network/Network";
 import Login from "./components/pages/login/Login";
-
+import { UserProvider } from './context/UserContext'
 
 const router = createBrowserRouter([
         {
@@ -44,7 +44,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+      <UserProvider>
+          <RouterProvider router={router} />
+      </UserProvider>
   </React.StrictMode>
 );
 

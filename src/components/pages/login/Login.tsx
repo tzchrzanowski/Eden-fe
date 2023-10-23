@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './Login.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 import { getAllUsers } from 'data/getRequests';
 import VideoSpray from "resources/videos/eden-spray.mp4";
 import {loginUser} from "data/postRequests";
 import Logo from "resources/images/eden-crest-transparent-white.png"
+import {useUser} from 'context/UserContext';
 import {useNavigate} from 'react-router-dom';
 
 export function Login() {
@@ -12,6 +13,7 @@ export function Login() {
     * Static fields definition:
     * */
     const navigate = useNavigate();
+    const { state, dispatch } = useUser();
 
     const [users, setUsers] = React.useState<any>();
     const [dataFetched, setDataFetched] = React.useState<boolean>(false);
@@ -59,6 +61,16 @@ export function Login() {
             if (response) {
                 if (response.status === "200") {
                     setLoggedIn(true);
+
+                    /*
+                    * Set user to context api user state:
+                    * */
+                    if(response.role_id) {
+                        dispatch({ type: 'LOGIN', payload: {role_id: response.role_id, username: loginFormData.username} });
+                    }
+                    /*
+                    * redirect to chart tree:
+                    * */
                     navigate('/network-chart');
                 } else if (response.status === "401") {
                     setLoggedIn(false);

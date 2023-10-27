@@ -96,11 +96,12 @@ export function Login() {
                 </div>
                 <div className={'right-container'}>
                     <img src={Logo} alt={"logo"} width={"250px"} />
-                    <p>Login Page</p>
-                    <form onSubmit={sendLoginRequest}>
-                        <div>
-                            <label htmlFor={"username"}>Username: </label>
+                    <p className='welcome-design'>Welcome! please login!</p>
+                    <form className='login-style' onSubmit={sendLoginRequest}>
+                        <div className='input-wrapper'> 
+                            <label htmlFor={"username"} className='user-name'>Username : </label>
                             <input
+                                className='input-box input-btn-caption'
                                 type={"text"}
                                 id={"username"}
                                 name={"username"}
@@ -108,9 +109,10 @@ export function Login() {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="password">Password:</label>
+                        <div className='input-wrapper'>
+                            <label htmlFor="password" className='user-pass'>Password : </label>
                             <input
+                                className='input-box'
                                 type="password"
                                 id="password"
                                 name="password"
@@ -118,8 +120,8 @@ export function Login() {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <button type={"submit"} disabled={loading}>
-                            {loading ? 'Logging in...' : 'Log In'}
+                        <button className='submit-button' type={"submit"} disabled={loading}>
+                            <span className='submit-btn-caption'>{loading ? 'Logging in...' : 'Log In'}</span>
                         </button>
                     </form>
                     {attemptedLogin ? (

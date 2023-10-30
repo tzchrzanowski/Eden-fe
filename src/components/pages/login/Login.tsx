@@ -60,12 +60,19 @@ export function Login() {
             if (response) {
                 if (response.status === "200") {
                     setLoggedIn(true);
-
                     /*
                     * Set user to context api user state:
                     * */
                     if(response.role_id) {
-                        dispatch({ type: 'LOGIN', payload: {role_id: response.role_id, username: loginFormData.username} });
+                        dispatch({
+                            type: 'LOGIN',
+                            payload: {
+                                role_id: response.role_id,
+                                username: loginFormData.username,
+                                user_photo: response.user_photo,
+                                user_id: response.user_id,
+                            }
+                        });
                     }
                     /*
                     * redirect to chart tree:

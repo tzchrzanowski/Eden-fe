@@ -3,6 +3,8 @@ import React, { createContext, useReducer, useContext } from 'react';
 interface User {
     role_id: string;
     username: string;
+    user_photo: string;
+    user_id: string;
 }
 
 interface UserState {

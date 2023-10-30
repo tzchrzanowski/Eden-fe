@@ -4,6 +4,8 @@ interface LoginResponse {
     status: string;
     token: string;
     role_id: string;
+    user_photo: string;
+    user_id: string;
 }
 
 export async function loginUser(username: String, password: String) {

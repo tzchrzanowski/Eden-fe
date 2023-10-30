@@ -92,10 +92,13 @@ export function TopNavigation() {
                         </Link>
                     }
                 })}
-                <div
-                    className={"button-box"}
-                    onClick={()=> setSideNavOpen((prevState) => !prevState)}
-                >{"MENU"}</div>
+                {
+                    canDisplay(false) &&
+                    (<div
+                        className={"button-box"}
+                        onClick={()=> setSideNavOpen((prevState) => !prevState)}
+                    >{"MENU"}</div>)
+                }
             </div>
         </>
 

@@ -1,16 +1,12 @@
-.networkWrapper {
-    display: flex;
+.editProfileWrapper {
+    margin-top: 10vh;
     min-height: 90vh;
+    display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
     justify-items: center;
     align-items: center;
-    margin-top: 10vh;
     background-color: black;
     color: white;
-}
-
-.network-page-content {
-    height: auto;
 }

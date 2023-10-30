@@ -10,6 +10,7 @@ import Contact from "./components/pages/Contact/Contact";
 import Network from "./components/pages/network/Network";
 import Login from "./components/pages/login/Login";
 import { UserProvider } from './context/UserContext'
+import EditProfile from './components/pages/edit-profile/EditProfile';
 
 const router = createBrowserRouter([
         {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         {
             path: "/login",
             element: <Login />,
+        },
+        {
+            path: "/edit-profile",
+            element: <EditProfile />,
         }
     ]
 );

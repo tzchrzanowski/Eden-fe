@@ -1,5 +1,6 @@
 .ways-to-earn-page-wrapper {
     display: flex;
+    min-height: 90vh;
     flex-direction: column;
     align-content: center;
     justify-content: center;

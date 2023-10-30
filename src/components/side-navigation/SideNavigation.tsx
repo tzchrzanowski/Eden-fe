@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './SideNavigation.css';
 import SideNavCategory from "./side-nav-category/SideNavCategory";
 import accountsIcon from "resources/side-nav-icons/accounts-icon.svg";
@@ -7,8 +7,9 @@ import addRetailerIcon from "resources/side-nav-icons/add-retailer-icon.svg";
 import logoutIcon from "resources/side-nav-icons/logout-icon.svg";
 import maintenanceIcon from "resources/side-nav-icons/maintenance-icon.svg";
 import networkIcon from "resources/side-nav-icons/network-icon.svg";
-import {useUser} from 'context/UserContext';
+import UserContext, {useUser} from 'context/UserContext';
 import {logoutUser} from "../../data/postRequests";
+import {useNavigate} from 'react-router-dom';
 
 interface SideNavigationProps {
     isOpen?: boolean,
@@ -44,8 +45,8 @@ const sideNavButtons: ButtonsCategory[] = [
     },
     {
         iconSrc: maintenanceIcon,
-        caption: "Maintenance",
-        buttonId: "maintenance-id",
+        caption: "Edit Profile",
+        buttonId: "edit-profile-id",
     },
     {
         iconSrc: logoutIcon,
@@ -55,8 +56,9 @@ const sideNavButtons: ButtonsCategory[] = [
 ]
 
 export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavigationProps) {
+    const navigate = useNavigate();
     const { state, dispatch } = useUser();
-
+    const contextValue = useContext(UserContext);
 
     const closeSideNavigation = (bool: boolean) => {
         if(setSideNavigationOpenCallback) {
@@ -67,8 +69,12 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
     };
 
     const onSideNavClickEvent = (buttonId: String) => {
-        if (buttonId == "logout-id") {
-            sendLogoutRequest();
+        switch (buttonId) {
+            case "logout-id":
+                sendLogoutRequest();
+                break;
+            case "edit-profile-id":
+                navigate("/edit-profile");
         }
     }
 

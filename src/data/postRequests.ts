@@ -6,6 +6,7 @@ interface LoginResponse {
     role_id: string;
     user_photo: string;
     user_id: string;
+    username: string;
 }
 
 export async function loginUser(username: String, password: String) {

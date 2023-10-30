@@ -1,0 +1,22 @@
+import {endPointUrl} from "./staticData";
+
+export async function updatePhotoUrlRequest(userId: String, newProfilePictureUrl: String) {
+    const apiUrl = endPointUrl + '/api/public/users/' +userId + '/update-profile-picture';
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newProfilePictureUrl),
+        });
+        if (!response.ok) {
+            throw new Error(`Authentication failed with status: ${response.status}`);
+        }
+        const resp = await response.json()
+        return resp;
+    } catch (error) {
+        console.error('Error on trying to change photo url request:', error);
+    }
+}

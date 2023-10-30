@@ -13,7 +13,8 @@ interface UserState {
 
 type Action =
     | { type: 'LOGIN'; payload: User }
-    | { type: 'LOGOUT' };
+    | { type: 'LOGOUT' }
+    | { type: 'UPDATE_PHOTO'; payload: User};
 
 const UserContext = createContext<{ state: UserState; dispatch: React.Dispatch<Action> } | undefined>(undefined);
 
@@ -24,6 +25,8 @@ const userReducer = (state: UserState, action: Action): UserState => {
             return { user: action.payload };
         case 'LOGOUT':
             return { user: null };
+        case 'UPDATE_PHOTO':
+            return { user: action.payload };
         default:
             return state;
     }

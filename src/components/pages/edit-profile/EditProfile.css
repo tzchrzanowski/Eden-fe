@@ -10,3 +10,9 @@
     background-color: black;
     color: white;
 }
+
+.profile-photo-wrapper{
+    margin-top: 40px;
+    width: 100px;
+    height: auto;
+}

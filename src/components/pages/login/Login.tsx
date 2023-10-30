@@ -57,7 +57,6 @@ export function Login() {
         setAttemptedLogin(true);
         try {
             const response = await loginUser(loginFormData.username, loginFormData.password)
-            console.log("response: ", response);
             if (response) {
                 if (response.status === "200") {
                     setLoggedIn(true);
@@ -98,7 +97,7 @@ export function Login() {
                     <img src={Logo} alt={"logo"} width={"250px"} />
                     <p className='welcome-design'>Welcome! please login!</p>
                     <form className='login-style' onSubmit={sendLoginRequest}>
-                        <div className='input-wrapper'> 
+                        <div className='input-wrapper'>
                             <label htmlFor={"username"} className='user-name'>Username : </label>
                             <input
                                 className='input-box input-btn-caption'

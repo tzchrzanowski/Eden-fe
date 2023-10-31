@@ -100,50 +100,53 @@ export function Login() {
                         </video>
                     </div>
                 </div>
-                <div className={'right-container'}>
-                    <img src={Logo} alt={"logo"} width={"250px"} />
-                    <p className='welcome-design'>Welcome! please login!</p>
-                    <form className='login-style' onSubmit={sendLoginRequest}>
-                        <div className='input-wrapper'>
-                            <label htmlFor={"username"} className='user-name'>Username : </label>
-                            <input
-                                className='input-box input-btn-caption'
-                                type={"text"}
-                                id={"username"}
-                                name={"username"}
-                                value={loginFormData.username}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className='input-wrapper'>
-                            <label htmlFor="password" className='user-pass'>Password : </label>
-                            <input
-                                className='input-box'
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={loginFormData.password}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <button className='submit-button' type={"submit"} disabled={loading}>
-                            <span className='submit-btn-caption'>{loading ? 'Logging in...' : 'Log In'}</span>
-                        </button>
-                    </form>
-                    {attemptedLogin ? (
-                        <>
-                            {loggedIn ?
-                                (
-                                    <div>Login success</div>
-                                ) : (
-                                    <div>Login failed...</div>
-                                )
-                            }
-                        </>
-                    ) : (
-                            <></>
-                    )}
+                <div className={"right-container-wrapper"}>
+                    <div className={'right-container'}>
+                        <img src={Logo} alt={"logo"} width={"250px"} />
+                        <p className='welcome-design'>Welcome! please login!</p>
+                        <form className='login-style' onSubmit={sendLoginRequest}>
+                            <div className='input-wrapper'>
+                                <label htmlFor={"username"} className='user-name'>Username : </label>
+                                <input
+                                    className='input-box input-btn-caption'
+                                    type={"text"}
+                                    id={"username"}
+                                    name={"username"}
+                                    value={loginFormData.username}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className='input-wrapper'>
+                                <label htmlFor="password" className='user-pass'>Password : </label>
+                                <input
+                                    className='input-box'
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    value={loginFormData.password}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <button className='submit-button' type={"submit"} disabled={loading}>
+                                <span className='submit-btn-caption'>{loading ? 'Logging in...' : 'Log In'}</span>
+                            </button>
+                        </form>
+                        {attemptedLogin ? (
+                            <>
+                                {loggedIn ?
+                                    (
+                                        <div>Login success</div>
+                                    ) : (
+                                        <div>Login failed...</div>
+                                    )
+                                }
+                            </>
+                        ) : (
+                                <></>
+                        )}
+                    </div>
                 </div>
+
             </div>
         </div>
     )

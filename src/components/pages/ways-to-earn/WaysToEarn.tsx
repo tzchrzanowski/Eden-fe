@@ -7,7 +7,7 @@ export function WaysToEarn() {
         <div className={"ways-to-earn-page-wrapper"}>
             <TopNavigation />
             <div className={"pageContent"}>
-                <p>Ways to Earn Page</p>
+                <p>About</p>
                 <p>...</p>
             </div>
         </div>

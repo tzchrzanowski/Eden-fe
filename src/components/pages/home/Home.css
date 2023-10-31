@@ -32,11 +32,13 @@
 }
 
 .image-box {
+    margin: 30px;
     width: 100vw;
     z-index: 0;
 }
 
 .img-container {
+    background-color: black;
     margin-top: 10vh;
     position: absolute;
     top: 0;

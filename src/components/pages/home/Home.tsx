@@ -5,7 +5,7 @@ import Video from "resources/videos/eden-blue-only.mp4";
 import VideoSpray from "resources/videos/eden-spray.mp4";
 import intro1 from "resources/images/slides/Intro_1.jpeg";
 import intro2 from "resources/images/slides/Intro_2.jpeg";
-import intro4 from "resources/images/slides/Intro_4.jpeg";
+import intro5 from "resources/images/slides/Intro_5.jpeg";
 
 export function Home() {
     const [isVisible, setIsVisible]= React.useState< boolean>(true);
@@ -35,7 +35,7 @@ export function Home() {
                     !isVisible && (
                         <div className='img-container'>
                             <img onClick={handleSlideOut} className={"image-box"} src={intro2} alt="img" />
-                            <img onClick={handleSlideOut} className={"image-box"} src={intro4} alt="img" />
+                            <img onClick={handleSlideOut} className={"image-box"} src={intro5} alt="img" />
                         </div>
                     )
                 }

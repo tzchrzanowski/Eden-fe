@@ -12,10 +12,40 @@
 
 .homePageContent {
     width: 100vw;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
 }
 
 .landing-page-caption {
     font-size: 40px;
     font-weight: bolder;
+}
+
+.image-slide {
+    width: 100vw;
+    z-index: 2;
+    transition: transform 0.5s ease-in-out;
+}
+
+.image-box {
+    width: 100vw;
+    z-index: 0;
+}
+
+.img-container {
+    margin-top: 10vh;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.out-of-screen {
+    transform: translateX(-100vw);
 }

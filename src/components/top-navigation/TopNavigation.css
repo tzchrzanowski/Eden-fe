@@ -1,12 +1,13 @@
 .nav-container {
-    display: flex;
     top: 0;
     left: 0;
     position: fixed;
-    height: 10vh;
-    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     background-color: darkslategrey;
     z-index: 999;
+    width: 100vw;
 }
 
 .button-box {
@@ -25,4 +26,18 @@
 .isHovered {
     background-color: gray;
     color: black;
+}
+
+.menu-box {
+    align-self: flex-end;
+}
+
+.menu-container {
+
+}
+
+.buttons-container {
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
 }

@@ -103,6 +103,7 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
                     * */
                     if(response.role_id) {
                         dispatch({ type: 'LOGOUT'});
+                        navigate("/");
                     }
                 } else if (response.status === "401") {
                     console.log("user logged out.");

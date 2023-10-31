@@ -15,7 +15,6 @@ const buttons: buttonsInterface[] = [
     {route: "/about", caption: "About", public: true},
     {route: "/products", caption: "Products", public: true},
     {route: "/contact", caption: "Contact", public: true},
-    {route: "/ways-to-earn", caption: "Ways to earn", public: true},
     {route: "/login", caption: "Login", public: true},
 ]
 
@@ -64,7 +63,8 @@ export function TopNavigation() {
                 contextValue.state.user.role_id
             ) {
                 const currentUserRoleId = contextValue.state.user.role_id;
-                return (currentUserRoleId === '1' || currentUserRoleId === '2') ?? true;
+                // @ts-ignore
+                return (currentUserRoleId === '1' || currentUserRoleId === '2' || currentUserRoleId === 1 || currentUserRoleId === 2) ?? true;
             } else {
                 return false;
             }
@@ -79,26 +79,30 @@ export function TopNavigation() {
                 setSideNavigationOpenCallback={setSideNavOpen}
             />
             <div className={"nav-container"}>
-                {buttons && buttons.map((button, id) => {
-                    if (canDisplay(button.public)) {
-                        return <Link to={button.route} key={id}>
-                            <div
-                                className={(hoveredButtons[id] ? "isHovered button-box" : "button-box")}
-                                onMouseOver={() => handleHover(id, true)}
-                                onMouseLeave={() => handleHover(id, false)}
-                            >
-                                {button.caption}
-                            </div>
-                        </Link>
+                <div className={"buttons-container"}>
+                    {buttons && buttons.map((button, id) => {
+                        if (canDisplay(button.public)) {
+                            return <Link to={button.route} key={id}>
+                                <div
+                                    className={(hoveredButtons[id] ? "isHovered button-box" : "button-box")}
+                                    onMouseOver={() => handleHover(id, true)}
+                                    onMouseLeave={() => handleHover(id, false)}
+                                >
+                                    {button.caption}
+                                </div>
+                            </Link>
+                        }
+                    })}
+                </div>
+                <div className={"menu-container"}>
+                    {
+                        canDisplay(false) &&
+                        (<div
+                            className={"button-box"}
+                            onClick={()=> setSideNavOpen((prevState) => !prevState)}
+                        >{"MENU"}</div>)
                     }
-                })}
-                {
-                    canDisplay(false) &&
-                    (<div
-                        className={"button-box"}
-                        onClick={()=> setSideNavOpen((prevState) => !prevState)}
-                    >{"MENU"}</div>)
-                }
+                </div>
             </div>
         </>
 

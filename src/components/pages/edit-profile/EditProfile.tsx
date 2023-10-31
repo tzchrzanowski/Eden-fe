@@ -8,8 +8,8 @@ export const EditProfile: React.FC = () => {
     const [loading, setLoading] = React.useState<boolean>(false);
     const [updateProfileFormData, setUpdateProfileFormData] = React.useState({photo_url: ''});
     const [photoUrl, setPhotoUrl] = React.useState<string>("");
-
     const { state, dispatch } = useUser();
+
     //-------------------- Get context api related values : -----------------------
     /*
     * Set user id of currently logged-in user from context api:
@@ -45,6 +45,17 @@ export const EditProfile: React.FC = () => {
     },[]);
 
     /*
+    * When photo url is updates in context
+    * */
+    React.useEffect(()=> {
+        if (state?.user?.user_photo) {
+            const cleanPhoto: string = state.user.user_photo.replace(/"/g, '');
+            setPhotoUrl(cleanPhoto);
+        }
+    }, [state.user?.user_photo])
+
+
+    /*
     * Update user profile picture:
     * */
     const sendUpdateProfilePhotoRequest = async (e: React.FormEvent) => {
@@ -52,33 +63,20 @@ export const EditProfile: React.FC = () => {
         setLoading(true);
 
         try {
-            const response = await updatePhotoUrlRequest(userId, updateProfileFormData.photo_url)
-            // const cleanPhoto: string = response.user_photo.slice(2, -2);
-            const cleanPhoto: string = response.user_photo.replace(/"/g, '');
-
-            if (response) {
-                if (response.status === "200") {
-                    /*
-                    * Set user to context api user state:
-                    * */
-                    if(response.role_id) {
-                        dispatch({
-                            type: 'UPDATE_PHOTO',
-                            payload: {
-                                role_id: response.role_id,
-                                username: response.username,
-                                user_photo: cleanPhoto,
-                                user_id: response.user_id,
-                            }
-                        });
-                    }
-                    /*
-                    * redirect to chart tree:
-                    * */
-                } else if (response.status === "401") {
-                    console.log("failed to update user photo with 401 request error.")
+            await updatePhotoUrlRequest(userId, updateProfileFormData.photo_url).then((res)=> {
+                if (res.role_id == 1 || res.role_id == 2) {
+                    dispatch({
+                        type: 'UPDATE_PHOTO',
+                        payload: {
+                            role_id: res.role_id,
+                            username: res.username,
+                            user_photo: res.profile_picture_url,
+                            user_id: res.id,
+                        }
+                    });
                 }
-            }
+            });
+
 
         } catch (error) {
             console.log("login error:", error);

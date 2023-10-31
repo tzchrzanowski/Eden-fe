@@ -4,7 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider, createHashRouter} from 'react-router-dom';
 import {Home} from "./components/pages/home/Home";
-import WaysToEarn from "./components/pages/ways-to-earn/WaysToEarn";
+import About from "./components/pages/about/About";
 import Products from "./components/pages/products/Products";
 import Contact from "./components/pages/Contact/Contact";
 import Network from "./components/pages/network/Network";
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
             element: <Home />,
         },
         {
-            path: "/ways-to-earn",
-            element: <WaysToEarn />,
+            path: "/about",
+            element: <About />,
         },
         {
             path: "/products",

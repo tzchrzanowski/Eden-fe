@@ -1,10 +1,10 @@
 import React from 'react';
-import './WaysToEarn.css';
+import './About.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 
-export function WaysToEarn() {
+export function About() {
     return (
-        <div className={"ways-to-earn-page-wrapper"}>
+        <div className={"about-page-wrapper"}>
             <TopNavigation />
             <div className={"pageContent"}>
                 <p>About</p>
@@ -14,4 +14,4 @@ export function WaysToEarn() {
     )
 }
 
-export default WaysToEarn;
+export default About;

@@ -11,6 +11,7 @@ import Network from "./components/pages/network/Network";
 import Login from "./components/pages/login/Login";
 import { UserProvider } from './context/UserContext'
 import EditProfile from './components/pages/edit-profile/EditProfile';
+import WaysToEarn from "./components/pages/ways-to-earn/WaysToEarn";
 
 const router = createBrowserRouter([
         {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         {
             path: "/edit-profile",
             element: <EditProfile />,
+        },
+        {
+            path: "/ways-to-earn",
+            element: <WaysToEarn />,
         }
     ]
 );

@@ -1,0 +1,21 @@
+.ways-to-earn-page-wrapper {
+    align-items: center;
+    color: white;
+}
+
+.ways-to-earn-page-content {
+    margin-top: 10vh;
+}
+
+.img-container-ways-to-earn {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.image-box-ways-to-earn{
+    margin: 30px;
+    width: 100vw;
+    z-index: 0;
+}

@@ -15,7 +15,7 @@ const buttons: buttonsInterface[] = [
     {route: "/about", caption: "About", public: true},
     {route: "/products", caption: "Products", public: true},
     {route: "/contact", caption: "Contact", public: true},
-    {route: "/network-chart", caption: "Network", public: false},
+    {route: "/ways-to-earn", caption: "Ways to earn", public: true},
     {route: "/login", caption: "Login", public: true},
 ]
 

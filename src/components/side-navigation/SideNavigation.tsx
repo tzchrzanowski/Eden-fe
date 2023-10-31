@@ -25,8 +25,13 @@ export interface ButtonsCategory {
 const sideNavButtons: ButtonsCategory[] = [
     {
         iconSrc: networkIcon,
-        caption: "Distributors",
-        buttonId: "distributors-id",
+        caption: "Ways to Earn",
+        buttonId: "ways-to-earn-id",
+    },
+    {
+        iconSrc: networkIcon,
+        caption: "Network",
+        buttonId: "network-id",
     },
     {
         iconSrc: addAccountIcon,
@@ -75,6 +80,13 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
                 break;
             case "edit-profile-id":
                 navigate("/edit-profile");
+                break;
+            case "ways-to-earn-id":
+                navigate("/ways-to-earn");
+                break;
+            case "network-id":
+                navigate("/network-chart");
+                break;
         }
     }
 

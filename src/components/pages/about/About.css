@@ -1,16 +1,21 @@
 .about-page-wrapper {
-    display: flex;
-    min-height: 90vh;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
     align-items: center;
-    margin-top: 10vh;
-    background-color: black;
     color: white;
 }
 
 .pageContent {
-    height: 100vh;
+    margin-top: 10vh;
+}
+
+.img-container-about {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.image-box-about{
+    margin: 30px;
+    width: 100vw;
+    z-index: 0;
 }

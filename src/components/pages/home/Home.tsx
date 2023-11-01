@@ -3,9 +3,9 @@ import './Home.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 import Video from "resources/videos/eden-blue-only.mp4";
 import VideoSpray from "resources/videos/eden-spray.mp4";
-import intro1 from "resources/images/slides/Intro_1.jpeg";
-import intro2 from "resources/images/slides/Intro_2.jpeg";
-import intro5 from "resources/images/slides/Intro_5.jpeg";
+import intros1 from "resources/images/slides/intros_1.jpeg";
+import intros2 from "resources/images/slides/intros_2.jpeg";
+
 
 export function Home() {
     const [isVisible, setIsVisible]= React.useState< boolean>(true);
@@ -30,12 +30,11 @@ export function Home() {
             {/* </div> */}
 
             <div className={"homePageContent"}>            
-                <img onClick={handleSlideOut} className={!isVisible ? 'image-slide out-of-screen' : "image-slide"} src={intro1} alt="img" />
+                <img onClick={handleSlideOut} className={!isVisible ? 'image-slide out-of-screen' : "image-slide"} src={intros1} alt="img" />
                 {
                     !isVisible && (
                         <div className='img-container'>
-                            <img onClick={handleSlideOut} className={"image-box"} src={intro2} alt="img" />
-                            <img onClick={handleSlideOut} className={"image-box"} src={intro5} alt="img" />
+                            <img onClick={handleSlideOut} className={"image-box"} src={intros2} alt="img" />
                         </div>
                     )
                 }

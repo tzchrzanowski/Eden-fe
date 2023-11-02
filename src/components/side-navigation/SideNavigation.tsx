@@ -121,7 +121,7 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
               onMouseLeave={()=> {closeSideNavigation(false)}}
           >
               {sideNavButtons && sideNavButtons.map((category, id) => {
-                  return <SideNavCategory onClickCallback={onSideNavClickEvent} category={category} />
+                  return <SideNavCategory key={id} onClickCallback={onSideNavClickEvent} category={category} />
               })}
           </div>
       </>

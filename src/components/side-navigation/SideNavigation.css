@@ -1,8 +1,8 @@
 .sideNavigation {
     display: flex;
     flex-direction: column;
-    position: fixed;
     align-items: center;
+    position: fixed;
     width: 250px;
     height: calc(100vh - 10vh);
     top: 10vh;

@@ -3,6 +3,8 @@ import './TopNavigation.css';
 import { Link } from "react-router-dom";
 import SideNavigation from "../side-navigation/SideNavigation";
 import UserContext from 'context/UserContext';
+import logoNoBg from 'resources/images/logo_no_bg.png';
+import hamburgerMenuIcon from 'resources/top-menu-icons/hamburger-menu-icon.svg';
 
 interface buttonsInterface {
     route: string,
@@ -21,7 +23,7 @@ const buttons: buttonsInterface[] = [
 export function TopNavigation() {
     const [hoveredButtons, setHoveredButtons] = React.useState<boolean[]>(Array(buttons.length).fill(false));
     const [isSideNavOpen, setSideNavOpen] = React.useState(false);
-
+    const [isleLeftSideMenuVisible, setIsleLeftSideMenuVisible] = React.useState<boolean>(false);
     const [roleUpdated, setRoleUpdated] = React.useState<boolean>(false);
     const contextValue = useContext(UserContext);
 
@@ -72,33 +74,69 @@ export function TopNavigation() {
         return true;
     }
 
+    /*
+    * opens and closes left side menu that replaces top-navigation menu on small screen device:
+    * */
+    const handleLeftSideMenu = ()=> {
+        setIsleLeftSideMenuVisible(prevState => !prevState);
+    }
+
+
+
+
     return (
         <>
+            {/* right-side menu: */}
             <SideNavigation
                 isOpen={isSideNavOpen}
                 setSideNavigationOpenCallback={setSideNavOpen}
             />
+            {/* left-side nav menu: */}
+            <div className={isleLeftSideMenuVisible ? "left-side-menu-container left-side-menu-open" : "left-side-menu-container"}>
+                {buttons && buttons.map((button, id) => {
+                    const leftId = id+1;
+                    if (canDisplay(button.public)) {
+                        return <Link className={"left-side-link"} to={button.route} key={leftId}>
+                            <div
+                                className={(hoveredButtons[leftId] ? "isHovered button-box" : "button-box")}
+                                onMouseOver={() => handleHover(leftId, true)}
+                                onMouseLeave={() => handleHover(leftId, false)}
+                            >
+                                <span className={"top-nav-btn-caption"}>{button.caption}</span>
+                            </div>
+                        </Link>
+                    }
+                })}
+            </div>
             <div className={"nav-container"}>
                 <div className={"buttons-container"}>
+                    <div className={"button-container"} >
+                        <img className={"logo-img"} src={logoNoBg} alt={"logo"} />
+                    </div>
+                    <div className={"button-container hamburger-container"} onClick={handleLeftSideMenu} >
+                        <img className={"hamburger-menu-icon"} src={hamburgerMenuIcon} alt={"menu"}/>
+                    </div>
+                    {/* ------------------ top nav meno buttons : ------------------------------------------*/}
                     {buttons && buttons.map((button, id) => {
                         if (canDisplay(button.public)) {
-                            return <Link to={button.route} key={id}>
+                            return <Link className={"top-nav-button"} to={button.route} key={id}>
                                 <div
-                                    className={(hoveredButtons[id] ? "isHovered button-box" : "button-box")}
+                                    className={(hoveredButtons[id] ? "isHovered button-box button-box-top" : "button-box button-box-top")}
                                     onMouseOver={() => handleHover(id, true)}
                                     onMouseLeave={() => handleHover(id, false)}
                                 >
-                                    {button.caption}
+                                    <span className={"top-nav-btn-caption"}>{button.caption}</span>
                                 </div>
                             </Link>
                         }
                     })}
+                    {/*------------------------------------------------------------------------------------*/}
                 </div>
                 <div className={"menu-container"}>
                     {
                         canDisplay(false) &&
                         (<div
-                            className={"button-box"}
+                            className={"button-box button-box-top"}
                             onClick={()=> setSideNavOpen((prevState) => !prevState)}
                         >{"MENU"}</div>)
                     }

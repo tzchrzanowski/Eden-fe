@@ -95,7 +95,7 @@ export function Login() {
             <div className={"loginPageContent"}>
                 <div className={'left-container'}>
                     <div className={"videoContainer"}>
-                        <video autoPlay loop muted height={"100%"} width={"100%"}>
+                        <video className={"video-player"} autoPlay loop muted >
                             <source src={VideoSpray} type={"video/mp4"}/>
                         </video>
                     </div>

@@ -35,7 +35,7 @@ export function Contact() {
     return (
         <div className={"contactWrapper"}>
             <TopNavigation />
-            <div className={"pageContent"}>
+            <div className={"contact-page-content"}>
                 <div className={"header-wrapper"}>
                     <div className={'big-icon-wrapper'}>
                         <img src={bubble} alt={"bubble"} />

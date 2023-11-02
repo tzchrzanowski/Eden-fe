@@ -9,6 +9,7 @@ import {
     threeNodesThreeWithPath,
     sevenNodesThreeWithPath,
 } from "./TreeMocksWithPath";
+import {getAllUsers, getUserNetwork} from "../../../data/getRequests";
 
 export function Network() {
     const contextValue = useContext(UserContext);
@@ -20,9 +21,25 @@ export function Network() {
             contextValue.state.user.username &&
             contextValue.state.user.role_id
         ) {
-            console.log(contextValue.state.user.username);
-            console.log(contextValue.state.user.role_id);
+            console.log("username: ", contextValue.state.user.username,
+                " roleId: ", contextValue.state.user.role_id,
+                " user id: ", contextValue.state.user.user_id);
         }
+        async function fetchData() {
+            const userId = Number(contextValue?.state?.user?.user_id) || 0;
+            const fetchedUser = await getUserNetwork(userId);
+            console.log("fetched user in network: ", fetchedUser);
+        }
+        fetchData();
+    }, []);
+
+
+    React.useEffect(()=> {
+        async function fetchData() {
+            const fetchedUser = await getAllUsers();
+            console.log("fetched user in network: ", fetchedUser);
+        }
+        fetchData();
     }, []);
 
     return (

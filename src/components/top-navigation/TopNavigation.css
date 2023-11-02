@@ -87,10 +87,10 @@
     flex-direction: column;
     align-items: center;
     position: fixed;
-    width: 100px;
+    width: 150px;
     height: 90vh;
     top: 10vh;
-    left: -100px;
+    left: -150px;
     transition: all 400ms ease;
     z-index: 999;
     background-color: darkslategray;
@@ -104,5 +104,5 @@
 .left-side-link {
     margin-top: 15px;
     width: 100%;
-    height: 40px;
+    height: 60px;
 }

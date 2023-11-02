@@ -4,7 +4,7 @@ import TopNavigation from "components/top-navigation/TopNavigation";
 import VideoProducts from "../../../resources/videos/eden-products.mp4";
 import item1 from "resources/images/slides/item_1.jpeg";
 import item2 from "resources/images/slides/item_2.jpeg";
-
+import productsVideo from "resources/videos/products_video_.mp4";
 
 export function Products() {
     return (
@@ -12,9 +12,10 @@ export function Products() {
             <TopNavigation />
             <div className={"pageContent"}>
                 <div className='img-container-product'>
-                                <img className={"image-box-product"} src={item1} alt="img" />
-                                <img className={"image-box-product"} src={item2} alt="img" />
-
+                    <video className={"video-player"} autoPlay muted loop controls>
+                        <source src={productsVideo} type={"video/mp4"}/>
+                    </video>
+                    <img className={"image-box-product"} src={item2} alt="img" />
                 </div>
             </div>
         </div>

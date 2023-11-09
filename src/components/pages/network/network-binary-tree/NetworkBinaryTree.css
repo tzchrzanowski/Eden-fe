@@ -1,0 +1,18 @@
+.binary-tree-wrapper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-binary-tree {
+    width: 415px;
+}
+
+.middle-binary-tree {
+    width: 325px;
+}
+.bottom-binary-tree {
+    width: 160px;
+}

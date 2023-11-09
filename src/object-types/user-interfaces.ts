@@ -32,6 +32,7 @@ export interface BinaryTreeNodeInterface {
     left: BinaryTreeNodeInterface | null;
     right: BinaryTreeNodeInterface | null;
     user: UserInterface;
+    nodeLevel?: number;
 }
 
 /*

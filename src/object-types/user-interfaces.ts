@@ -33,6 +33,7 @@ export interface BinaryTreeNodeInterface {
     right: BinaryTreeNodeInterface | null;
     user: UserInterface;
     nodeLevel?: number;
+    nodePosition?: string;
 }
 
 /*

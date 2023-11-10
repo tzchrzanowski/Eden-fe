@@ -6,34 +6,36 @@ interface NetworkBinaryTreeProps {
     rootNode: BinaryTreeNodeInterface | null;
 }
 
-function assignNodeLevels(node: BinaryTreeNodeInterface | null, level: number): BinaryTreeNodeInterface | null{
+function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: number, position: string): BinaryTreeNodeInterface | null{
     if (node === null) { return null; }
-
     node.nodeLevel = level;
-    assignNodeLevels(node.left, level + 1);
-    assignNodeLevels(node.right, level + 1);
+    node.nodePosition = position;
+    assignNodeAttributes(node.left, level + 1, "left");
+    assignNodeAttributes(node.right, level + 1, "right");
     return node;
 }
 
 export function BinaryTree({rootNode} : NetworkBinaryTreeProps) {
-    const [treeWithAddedDepth, setTreeWithAddedDepth] = React.useState<BinaryTreeNodeInterface | null>(null);
+    const [treeWithExtraAttributes, setTreeWithExtraAttributes] = React.useState<BinaryTreeNodeInterface | null>(null);
 
     React.useEffect(()=>{
-        setTreeWithAddedDepth(assignNodeLevels(rootNode, 0))
+        setTreeWithExtraAttributes(assignNodeAttributes(rootNode, 0, "root"))
     }, []);
 
     return (<div className={"binary-tree-wrapper"}>
-        network binary tree
+        <span>network binary tree
         {
             (rootNode !== null) && rootNode.id
-        }
+        }</span>
         <br/>
         {
-            (treeWithAddedDepth !== null) &&
+            (treeWithExtraAttributes !== null) &&
             (<div>
-                <span>{treeWithAddedDepth.id}</span>
+                <span>{treeWithExtraAttributes.id}</span>
                 <br/>
-                <span>{treeWithAddedDepth.nodeLevel}</span>
+                <span>{treeWithExtraAttributes.nodeLevel}</span>
+                <br/>
+                <span>{treeWithExtraAttributes.nodePosition}</span>
             </div>)
         }
     </div>)

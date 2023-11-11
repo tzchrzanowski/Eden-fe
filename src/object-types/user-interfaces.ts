@@ -34,6 +34,7 @@ export interface BinaryTreeNodeInterface {
     user: UserInterface;
     nodeLevel?: number;
     nodePosition?: string;
+    path?: string[];
 }
 
 /*

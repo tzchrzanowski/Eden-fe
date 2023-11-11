@@ -1,6 +1,9 @@
 import React from 'react';
 import {BinaryTreeNodeInterface} from "object-types/user-interfaces";
 import "./NetworkBinaryTree.css";
+import NetworkTreeNode from "../network-tree-node/NetworkTreeNode";
+import {TreeNodeInterfaceWithPath} from "../TreeMocksWithPath";
+import TreeNode from "../tree-node/TreeNode";
 
 interface NetworkBinaryTreeProps {
     rootNode: BinaryTreeNodeInterface | null;
@@ -15,7 +18,7 @@ function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: numbe
     return node;
 }
 
-export function BinaryTree({rootNode} : NetworkBinaryTreeProps) {
+export function NetworkBinaryTree({rootNode} : NetworkBinaryTreeProps) {
     const [treeWithExtraAttributes, setTreeWithExtraAttributes] = React.useState<BinaryTreeNodeInterface | null>(null);
 
     /*
@@ -26,24 +29,67 @@ export function BinaryTree({rootNode} : NetworkBinaryTreeProps) {
         setTreeWithExtraAttributes(assignNodeAttributes(rootNode, 0, "root"))
     }, [treeWithExtraAttributes]);
 
-    return (<div className={"binary-tree-wrapper"}>
-        <span>network binary tree
-        {
-            (rootNode !== null) && rootNode.id
-        }</span>
-        <br/>
-        {
-            (treeWithExtraAttributes !== null && treeWithExtraAttributes.id > -1) ?
-            (<div>
-                <span>{treeWithExtraAttributes.id}</span>
-                <br/>
-                <span>{treeWithExtraAttributes.nodeLevel}</span>
-                <br/>
-                <span>{treeWithExtraAttributes.nodePosition}</span>
-            </div>) :
-                (<div>No network</div>)
+
+    /*
+    * Checking which class names should given node have based on its nodeLevel
+    * */
+    const getTreeLevelClass = (nodeLevel: number): string => {
+        [0,1,2].includes(nodeLevel)
+        switch (nodeLevel) {
+            case 0 || 1:
+                return 'top-tree';
+                break;
+            case 2:
+                return 'middle-tree';
+                break;
+            case 3:
+                return 'bottom-tree';
+                break;
+            default:
+                return '';
         }
-    </div>)
+    }
+
+    /*
+    * Add new node package.
+    * Should send api request to add new package
+    * */
+    const addPackage = (nodePosition: string, nodeLevel: number, nodePath: string[])=> {
+        // TODO: sends api post request to generate new package in that place
+    };
+
+     /*
+     * Renders root node and then recursively renders each children node from tree
+     * includes node path parameter:
+     * */
+    const renderNode = (node: BinaryTreeNodeInterface | null) => {
+        if (!node) return null;
+
+        const treeWrapperClass = -1;
+        if (typeof(node.nodeLevel) == "number") {
+            const treeWrapperClass = getTreeLevelClass(node.nodeLevel);
+        }
+        return (
+            <div className={`tree-wrapper ${treeWrapperClass}`}>
+                <NetworkTreeNode
+                    addPackageCallback={addPackage}
+                    node={node}
+                    renderNodeRecursiveCallback={renderNode}
+                />
+            </div>
+        )
+    }
+
+    return (
+        <div>
+            {
+                (treeWithExtraAttributes !== null && treeWithExtraAttributes.id > -1) ?
+                    renderNode(treeWithExtraAttributes)
+                    :
+                    (<div className={"tree-wrapper"}>No network</div>)
+            }
+        </div>
+    )
 }
 
-export default BinaryTree;
+export default NetworkBinaryTree;

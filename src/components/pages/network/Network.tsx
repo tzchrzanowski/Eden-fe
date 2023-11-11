@@ -35,11 +35,11 @@ export function Network() {
                 <BinaryTree rootNodeWithPath={singleNodeTreeCenterWithPath} />
                 {/*<BinaryTree rootNodeWithPath={threeNodesThreeWithPath} />*/}
                 {/*<BinaryTree rootNodeWithPath={sevenNodesThreeWithPath} />*/}
+                {
+                    (fetchedUserNetwork !== null) &&
+                    (<NetworkBinaryTree rootNode={fetchedUserNetwork} />)
+                }
             </div>
-            {
-                (fetchedUserNetwork !== null) &&
-                (<NetworkBinaryTree rootNode={fetchedUserNetwork} />)
-            }
         </div>
     )
 }

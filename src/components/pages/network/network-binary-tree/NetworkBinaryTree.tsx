@@ -18,9 +18,13 @@ function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: numbe
 export function BinaryTree({rootNode} : NetworkBinaryTreeProps) {
     const [treeWithExtraAttributes, setTreeWithExtraAttributes] = React.useState<BinaryTreeNodeInterface | null>(null);
 
+    /*
+    * Populates user network object on component init,
+    * and re-renders component if new object network object is passed in
+    * */
     React.useEffect(()=>{
         setTreeWithExtraAttributes(assignNodeAttributes(rootNode, 0, "root"))
-    }, []);
+    }, [treeWithExtraAttributes]);
 
     return (<div className={"binary-tree-wrapper"}>
         <span>network binary tree
@@ -29,14 +33,15 @@ export function BinaryTree({rootNode} : NetworkBinaryTreeProps) {
         }</span>
         <br/>
         {
-            treeWithExtraAttributes &&
+            (treeWithExtraAttributes !== null && treeWithExtraAttributes.id > -1) ?
             (<div>
                 <span>{treeWithExtraAttributes.id}</span>
                 <br/>
                 <span>{treeWithExtraAttributes.nodeLevel}</span>
                 <br/>
                 <span>{treeWithExtraAttributes.nodePosition}</span>
-            </div>)
+            </div>) :
+                (<div>No network</div>)
         }
     </div>)
 }

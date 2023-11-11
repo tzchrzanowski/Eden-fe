@@ -29,7 +29,7 @@ export function BinaryTree({rootNode} : NetworkBinaryTreeProps) {
         }</span>
         <br/>
         {
-            (treeWithExtraAttributes !== null) &&
+            treeWithExtraAttributes &&
             (<div>
                 <span>{treeWithExtraAttributes.id}</span>
                 <br/>

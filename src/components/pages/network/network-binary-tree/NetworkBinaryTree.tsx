@@ -62,12 +62,12 @@ export function NetworkBinaryTree({rootNode} : NetworkBinaryTreeProps) {
      * Renders root node and then recursively renders each children node from tree
      * includes node path parameter:
      * */
-    const renderNode = (node: BinaryTreeNodeInterface | null) => {
+    const renderNode = (node: BinaryTreeNodeInterface) => {
         if (!node) return null;
 
-        const treeWrapperClass = -1;
-        if (typeof(node.nodeLevel) == "number") {
-            const treeWrapperClass = getTreeLevelClass(node.nodeLevel);
+        let treeWrapperClass = "-1";
+        if (node.nodeLevel) {
+            treeWrapperClass = getTreeLevelClass(node.nodeLevel);
         }
         return (
             <div className={`tree-wrapper ${treeWrapperClass}`}>
@@ -83,7 +83,7 @@ export function NetworkBinaryTree({rootNode} : NetworkBinaryTreeProps) {
     return (
         <div>
             {
-                (treeWithExtraAttributes !== null && treeWithExtraAttributes.id > -1) ?
+                (treeWithExtraAttributes && treeWithExtraAttributes.id > -1) ?
                     renderNode(treeWithExtraAttributes)
                     :
                     (<div className={"tree-wrapper"}>No network</div>)

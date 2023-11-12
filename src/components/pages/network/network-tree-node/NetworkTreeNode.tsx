@@ -5,7 +5,7 @@ import {Arrow} from "../arrow/Arrow";
 
 interface NetworkTreeNodeProps {
     addPackageCallback: (nodePosition: string, level: number, path: string[])=> void,
-    renderNodeRecursiveCallback: (node: BinaryTreeNodeInterface | null) => ReactNode,
+    renderNodeRecursiveCallback: (node: BinaryTreeNodeInterface) => ReactNode,
     node: BinaryTreeNodeInterface,
 }
 

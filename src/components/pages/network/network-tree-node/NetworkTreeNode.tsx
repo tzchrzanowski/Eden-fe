@@ -51,7 +51,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
     * TODO: node.path is not defined in NetworkBinaryTree or backend
     * */
     const addBottomNodes = () => {
-        if (node.nodePosition && node.nodeLevel && node.path) {
+        if (node && node.nodePosition && node.nodeLevel && node.path) {
             addPackageCallback(node.nodePosition, node.nodeLevel, node.path);
         }
     }

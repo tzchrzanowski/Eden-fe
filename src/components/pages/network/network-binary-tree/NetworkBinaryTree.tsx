@@ -2,19 +2,32 @@ import React from 'react';
 import {BinaryTreeNodeInterface} from "object-types/user-interfaces";
 import "./NetworkBinaryTree.css";
 import NetworkTreeNode from "../network-tree-node/NetworkTreeNode";
-import {TreeNodeInterfaceWithPath} from "../TreeMocksWithPath";
-import TreeNode from "../tree-node/TreeNode";
 
 interface NetworkBinaryTreeProps {
     rootNode: BinaryTreeNodeInterface | null;
 }
 
-function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: number, position: string): BinaryTreeNodeInterface | null{
+function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: number, position: string, path: string[]): BinaryTreeNodeInterface | null{
     if (node === null) { return null; }
+    switch(position) {
+        case "root":
+            node.path = ["C"];
+            break;
+        case "left":
+            node.path = [...path, "L"];
+            break;
+        case "right":
+            node.path = [...path, "R"];
+            break;
+        default:
+            node.path = [];
+            break;
+    }
+
     node.nodeLevel = level;
     node.nodePosition = position;
-    assignNodeAttributes(node.left, level + 1, "left");
-    assignNodeAttributes(node.right, level + 1, "right");
+    assignNodeAttributes(node.left, level + 1, "left", node.path);
+    assignNodeAttributes(node.right, level + 1, "right", node.path);
     return node;
 }
 
@@ -26,7 +39,7 @@ export function NetworkBinaryTree({rootNode} : NetworkBinaryTreeProps) {
     * and re-renders component if new object network object is passed in
     * */
     React.useEffect(()=>{
-        setTreeWithExtraAttributes(assignNodeAttributes(rootNode, 0, "root"))
+        setTreeWithExtraAttributes(assignNodeAttributes(rootNode, 0, "root", []))
     }, [treeWithExtraAttributes]);
 
 
@@ -56,6 +69,8 @@ export function NetworkBinaryTree({rootNode} : NetworkBinaryTreeProps) {
     * */
     const addPackage = (nodePosition: string, nodeLevel: number, nodePath: string[])=> {
         // TODO: sends api post request to generate new package in that place
+        console.log("node path: ", nodePath);
+        console.log("nodePosition: ", nodePosition , " nodeLevel: ", nodeLevel);
     };
 
      /*

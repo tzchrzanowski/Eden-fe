@@ -5,6 +5,8 @@ import NetworkTreeNode from "../network-tree-node/NetworkTreeNode";
 
 interface NetworkBinaryTreeProps {
     rootNode: BinaryTreeNodeInterface | null;
+    setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
+    setParentNodeId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: number, position: string, path: string[]): BinaryTreeNodeInterface | null{
@@ -31,7 +33,7 @@ function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: numbe
     return node;
 }
 
-export function NetworkBinaryTree({rootNode} : NetworkBinaryTreeProps) {
+export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, setParentNodeId} : NetworkBinaryTreeProps) {
     const [treeWithExtraAttributes, setTreeWithExtraAttributes] = React.useState<BinaryTreeNodeInterface | null>(null);
 
     /*
@@ -87,6 +89,8 @@ export function NetworkBinaryTree({rootNode} : NetworkBinaryTreeProps) {
         return (
             <div className={`tree-wrapper ${treeWrapperClass}`}>
                 <NetworkTreeNode
+                    setSidebarAddNewUserOpenCallback={setSidebarAddNewUserOpenCallback}
+                    setParentNodeId={setParentNodeId}
                     addPackageCallback={addPackage}
                     node={node}
                     renderNodeRecursiveCallback={renderNode}

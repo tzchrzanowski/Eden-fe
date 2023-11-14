@@ -7,16 +7,17 @@ interface NetworkTreeNodeProps {
     addPackageCallback: (nodePosition: string, level: number, path: string[])=> void,
     renderNodeRecursiveCallback: (node: BinaryTreeNodeInterface) => ReactNode,
     node: BinaryTreeNodeInterface,
+    setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
+    setParentNodeId: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCallback }: NetworkTreeNodeProps) {
+export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCallback, setSidebarAddNewUserOpenCallback, setParentNodeId}: NetworkTreeNodeProps) {
     const [isSliding, setIsSliding] = React.useState(false);
     const [isTopView, setIsTopView] = React.useState<Boolean>();
     const [slideClass, setSlideClass] = React.useState<string>("");
 
     /* Constructor: */
     React.useEffect(()=>{
-        console.log("node: ", node);
         /*
         * if node.level is tier 0 or 1, then node belongs to top view, else its low view,
         * top view has sliding and wider display
@@ -69,6 +70,27 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
         return '';
     };
 
+    const handleAddPackageButtonClick = (): void => {
+        /*
+        * TODO: remove, Sliding is not needed for real adding new user / new package
+        * */
+        // if (isTopView) {
+        //     addTopSlidingNodes();
+        // } else {
+        //     addBottomNodes();
+        // }
+
+        if (node.user.left_child < 0 || node.user.right_child < 0) {
+            /*
+            * Set parent node id that is used by
+            * Sidebar form to create potentially new node"
+            * */
+            console.log("clicked node id:", node.user.id);
+            setParentNodeId(node.user.id);
+            setSidebarAddNewUserOpenCallback(true);
+        }
+    }
+
     return (
         <>
             <div className={`root-node-wrapper ${slideClass}`}>
@@ -76,7 +98,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
                 <img className={"node-caption"} src={node.user.profile_picture_url} height={"60px"} width={"auto"}/>
                 <div className={"node-caption"}>Lv: {node.nodeLevel}</div>
                 <div className={"node-caption"}>{node.user.first_name}</div>
-                <button className={"node-caption"} onClick={isTopView ? addTopSlidingNodes : addBottomNodes}>Add package</button>
+                <button className={"node-caption"} onClick={()=>handleAddPackageButtonClick()}>Add package</button>
             </div>
             <div className={`children-nodes-wrapper ${slideClass}`}>
                 {node.left !== null &&

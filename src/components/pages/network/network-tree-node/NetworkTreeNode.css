@@ -1,6 +1,6 @@
 /* node styles : */
-.root-node {
-    border: solid 2px darkslategray;
+.root-node-wrapper {
+    /*border: solid 2px darkslategray;*/
     padding: 10px;
     position: relative;
     display: flex;
@@ -39,6 +39,11 @@ bottom-children-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.node-caption {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .left-child-node {

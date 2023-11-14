@@ -16,6 +16,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
 
     /* Constructor: */
     React.useEffect(()=>{
+        console.log("node: ", node);
         /*
         * if node.level is tier 0 or 1, then node belongs to top view, else its low view,
         * top view has sliding and wider display
@@ -70,11 +71,12 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
 
     return (
         <>
-            <div className={`root-node ${slideClass}`}>
-                <p>{node.user.username}</p>
-                Lv: {node.nodeLevel}
-                <p>{node.user.first_name}</p>
-                <button onClick={isTopView ? addTopSlidingNodes : addBottomNodes}>Add package</button>
+            <div className={`root-node-wrapper ${slideClass}`}>
+                <div className={"node-caption"}>{node.user.username}</div>
+                <img className={"node-caption"} src={node.user.profile_picture_url} height={"60px"} width={"auto"}/>
+                <div className={"node-caption"}>Lv: {node.nodeLevel}</div>
+                <div className={"node-caption"}>{node.user.first_name}</div>
+                <button className={"node-caption"} onClick={isTopView ? addTopSlidingNodes : addBottomNodes}>Add package</button>
             </div>
             <div className={`children-nodes-wrapper ${slideClass}`}>
                 {node.left !== null &&

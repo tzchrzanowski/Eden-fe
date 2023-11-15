@@ -1,20 +1,13 @@
 import React from 'react';
 import './SidebarAddNewUser.css';
-import {ParentNodeInfo} from "../../../../object-types/user-interfaces";
+import {ParentNodeInfo, UserObject} from "object-types/user-interfaces";
 import 'App.css';
+import {addNewPackageUser, loginUser} from "data/postRequests";
 
 interface SidebarAddNewUserProps {
     isOpen: boolean,
     setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
     parentNodeInfo: ParentNodeInfo
-}
-
-interface UserObject {
-    username: string,
-    email: string,
-    first_name: string,
-    last_name: string,
-    parent: number,
 }
 
 export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, parentNodeInfo}: SidebarAddNewUserProps) {
@@ -49,10 +42,29 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
     /*
     * TODO: add endpoint request
     * */
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("handle submit sidebar form triggered..", formData);
+
+        try {
+            const response = await addNewPackageUser(formData);
+            if (response) {
+                if (response.status === "200") {
+                    // setLoggedIn(true);
+                    /*
+                    * Set user to context api user state:
+                    * */
+                    console.log("response from sidebar: ", response);
+                } else if (response.status === "401") {
+                    // setLoggedIn(false);
+                }
+            }
+        } catch (error) {
+            console.log("login error:", error);
+            // setLoggedIn(false);
+        }
     };
+
     return (
         <>
             <div className={(isOpen === true) ? "side-bar-container sidebar-open" : "side-bar-container"}>

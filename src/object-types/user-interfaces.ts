@@ -56,3 +56,14 @@ export interface ParentNodeInfo {
     parentId: number,
     parentUsername: string,
 }
+
+/*
+* Used to add new user / new package account:
+* */
+export interface UserObject {
+    username: string,
+    email: string,
+    first_name: string,
+    last_name: string,
+    parent: number,
+}

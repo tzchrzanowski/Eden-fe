@@ -9,11 +9,10 @@ import {
     sevenNodesThreeWithPath,
 } from "./TreeMocksWithPath";
 import {getAllUsers, getUserNetwork} from "../../../data/getRequests";
-import {UserBinaryTree} from 'object-types/user-interfaces';
+import {UserBinaryTree, ParentNodeInfo} from 'object-types/user-interfaces';
 import {BinaryTreeNodeInterface} from "object-types/user-interfaces";
 import NetworkBinaryTree from "./network-binary-tree/NetworkBinaryTree";
 import SidebarAddNewUser from "./sidebar-add-new-user/SidebarAddNewUser";
-
 
 export function Network() {
     const [fetchedUserNetwork, setFetchedUserNetwork] = React.useState<BinaryTreeNodeInterface | null>(null);
@@ -22,7 +21,7 @@ export function Network() {
     * Sidebar related states:
     * */
     const [isSidebarOpen, setSidebarOpen] = React.useState(false);
-    const [parentNodeId, setParentNodeId] = React.useState<number>(-1);
+    const [parentNodeInfo, setParentNodeInfo] = React.useState<ParentNodeInfo>({parentId: -1, parentUsername: "placeholder"});
 
     React.useEffect(()=>{
         async function fetchData() {
@@ -40,7 +39,7 @@ export function Network() {
             <SidebarAddNewUser
                 isOpen={isSidebarOpen}
                 setSidebarAddNewUserOpenCallback={setSidebarOpen}
-                parentNodeId={parentNodeId}
+                parentNodeInfo={parentNodeInfo}
             />
             <div className={"network-page-content"}>
                 <BinaryTree rootNodeWithPath={singleNodeTreeCenterWithPath} />
@@ -50,7 +49,7 @@ export function Network() {
                     (fetchedUserNetwork !== null) &&
                     (<NetworkBinaryTree
                         setSidebarAddNewUserOpenCallback={setSidebarOpen}
-                        setParentNodeId={setParentNodeId}
+                        setParentNodeInfo={setParentNodeInfo}
                         rootNode={fetchedUserNetwork}
                     />)
                 }

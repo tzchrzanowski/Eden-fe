@@ -1,5 +1,5 @@
 import React, {ReactNode} from "react";
-import {BinaryTreeNodeInterface} from "object-types/user-interfaces";
+import {BinaryTreeNodeInterface, ParentNodeInfo} from "object-types/user-interfaces";
 import "./NetworkTreeNode.css";
 import {Arrow} from "../arrow/Arrow";
 
@@ -8,16 +8,25 @@ interface NetworkTreeNodeProps {
     renderNodeRecursiveCallback: (node: BinaryTreeNodeInterface) => ReactNode,
     node: BinaryTreeNodeInterface,
     setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
-    setParentNodeId: React.Dispatch<React.SetStateAction<number>>;
+    setParentNodeInfo: React.Dispatch<React.SetStateAction<ParentNodeInfo>>;
 }
 
-export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCallback, setSidebarAddNewUserOpenCallback, setParentNodeId}: NetworkTreeNodeProps) {
+export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCallback, setSidebarAddNewUserOpenCallback, setParentNodeInfo}: NetworkTreeNodeProps) {
     const [isSliding, setIsSliding] = React.useState(false);
     const [isTopView, setIsTopView] = React.useState<Boolean>();
     const [slideClass, setSlideClass] = React.useState<string>("");
+    const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
 
     /* Constructor: */
     React.useEffect(()=>{
+
+        /*
+        * Set the flag that decides if button to add new packages should be disabled for given node:
+        * */
+        if (node.user.left_child < 0 || node.user.right_child < 0) {
+            setIsDisabled(false)
+        }
+
         /*
         * if node.level is tier 0 or 1, then node belongs to top view, else its low view,
         * top view has sliding and wider display
@@ -85,8 +94,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
             * Set parent node id that is used by
             * Sidebar form to create potentially new node"
             * */
-            console.log("clicked node id:", node.user.id);
-            setParentNodeId(node.user.id);
+            setParentNodeInfo({parentId: node.user.id, parentUsername: node.user.username});
             setSidebarAddNewUserOpenCallback(true);
         }
     }
@@ -98,7 +106,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
                 <img className={"node-caption"} src={node.user.profile_picture_url} height={"60px"} width={"auto"}/>
                 <div className={"node-caption"}>Lv: {node.nodeLevel}</div>
                 <div className={"node-caption"}>{node.user.first_name}</div>
-                <button className={"node-caption"} onClick={()=>handleAddPackageButtonClick()}>Add package</button>
+                <button disabled={isDisabled} className={"node-caption"} onClick={()=>handleAddPackageButtonClick()}>Add package</button>
             </div>
             <div className={`children-nodes-wrapper ${slideClass}`}>
                 {node.left !== null &&

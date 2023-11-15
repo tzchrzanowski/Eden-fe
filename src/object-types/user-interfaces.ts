@@ -51,3 +51,8 @@ export interface UserInterface {
     profile_picture_url: string;
     username: string;
 }
+
+export interface ParentNodeInfo {
+    parentId: number,
+    parentUsername: string,
+}

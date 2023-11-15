@@ -1,10 +1,12 @@
 import React from 'react';
 import './SidebarAddNewUser.css';
+import {ParentNodeInfo} from "../../../../object-types/user-interfaces";
+import 'App.css';
 
 interface SidebarAddNewUserProps {
     isOpen: boolean,
     setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
-    parentNodeId: number,
+    parentNodeInfo: ParentNodeInfo
 }
 
 interface UserObject {
@@ -15,13 +17,13 @@ interface UserObject {
     parent: number,
 }
 
-export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, parentNodeId}: SidebarAddNewUserProps) {
+export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, parentNodeInfo}: SidebarAddNewUserProps) {
     const [formData, setFormData] = React.useState<UserObject>({
         username: '',
         email: '',
         first_name: '',
         last_name: '',
-        parent: parentNodeId,
+        parent: parentNodeInfo.parentId,
     });
 
     /*
@@ -30,9 +32,9 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
     React.useEffect(()=> {
         setFormData({
             ...formData,
-            parent: parentNodeId,
+            parent: parentNodeInfo.parentId,
         })
-    }, [parentNodeId])
+    }, [parentNodeInfo])
 
     /*
     * On form input change values
@@ -55,6 +57,10 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
         <>
             <div className={(isOpen === true) ? "side-bar-container sidebar-open" : "side-bar-container"}>
                 <form className={"add-user-form-container"} onSubmit={handleSubmit}>
+                    <div className={"form-item-caption"}>Add Package Account under: </div>
+                    <div className={"form-item-caption mt-1 fb justify-center"}>
+                        <strong>{parentNodeInfo.parentUsername}</strong>
+                    </div>
                     <label className={"add-user-form-item"}>
                         <div className={"form-item-caption"}>Username:</div>
                         <input className={"form-text-input"} type="text" name="username" value={formData.username} onChange={handleChange} />

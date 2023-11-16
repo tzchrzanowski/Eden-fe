@@ -15,6 +15,18 @@
     transform: translateX(120px);
 }
 
+.only-left-child-top-tree {
+    transform: translateX(-103.75px);
+}
+
+.only-left-child-middle-tree {
+    transform: translateX(-162.5px);
+}
+
+.only-left-child-bottom-tree {
+    transform: translateX(-80px);
+}
+
 .slide-left {
     transform: translateX(-120px);
 }
@@ -31,7 +43,7 @@
     justify-content: space-between;
 }
 
-bottom-children-wrapper {
+.bottom-children-wrapper {
     justify-content: center;
 }
 

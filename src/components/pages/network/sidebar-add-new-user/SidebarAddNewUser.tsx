@@ -75,19 +75,19 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
                     </div>
                     <label className={"add-user-form-item"}>
                         <div className={"form-item-caption"}>Username:</div>
-                        <input className={"form-text-input"} type="text" name="username" value={formData.username} onChange={handleChange} />
+                        <input required={true} className={"form-text-input"} type="text" name="username" value={formData.username} onChange={handleChange} />
                     </label>
                     <label className={"add-user-form-item"}>
                         <div className={"form-item-caption"}>Email:</div>
-                        <input className={"form-text-input"} type="text" name="email" value={formData.email} onChange={handleChange} />
+                        <input required={true} className={"form-text-input"} type="text" name="email" value={formData.email} onChange={handleChange} />
                     </label>
                     <label className={"add-user-form-item"}>
                         <div className={"form-item-caption"}>First Name:</div>
-                        <input className={"form-text-input"} type="text" name="first_name" value={formData.first_name} onChange={handleChange} />
+                        <input required={true} className={"form-text-input"} type="text" name="first_name" value={formData.first_name} onChange={handleChange} />
                     </label>
                     <label className={"add-user-form-item"}>
                         <div className={"form-item-caption"}>Last Name:</div>
-                        <input className={"form-text-input"} type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
+                        <input required={true} className={"form-text-input"} type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
                     </label>
                     <div className={"form-buttons-container"}>
                         <button className={"add-user-button"} onClick={()=>setSidebarAddNewUserOpenCallback(false)}>

@@ -99,6 +99,30 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
         }
     }
 
+    const getSingleChildNodeClass = (): string => {
+        if (node.right === null ) {
+            if(node.nodeLevel) {
+                const childNodeLevel = node.nodeLevel+1;
+                switch (childNodeLevel) {
+                    case 1:
+                        return "only-left-child-top-tree";
+                        break;
+                    case 2:
+                        return "only-left-child-middle-tree";
+                        break;
+                    case 3:
+                        return "only-left-child-bottom-tree";
+                        break;
+                    default:
+                        return "";
+                        break;
+                }
+            }
+
+        }
+        return "";
+    }
+
     return (
         <>
             <div className={`root-node-wrapper ${slideClass}`}>
@@ -110,7 +134,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
             </div>
             <div className={`children-nodes-wrapper ${slideClass}`}>
                 {node.left !== null &&
-                    <div className={"child-node-container"}>
+                    <div className={`child-node-container ${getSingleChildNodeClass()}`}>
                         <Arrow direction={"left"}/>
                         <div className={"left-child-node"}>{renderNodeRecursiveCallback(node.left)}</div>
                     </div>

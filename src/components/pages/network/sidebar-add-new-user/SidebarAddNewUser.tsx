@@ -8,9 +8,10 @@ interface SidebarAddNewUserProps {
     isOpen: boolean,
     setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
     parentNodeInfo: ParentNodeInfo
+    rerenderCallback: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, parentNodeInfo}: SidebarAddNewUserProps) {
+export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, parentNodeInfo, rerenderCallback}: SidebarAddNewUserProps) {
     const [formData, setFormData] = React.useState<UserObject>({
         username: '',
         email: '',
@@ -18,6 +19,8 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
         last_name: '',
         parent: parentNodeInfo.parentId,
     });
+    const [successfullyAddedUser, setSuccessfullyAddedUser] = React.useState<boolean>(false);
+    const [unsuccessfulAddUserCall, setUnsuccessfulAddUserCall] = React.useState<boolean>(false);
 
     /*
     * Update clicked parent node id whenever it changes:
@@ -27,7 +30,12 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
             ...formData,
             parent: parentNodeInfo.parentId,
         })
-    }, [parentNodeInfo])
+    }, [parentNodeInfo]);
+
+    /*
+    * Update tree when successfully added user:
+    * */
+    React.useEffect(()=> {}, [successfullyAddedUser, unsuccessfulAddUserCall]);
 
     /*
     * On form input change values
@@ -44,19 +52,14 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
     * */
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("handle submit sidebar form triggered..", formData);
-
         try {
             const response = await addNewPackageUser(formData);
             if (response) {
-                if (response.status === "200") {
-                    // setLoggedIn(true);
-                    /*
-                    * Set user to context api user state:
-                    * */
-                    console.log("response from sidebar: ", response);
-                } else if (response.status === "401") {
-                    // setLoggedIn(false);
+                if (response.status === 200) {
+                    setSuccessfullyAddedUser(true);
+                    rerenderCallback((prevState: boolean) => !prevState);
+                } else {
+                    setUnsuccessfulAddUserCall(true);
                 }
             }
         } catch (error) {
@@ -97,6 +100,16 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
                             <div className={"form-item-caption"}>Submit</div>
                         </button>
                     </div>
+                    {
+                        successfullyAddedUser && (<div className={"add-user-form-item"}>
+                            <div className={"form-item-caption"}>Successfully added user to the database</div>
+                        </div>)
+                    }
+                    {
+                        unsuccessfulAddUserCall && (<div className={"add-user-form-item"}>
+                            <div className={"form-item-caption"}>Unsuccessful attempt to add user to the database</div>
+                        </div>)
+                    }
                 </form>
             </div>
         </>

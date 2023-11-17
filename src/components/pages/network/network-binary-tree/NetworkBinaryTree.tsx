@@ -7,6 +7,7 @@ interface NetworkBinaryTreeProps {
     rootNode: BinaryTreeNodeInterface | null;
     setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
     setParentNodeInfo: React.Dispatch<React.SetStateAction<ParentNodeInfo>>;
+    rerenderNetworkFlag: boolean;
 }
 
 function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: number, position: string, path: string[]): BinaryTreeNodeInterface | null{
@@ -33,7 +34,7 @@ function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: numbe
     return node;
 }
 
-export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, setParentNodeInfo} : NetworkBinaryTreeProps) {
+export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, setParentNodeInfo, rerenderNetworkFlag} : NetworkBinaryTreeProps) {
     const [treeWithExtraAttributes, setTreeWithExtraAttributes] = React.useState<BinaryTreeNodeInterface | null>(null);
 
     /*
@@ -42,8 +43,12 @@ export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, s
     * */
     React.useEffect(()=>{
         setTreeWithExtraAttributes(assignNodeAttributes(rootNode, 0, "root", []))
-    }, [treeWithExtraAttributes]);
+    }, [treeWithExtraAttributes, rerenderNetworkFlag]);
 
+    // /*
+    // * Rerender whenever external trigger to rerender tree was triggered:
+    // * */
+    // React.useEffect(()=>{}, [rerenderTree]);
 
     /*
     * Checking which class names should given node have based on its nodeLevel
@@ -94,6 +99,7 @@ export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, s
                     addPackageCallback={addPackage}
                     node={node}
                     renderNodeRecursiveCallback={renderNode}
+                    rerenderNetworkFlag={rerenderNetworkFlag}
                 />
             </div>
         )

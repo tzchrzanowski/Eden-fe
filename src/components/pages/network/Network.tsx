@@ -17,6 +17,8 @@ import SidebarAddNewUser from "./sidebar-add-new-user/SidebarAddNewUser";
 export function Network() {
     const [fetchedUserNetwork, setFetchedUserNetwork] = React.useState<BinaryTreeNodeInterface | null>(null);
     const contextValue = useContext(UserContext);
+    const [rerenderNetworkFlag, setRerenderNetworkFlag] = React.useState<boolean>(false);
+    const [rerenderNetworkChildrenFlag, setRerenderNetworkChildrenFlag] = React.useState<boolean>(false);
     /*
     * Sidebar related states:
     * */
@@ -27,11 +29,11 @@ export function Network() {
         async function fetchData() {
             const userId = Number(contextValue?.state?.user?.user_id) || 0;
             const fetchedUsers = await getUserNetwork(userId);
-            console.log("fetchedUsers data: ", fetchedUsers);
             setFetchedUserNetwork(fetchedUsers)
+            setRerenderNetworkChildrenFlag((prevState:boolean) => !prevState);
         }
         fetchData();
-    }, []);
+    }, [rerenderNetworkFlag]);
 
     return (
         <div className={"networkWrapper"}>
@@ -40,6 +42,7 @@ export function Network() {
                 isOpen={isSidebarOpen}
                 setSidebarAddNewUserOpenCallback={setSidebarOpen}
                 parentNodeInfo={parentNodeInfo}
+                rerenderCallback={setRerenderNetworkFlag}
             />
             <div className={"network-page-content"}>
                 <BinaryTree rootNodeWithPath={singleNodeTreeCenterWithPath} />
@@ -51,6 +54,7 @@ export function Network() {
                         setSidebarAddNewUserOpenCallback={setSidebarOpen}
                         setParentNodeInfo={setParentNodeInfo}
                         rootNode={fetchedUserNetwork}
+                        rerenderNetworkFlag={rerenderNetworkChildrenFlag}
                     />)
                 }
             </div>

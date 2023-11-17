@@ -74,10 +74,8 @@ export async function addNewPackageUser (newUser: UserObject) {
         if (!response.ok) {
             throw new Error(`Authentication failed with status: ${response.status}`);
         }
-        const resp: any = await response.json()
-        console.log("create new user package response: ", resp);
+        const resp: any = await response;
         return resp;
-
     } catch (error) {
         console.error('Error authenticating:', error);
     }

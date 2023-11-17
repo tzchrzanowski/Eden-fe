@@ -9,9 +9,10 @@ interface NetworkTreeNodeProps {
     node: BinaryTreeNodeInterface,
     setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
     setParentNodeInfo: React.Dispatch<React.SetStateAction<ParentNodeInfo>>;
+    rerenderNetworkFlag: boolean;
 }
 
-export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCallback, setSidebarAddNewUserOpenCallback, setParentNodeInfo}: NetworkTreeNodeProps) {
+export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCallback, setSidebarAddNewUserOpenCallback, setParentNodeInfo, rerenderNetworkFlag}: NetworkTreeNodeProps) {
     const [isSliding, setIsSliding] = React.useState(false);
     const [isTopView, setIsTopView] = React.useState<Boolean>();
     const [slideClass, setSlideClass] = React.useState<string>("");
@@ -19,7 +20,6 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
 
     /* Constructor: */
     React.useEffect(()=>{
-
         /*
         * Set the flag that decides if button to add new packages should be disabled for given node:
         * */
@@ -43,8 +43,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
                 setIsSliding(true);
             }
         }
-    });
-
+    }, [rerenderNetworkFlag]);
 
     /*
     * TODO: node.path is not defined in NetworkBinaryTree or backend

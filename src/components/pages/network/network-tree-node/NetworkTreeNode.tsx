@@ -2,6 +2,7 @@ import React, {ReactNode} from "react";
 import {BinaryTreeNodeInterface, ParentNodeInfo} from "object-types/user-interfaces";
 import "./NetworkTreeNode.css";
 import {Arrow} from "../arrow/Arrow";
+import { clearPhotoUrl } from 'helpers/Helpers';
 
 interface NetworkTreeNodeProps {
     addPackageCallback: (nodePosition: string, level: number, path: string[])=> void,
@@ -126,7 +127,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
         <>
             <div className={`root-node-wrapper ${slideClass}`}>
                 <div className={"node-caption"}>{node.user.username}</div>
-                <img className={"node-caption"} src={node.user.profile_picture_url} height={"60px"} width={"auto"}/>
+                <img className={"node-caption"} src={clearPhotoUrl(node.user.profile_picture_url)} height={"60px"} width={"auto"}/>
                 <div className={"node-caption"}>Lv: {node.nodeLevel}</div>
                 <div className={"node-caption"}>{node.user.first_name}</div>
                 <button disabled={isDisabled} className={"node-caption"} onClick={()=>handleAddPackageButtonClick()}>Add package</button>

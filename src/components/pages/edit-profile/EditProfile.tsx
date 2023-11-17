@@ -3,6 +3,7 @@ import TopNavigation from "../../top-navigation/TopNavigation";
 import "./EditProfile.css";
 import UserContext, {useUser} from "../../../context/UserContext";
 import {updatePhotoUrlRequest} from "../../../data/patchRequests";
+import { clearPhotoUrl} from "helpers/Helpers";
 
 export const EditProfile: React.FC = () => {
     const [loading, setLoading] = React.useState<boolean>(false);
@@ -39,7 +40,7 @@ export const EditProfile: React.FC = () => {
     React.useEffect(()=> {
         const formattedPhotoUrl = contextValue?.state?.user?.user_photo || "";
         if (formattedPhotoUrl.length > 0) {
-            const cleanPhoto = formattedPhotoUrl.slice(1, -1);
+            const cleanPhoto = clearPhotoUrl(formattedPhotoUrl)
             setPhotoUrl(cleanPhoto);
         }
     },[]);

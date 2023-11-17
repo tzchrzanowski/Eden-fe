@@ -1,18 +1,18 @@
 import React, { useContext } from 'react';
 import './Network.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
-import BinaryTree, {TreeNodeInterface } from "./binary-tree/BinaryTree";
 import UserContext from 'context/UserContext';
-import {
-    singleNodeTreeCenterWithPath,
-    threeNodesThreeWithPath,
-    sevenNodesThreeWithPath,
-} from "./TreeMocksWithPath";
 import {getAllUsers, getUserNetwork} from "../../../data/getRequests";
 import {UserBinaryTree, ParentNodeInfo} from 'object-types/user-interfaces';
 import {BinaryTreeNodeInterface} from "object-types/user-interfaces";
 import NetworkBinaryTree from "./network-binary-tree/NetworkBinaryTree";
 import SidebarAddNewUser from "./sidebar-add-new-user/SidebarAddNewUser";
+import BinaryTree, {TreeNodeInterface } from "./binary-tree/BinaryTree";
+import {
+    singleNodeTreeCenterWithPath,
+    threeNodesThreeWithPath,
+    sevenNodesThreeWithPath,
+} from "./TreeMocksWithPath";
 
 export function Network() {
     const [fetchedUserNetwork, setFetchedUserNetwork] = React.useState<BinaryTreeNodeInterface | null>(null);
@@ -45,9 +45,13 @@ export function Network() {
                 rerenderCallback={setRerenderNetworkFlag}
             />
             <div className={"network-page-content"}>
-                <BinaryTree rootNodeWithPath={singleNodeTreeCenterWithPath} />
+                {/* --------------------------------------------------------------*/}
+                {/* mocked network trees below, not using backend database users: */}
+                {/*<BinaryTree rootNodeWithPath={singleNodeTreeCenterWithPath} />*/}
                 {/*<BinaryTree rootNodeWithPath={threeNodesThreeWithPath} />*/}
                 {/*<BinaryTree rootNodeWithPath={sevenNodesThreeWithPath} />*/}
+                {/* --------------------------------------------------------------*/}
+
                 {
                     (fetchedUserNetwork !== null) &&
                     (<NetworkBinaryTree

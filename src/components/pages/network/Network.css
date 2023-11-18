@@ -9,6 +9,12 @@
     margin-top: 10vh;
     background-color: black;
     color: white;
+    background-image: linear-gradient(
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)
+    ), url("../../../resources/images/bg-water-drops.jpeg");
+    background-size: cover;
+
 }
 
 .network-page-content {

@@ -29,24 +29,9 @@ const sideNavButtons: ButtonsCategory[] = [
         buttonId: "ways-to-earn-id",
     },
     {
-        iconSrc: networkIcon,
+        iconSrc: accountsIcon,
         caption: "Network",
         buttonId: "network-id",
-    },
-    {
-        iconSrc: addAccountIcon,
-        caption: "Add Account",
-        buttonId: "add-account-id",
-    },
-    {
-        iconSrc: addRetailerIcon,
-        caption: "Add Retailer",
-        buttonId: "add-retailer-id",
-    },
-    {
-        iconSrc: accountsIcon,
-        caption: "Retailers",
-        buttonId: "retailers-id",
     },
     {
         iconSrc: maintenanceIcon,

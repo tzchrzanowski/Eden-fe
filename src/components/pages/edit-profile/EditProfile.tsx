@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import TopNavigation from "../../top-navigation/TopNavigation";
 import "./EditProfile.css";
 import UserContext, {useUser} from "../../../context/UserContext";
-import {updatePhotoUrlRequest} from "../../../data/patchRequests";
+import {changeUserPasswordRequest, updatePhotoUrlRequest} from "../../../data/patchRequests";
 import { clearPhotoUrl} from "helpers/Helpers";
 
 export const EditProfile: React.FC = () => {
@@ -17,6 +17,7 @@ export const EditProfile: React.FC = () => {
     * */
     const [changePasswordFormData, setChangePasswordFormData] = React.useState({new_password: ''});
     const [newPassword, setNewPassword] = React.useState<string>("");
+    const [passwordChanged, setPasswordChanged] = React.useState<boolean>(false);
 
     const { state, dispatch } = useUser();
 
@@ -86,8 +87,6 @@ export const EditProfile: React.FC = () => {
                     });
                 }
             });
-
-
         } catch (error) {
             console.log("login error:", error);
         }
@@ -102,6 +101,13 @@ export const EditProfile: React.FC = () => {
         setLoading(true);
 
         try {
+            await changeUserPasswordRequest(userId, changePasswordFormData.new_password).then((res)=> {
+                if (res === 200) {
+                    setPasswordChanged(true);
+                } else {
+                   console.error("error response status: ", res);
+                }
+            });
         } catch (error) {
             console.log("login error:", error);
         }
@@ -166,6 +172,14 @@ export const EditProfile: React.FC = () => {
                 <span className='submit-btn-caption'>{loading ? 'Saving...' : 'Save'}</span>
             </button>
         </form>
+        <br/>
+        {
+            passwordChanged && (
+                <div className={"font-large"}>
+                    <span>Password changed successfully.</span>
+                </div>
+            )
+        }
     </div>);
 }
 

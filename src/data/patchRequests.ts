@@ -20,3 +20,24 @@ export async function updatePhotoUrlRequest(userId: String, newProfilePictureUrl
         console.error('Error on trying to change photo url request:', error);
     }
 }
+
+export async function changeUserPasswordRequest(userId: String, newPassword: String) {
+    const apiUrl = endPointUrl + '/api/public/users/' +userId + '/change-password';
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newPassword),
+        });
+        if (!response.ok) {
+            throw new Error(`Authentication failed with status: ${response.status}`);
+        }
+        const resp = await response.json();
+        return resp;
+    } catch (error) {
+        console.error('Error on trying to change password url request:', error);
+    }
+}

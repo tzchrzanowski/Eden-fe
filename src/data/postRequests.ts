@@ -80,3 +80,25 @@ export async function addNewPackageUser (newUser: UserObject) {
         console.error('Error authenticating:', error);
     }
 }
+
+export async function validateTokenRequest (token: string) {
+    const apiUrl = endPointUrl + '/api/public/validate';
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'AUTHORIZATION': token
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Authentication failed with status: ${response.status}`);
+        }
+        const resp: any = await response.json();
+        return resp;
+    } catch (error) {
+        console.error('Error authenticating:', error);
+    }
+}

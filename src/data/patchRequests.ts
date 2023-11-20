@@ -2,6 +2,7 @@ import {endPointUrl} from "./staticData";
 
 export async function updatePhotoUrlRequest(userId: String, newProfilePictureUrl: String) {
     const apiUrl = endPointUrl + '/api/public/users/' +userId + '/update-profile-picture';
+    const token = localStorage.getItem("token");
 
     try {
         const response = await fetch(apiUrl, {
@@ -9,7 +10,7 @@ export async function updatePhotoUrlRequest(userId: String, newProfilePictureUrl
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newProfilePictureUrl),
+            body: JSON.stringify({token, newProfilePictureUrl}),
         });
         if (!response.ok) {
             throw new Error(`Authentication failed with status: ${response.status}`);

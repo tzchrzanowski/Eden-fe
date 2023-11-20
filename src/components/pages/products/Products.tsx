@@ -60,7 +60,7 @@ export function Products() {
                     <video className={"video-player"} autoPlay muted loop controls>
                         <source src={productVideo} type={"video/mp4"}/>
                     </video>
-                    <img className={"image-box-product"} src={item2} alt="img" />
+                    <img className={"image-box-product-list"} src={item2} alt="img" />
                     <img className={"image-box-product"} src={boy1} alt="img" />
                     <img className={"image-box-product"} src={boy2} alt="img" />
                     <img className={"image-box-product"} src={boy3} alt="img" />

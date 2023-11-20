@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import TopNavigation from "../../top-navigation/TopNavigation";
 import "./EditProfile.css";
 import UserContext, {useUser} from "../../../context/UserContext";
-import {changeUserPasswordRequest, updatePhotoUrlRequest} from "../../../data/patchRequests";
+import {changeUserPasswordRequest, updatePhotoUrlRequest} from "data/patchRequests";
 import { clearPhotoUrl} from "helpers/Helpers";
 
 export const EditProfile: React.FC = () => {
@@ -99,7 +99,6 @@ export const EditProfile: React.FC = () => {
     const sendChangePasswordRequest = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-
         try {
             await changeUserPasswordRequest(userId, changePasswordFormData.new_password).then((res)=> {
                 if (res === 200) {
@@ -163,7 +162,7 @@ export const EditProfile: React.FC = () => {
                     className='input-box input-btn-caption'
                     type={"text"}
                     id={"pwd_id"}
-                    name={"pwd"}
+                    name={"new_password"}
                     placeholder={newPassword}
                     onChange={handleUpdatePasswordFormChange}
                 />

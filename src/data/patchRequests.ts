@@ -23,6 +23,7 @@ export async function updatePhotoUrlRequest(userId: String, newProfilePictureUrl
 
 export async function changeUserPasswordRequest(userId: String, newPassword: String) {
     const apiUrl = endPointUrl + '/api/public/users/' +userId + '/change-password';
+    const token = localStorage.getItem("token");
 
     try {
         const response = await fetch(apiUrl, {
@@ -30,7 +31,7 @@ export async function changeUserPasswordRequest(userId: String, newPassword: Str
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newPassword),
+            body: JSON.stringify({newPassword, token}),
         });
         if (!response.ok) {
             throw new Error(`Authentication failed with status: ${response.status}`);

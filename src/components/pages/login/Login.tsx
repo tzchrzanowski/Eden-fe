@@ -7,6 +7,7 @@ import {loginUser} from "data/postRequests";
 import Logo from "resources/images/eden-crest-transparent-white.png"
 import {useUser} from 'context/UserContext';
 import {useNavigate} from 'react-router-dom';
+import LogoGold from "resources/images/logo_gold.jpg";
 
 export function Login() {
     /* ------------------------------------------------
@@ -102,7 +103,7 @@ export function Login() {
                 </div>
                 <div className={"right-container-wrapper"}>
                     <div className={'right-container'}>
-                        <img src={Logo} alt={"logo"} width={"250px"} />
+                        <img src={LogoGold} alt={"logo"} width={"250px"} />
                         <p className='welcome-design'>Welcome! please login!</p>
                         <form className='login-style' onSubmit={sendLoginRequest}>
                             <div className='input-wrapper'>

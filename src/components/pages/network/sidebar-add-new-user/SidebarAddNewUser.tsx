@@ -12,12 +12,14 @@ interface SidebarAddNewUserProps {
 }
 
 export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, parentNodeInfo, rerenderCallback}: SidebarAddNewUserProps) {
+    const token = localStorage.getItem("token");
     const [formData, setFormData] = React.useState<UserObject>({
         username: '',
         email: '',
         first_name: '',
         last_name: '',
         parent: parentNodeInfo.parentId,
+        token: token || '',
     });
     const [successfullyAddedUser, setSuccessfullyAddedUser] = React.useState<boolean>(false);
     const [unsuccessfulAddUserCall, setUnsuccessfulAddUserCall] = React.useState<boolean>(false);

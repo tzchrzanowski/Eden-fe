@@ -9,3 +9,8 @@ export const clearPhotoUrl = (url: string): string => {
     }
     return "";
 }
+
+export const getToken = (): string => {
+    const token: string = localStorage.getItem("token") || '';
+    return token;
+}

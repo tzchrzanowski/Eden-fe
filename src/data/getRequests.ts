@@ -1,25 +1,30 @@
 import {endPointUrl} from "./staticData";
+import {getToken} from "../helpers/Helpers";
 
 export async function getAllUsers() {
     const apiUrl = endPointUrl + '/api/public/users';
+    const token = getToken();
 
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-        });
+    if (token.length > 0) {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token
+                },
+                credentials: 'include',
+            });
 
-        if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`Request failed with status: ${response.status}`);
+            }
+
+            const users = await response.json();
+            return users;
+        } catch (error) {
+            console.error('Error fetching users:', error);
         }
-
-        const users = await response.json();
-        return users;
-    } catch (error) {
-        console.error('Error fetching users:', error);
     }
 }
 

@@ -3,17 +3,18 @@ import {BinaryTreeNodeInterface, ParentNodeInfo} from "object-types/user-interfa
 import "./NetworkTreeNode.css";
 import {Arrow} from "../arrow/Arrow";
 import { clearPhotoUrl } from 'helpers/Helpers';
+import networkIcon from "resources/side-nav-icons/network-icon.svg";
 
 interface NetworkTreeNodeProps {
-    addPackageCallback: (nodePosition: string, level: number, path: string[])=> void,
     renderNodeRecursiveCallback: (node: BinaryTreeNodeInterface) => ReactNode,
     node: BinaryTreeNodeInterface,
     setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
     setParentNodeInfo: React.Dispatch<React.SetStateAction<ParentNodeInfo>>;
     rerenderNetworkFlag: boolean;
+    subTreeDisplayCallback: (id: number) => void;
 }
 
-export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCallback, setSidebarAddNewUserOpenCallback, setParentNodeInfo, rerenderNetworkFlag}: NetworkTreeNodeProps) {
+export function NetworkTreeNode({node, renderNodeRecursiveCallback, setSidebarAddNewUserOpenCallback, setParentNodeInfo, rerenderNetworkFlag, subTreeDisplayCallback}: NetworkTreeNodeProps) {
     const [isSliding, setIsSliding] = React.useState(false);
     const [isTopView, setIsTopView] = React.useState<Boolean>();
     const [slideClass, setSlideClass] = React.useState<string>("");
@@ -46,27 +47,6 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
         }
     }, [rerenderNetworkFlag]);
 
-    /*
-    * TODO: node.path is not defined in NetworkBinaryTree or backend
-    * */
-    const addTopSlidingNodes = () => {
-        setIsSliding(!isSliding);
-        setTimeout(() => {
-            if (node.nodePosition && node.nodeLevel && node.path) {
-                addPackageCallback(node.nodePosition, node.nodeLevel, node.path);
-            }
-        }, 500);
-    }
-
-    /*
-    * TODO: node.path is not defined in NetworkBinaryTree or backend
-    * */
-    const addBottomNodes = () => {
-        if (node && node.nodePosition && node.nodeLevel && node.path) {
-            addPackageCallback(node.nodePosition, node.nodeLevel, node.path);
-        }
-    }
-
     const getSlidingClass = (): string => {
         if(isTopView) {
             if (isSliding == true && node.nodePosition == 'right') {
@@ -80,15 +60,6 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
     };
 
     const handleAddPackageButtonClick = (): void => {
-        /*
-        * TODO: remove, Sliding is not needed for real adding new user / new package
-        * */
-        // if (isTopView) {
-        //     addTopSlidingNodes();
-        // } else {
-        //     addBottomNodes();
-        // }
-
         if (node.user.left_child < 0 || node.user.right_child < 0) {
             /*
             * Set parent node id that is used by
@@ -101,23 +72,21 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
 
     const getSingleChildNodeClass = (): string => {
         if (node.right === null ) {
-            if(node.nodeLevel) {
-                const childNodeLevel = node.nodeLevel+1;
-                switch (childNodeLevel) {
-                    case 1:
-                        return "only-left-child-top-tree";
-                        break;
-                    case 2:
-                        return "only-left-child-middle-tree";
-                        break;
-                    case 3:
-                        return "only-left-child-bottom-tree";
-                        break;
-                    default:
-                        return "";
-                        break;
+            const childNodeLevel = node.left?.nodeLevel;
+            switch (childNodeLevel) {
+                case 1:
+                    return "only-left-child-top-tree";
+                    break;
+                case 2:
+                    return "only-left-child-middle-tree";
+                    break;
+                case 3:
+                    return "only-left-child-bottom-tree";
+                    break;
+                default:
+                    return "";
+                    break;
                 }
-            }
 
         }
         return "";
@@ -126,7 +95,12 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, addPackageCa
     return (
         <>
             <div className={`root-node-wrapper ${slideClass}`}>
-                <div className={"node-caption"}>{node.user.username}</div>
+                <div className={"fb fb-row align-items-center "}>
+                    <div className={"node-caption"}>{node.user.username}</div>
+                    <div className={"fb align-items-center pointer ml-1 pl-1"} onClick={()=>subTreeDisplayCallback(node.user.id)}>
+                        <img className={"w-3 onHoverButton"} src={networkIcon} alt={"network"} />
+                    </div>
+                </div>
                 <img className={"node-caption"} src={clearPhotoUrl(node.user.profile_picture_url)} height={"60px"} width={"auto"}/>
                 <div className={"node-caption"}>Lv: {node.nodeLevel}</div>
                 <div className={"node-caption"}>{node.user.first_name}</div>

@@ -2,23 +2,18 @@ import React, { useContext } from 'react';
 import './Network.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 import UserContext from 'context/UserContext';
-import {getAllUsers, getUserNetwork} from "../../../data/getRequests";
-import {UserBinaryTree, ParentNodeInfo} from 'object-types/user-interfaces';
+import {getUserNetwork} from "../../../data/getRequests";
+import {ParentNodeInfo} from 'object-types/user-interfaces';
 import {BinaryTreeNodeInterface} from "object-types/user-interfaces";
 import NetworkBinaryTree from "./network-binary-tree/NetworkBinaryTree";
 import SidebarAddNewUser from "./sidebar-add-new-user/SidebarAddNewUser";
-import BinaryTree, {TreeNodeInterface } from "./binary-tree/BinaryTree";
-import {
-    singleNodeTreeCenterWithPath,
-    threeNodesThreeWithPath,
-    sevenNodesThreeWithPath,
-} from "./TreeMocksWithPath";
 
 export function Network() {
     const [fetchedUserNetwork, setFetchedUserNetwork] = React.useState<BinaryTreeNodeInterface | null>(null);
     const contextValue = useContext(UserContext);
     const [rerenderNetworkFlag, setRerenderNetworkFlag] = React.useState<boolean>(false);
     const [rerenderNetworkChildrenFlag, setRerenderNetworkChildrenFlag] = React.useState<boolean>(false);
+    const [listOfSubNetworks, setListOfSubNetworks] = React.useState<BinaryTreeNodeInterface[]>([]);
     /*
     * Sidebar related states:
     * */
@@ -36,7 +31,21 @@ export function Network() {
         setRerenderNetworkChildrenFlag((prevState:boolean) => !prevState);
     }
 
-    return (
+    const displaySubNetworkTree = async (subNodeId: number) => {
+        const fetchedUsers = await getUserNetwork(subNodeId);
+        const subTreesListNewList  = [...listOfSubNetworks, fetchedUsers];
+        setListOfSubNetworks(subTreesListNewList);
+        setRerenderNetworkChildrenFlag((prevState:boolean) => !prevState);
+    }
+
+    const handleDisplaySubNetworkButton = (subNodeId: number) => {
+        displaySubNetworkTree(subNodeId);
+    }
+
+    React.useEffect(()=> {
+    }, [listOfSubNetworks]);
+
+    return (<>
         <div className={"networkWrapper"}>
             <TopNavigation />
             <SidebarAddNewUser
@@ -46,16 +55,10 @@ export function Network() {
                 rerenderCallback={setRerenderNetworkFlag}
             />
             <div className={"network-page-content"}>
-                {/* --------------------------------------------------------------*/}
-                {/* mocked network trees below, not using backend database users: */}
-                {/*<BinaryTree rootNodeWithPath={singleNodeTreeCenterWithPath} />*/}
-                {/*<BinaryTree rootNodeWithPath={threeNodesThreeWithPath} />*/}
-                {/*<BinaryTree rootNodeWithPath={sevenNodesThreeWithPath} />*/}
-                {/* --------------------------------------------------------------*/}
-
                 {
                     (fetchedUserNetwork !== null) &&
                     (<NetworkBinaryTree
+                        subTreeDisplayCallback={handleDisplaySubNetworkButton}
                         setSidebarAddNewUserOpenCallback={setSidebarOpen}
                         setParentNodeInfo={setParentNodeInfo}
                         rootNode={fetchedUserNetwork}
@@ -64,6 +67,37 @@ export function Network() {
                 }
             </div>
         </div>
-    )
+
+        {/* list of sub network-trees below: */}
+        {
+            (listOfSubNetworks.length > 0) &&
+            listOfSubNetworks.map((tree, id) => {
+                return (
+                    <div className={"networkWrapper"} key={id}>
+                        <TopNavigation />
+                        <SidebarAddNewUser
+                            isOpen={isSidebarOpen}
+                            setSidebarAddNewUserOpenCallback={setSidebarOpen}
+                            parentNodeInfo={parentNodeInfo}
+                            rerenderCallback={setRerenderNetworkFlag}
+                        />
+                        <div className={"network-page-content"}>
+                            {
+                                (tree !== null) &&
+                                (<NetworkBinaryTree
+                                    subTreeDisplayCallback={handleDisplaySubNetworkButton}
+                                    setSidebarAddNewUserOpenCallback={setSidebarOpen}
+                                    setParentNodeInfo={setParentNodeInfo}
+                                    rootNode={tree}
+                                    rerenderNetworkFlag={rerenderNetworkChildrenFlag}
+                                />)
+                            }
+                        </div>
+                    </div>
+                );
+            })
+        }
+
+    </>);
 }
 export default Network;

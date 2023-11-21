@@ -25,6 +25,10 @@
   display: flex;
 }
 
+.fb-row {
+  flex-direction: row;
+}
+
 /* margins: */
 .mt-1 {
   margin-top: 10px;
@@ -38,10 +42,43 @@
   margin-left: 10px;
 }
 
+.ml-2 {
+  margin-left: 15px;
+}
 .mr-1 {
   margin-right: 10px;
 }
 
 .font-large {
   font-size: large;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.w-1 {
+  width: 10px;
+}
+
+.w-2 {
+  width: 15px;
+}
+
+.w-3 {
+  width: 20px;
+}
+
+.w-4 {
+  width: 25px;
+}
+
+.w-5 {
+  width: 30px;
+}
+
+
+/* paddings: */
+.pl-1 {
+  padding-left: 5px;
 }

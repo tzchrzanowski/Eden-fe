@@ -2,8 +2,6 @@ import React, {useContext} from 'react';
 import './SideNavigation.css';
 import SideNavCategory from "./side-nav-category/SideNavCategory";
 import accountsIcon from "resources/side-nav-icons/accounts-icon.svg";
-import addAccountIcon from "resources/side-nav-icons/add-account-icon.svg";
-import addRetailerIcon from "resources/side-nav-icons/add-retailer-icon.svg";
 import logoutIcon from "resources/side-nav-icons/logout-icon.svg";
 import maintenanceIcon from "resources/side-nav-icons/maintenance-icon.svg";
 import networkIcon from "resources/side-nav-icons/network-icon.svg";

@@ -8,6 +8,7 @@ interface NetworkBinaryTreeProps {
     setSidebarAddNewUserOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
     setParentNodeInfo: React.Dispatch<React.SetStateAction<ParentNodeInfo>>;
     rerenderNetworkFlag: boolean;
+    subTreeDisplayCallback: (id: number) => void;
 }
 
 function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: number, position: string, path: string[]): BinaryTreeNodeInterface | null{
@@ -34,7 +35,7 @@ function assignNodeAttributes(node: BinaryTreeNodeInterface | null, level: numbe
     return node;
 }
 
-export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, setParentNodeInfo, rerenderNetworkFlag} : NetworkBinaryTreeProps) {
+export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, setParentNodeInfo, rerenderNetworkFlag, subTreeDisplayCallback} : NetworkBinaryTreeProps) {
     const [treeWithExtraAttributes, setTreeWithExtraAttributes] = React.useState<BinaryTreeNodeInterface | null>(null);
 
     /*
@@ -44,11 +45,6 @@ export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, s
     React.useEffect(()=>{
         setTreeWithExtraAttributes(assignNodeAttributes(rootNode, 0, "root", []))
     }, [treeWithExtraAttributes, rerenderNetworkFlag]);
-
-    // /*
-    // * Rerender whenever external trigger to rerender tree was triggered:
-    // * */
-    // React.useEffect(()=>{}, [rerenderTree]);
 
     /*
     * Checking which class names should given node have based on its nodeLevel
@@ -70,16 +66,6 @@ export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, s
         }
     }
 
-    /*
-    * Add new node package.
-    * Should send api request to add new package
-    * */
-    const addPackage = (nodePosition: string, nodeLevel: number, nodePath: string[])=> {
-        // TODO: sends api post request to generate new package in that place
-        console.log("node path: ", nodePath);
-        console.log("nodePosition: ", nodePosition , " nodeLevel: ", nodeLevel);
-    };
-
      /*
      * Renders root node and then recursively renders each children node from tree
      * includes node path parameter:
@@ -96,10 +82,10 @@ export function NetworkBinaryTree({rootNode, setSidebarAddNewUserOpenCallback, s
                 <NetworkTreeNode
                     setSidebarAddNewUserOpenCallback={setSidebarAddNewUserOpenCallback}
                     setParentNodeInfo={setParentNodeInfo}
-                    addPackageCallback={addPackage}
                     node={node}
                     renderNodeRecursiveCallback={renderNode}
                     rerenderNetworkFlag={rerenderNetworkFlag}
+                    subTreeDisplayCallback={subTreeDisplayCallback}
                 />
             </div>
         )

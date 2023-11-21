@@ -65,3 +65,8 @@
 .right-child-node {
 
 }
+
+.onHoverButton:hover {
+    border: solid white 2px;
+    border-radius: 50%;
+}

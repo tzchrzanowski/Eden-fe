@@ -1,10 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import './Login.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
-import { getAllUsers } from 'data/getRequests';
 import VideoSpray from "resources/videos/eden-spray.mp4";
 import {loginUser} from "data/postRequests";
-import Logo from "resources/images/eden-crest-transparent-white.png"
 import {useUser} from 'context/UserContext';
 import {useNavigate} from 'react-router-dom';
 import LogoGold from "resources/images/logo_gold.jpg";
@@ -16,30 +14,10 @@ export function Login() {
     const navigate = useNavigate();
     const { state, dispatch } = useUser();
 
-    const [users, setUsers] = React.useState<any>();
-    const [dataFetched, setDataFetched] = React.useState<boolean>(false);
     const [loginFormData, setLoginFormData] = React.useState({username: '', password: ''});
     const [loading, setLoading] = React.useState<boolean>(false);
     const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
     const [attemptedLogin, setAttemptedLogin] = React.useState<boolean>(false);
-    /*
-    * On initialization:
-    * Get all users from endpoint that does not require authentication for testing purpose
-    * and store users in local state variable
-    */
-    React.useEffect(()=> {
-        async function fetchData() {
-            const fetchedUsers = await getAllUsers();
-            setUsers(fetchedUsers);
-            setDataFetched(true);
-        }
-        fetchData();
-    }, []);
-
-    React.useEffect(()=>{
-        console.log("users fetched... refresh, users: ", users);
-    }, [dataFetched]);
-
 
     /*
     * update state with login credentials on user input:

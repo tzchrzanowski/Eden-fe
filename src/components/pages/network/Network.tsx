@@ -26,14 +26,15 @@ export function Network() {
     const [parentNodeInfo, setParentNodeInfo] = React.useState<ParentNodeInfo>({parentId: -1, parentUsername: "placeholder"});
 
     React.useEffect(()=>{
-        async function fetchData() {
-            const userId = Number(contextValue?.state?.user?.user_id) || 0;
-            const fetchedUsers = await getUserNetwork(userId);
-            setFetchedUserNetwork(fetchedUsers)
-            setRerenderNetworkChildrenFlag((prevState:boolean) => !prevState);
-        }
         fetchData();
-    }, [rerenderNetworkFlag]);
+    }, [rerenderNetworkFlag, contextValue]);
+
+    const fetchData = async () => {
+        const userId = Number(contextValue?.state?.user?.user_id) || 0;
+        const fetchedUsers = await getUserNetwork(userId);
+        setFetchedUserNetwork(fetchedUsers)
+        setRerenderNetworkChildrenFlag((prevState:boolean) => !prevState);
+    }
 
     return (
         <div className={"networkWrapper"}>

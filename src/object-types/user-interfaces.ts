@@ -66,5 +66,4 @@ export interface UserObject {
     first_name: string,
     last_name: string,
     parent: number,
-    token: string
 }

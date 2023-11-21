@@ -1,5 +1,6 @@
 import {endPointUrl} from "./staticData";
 import {UserObject} from "../object-types/user-interfaces";
+import {getToken} from "../helpers/Helpers";
 
 interface LoginResponse {
     status: string;
@@ -61,24 +62,28 @@ export async function logoutUser() {
 
 export async function addNewPackageUser (newUser: UserObject) {
     const apiUrl = endPointUrl + '/api/public/users/add-new-user';
+    const token = getToken();
+    if (token.length > 0) {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token
+                },
+                body: JSON.stringify(newUser),
+            });
 
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newUser),
-        });
-
-        if (!response.ok) {
-            throw new Error(`Authentication failed with status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`Authentication failed with status: ${response.status}`);
+            }
+            const resp: any = await response;
+            return resp;
+        } catch (error) {
+            console.error('Error authenticating:', error);
         }
-        const resp: any = await response;
-        return resp;
-    } catch (error) {
-        console.error('Error authenticating:', error);
     }
+    console.error("token is empty");
 }
 
 export async function validateTokenRequest (token: string) {

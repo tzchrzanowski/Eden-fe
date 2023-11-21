@@ -18,8 +18,7 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
         email: '',
         first_name: '',
         last_name: '',
-        parent: parentNodeInfo.parentId,
-        token: token || '',
+        parent: parentNodeInfo.parentId
     });
     const [successfullyAddedUser, setSuccessfullyAddedUser] = React.useState<boolean>(false);
     const [unsuccessfulAddUserCall, setUnsuccessfulAddUserCall] = React.useState<boolean>(false);

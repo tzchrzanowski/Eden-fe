@@ -26,24 +26,28 @@ export async function getAllUsers() {
 
 export async function getUserNetwork(userId: number) {
     const apiUrl = endPointUrl + '/api/public/users/' +userId + '/get-network';
+    const token = localStorage.getItem("token");
 
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-        });
+    if (typeof token == 'string') {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token
+                },
+                credentials: 'include',
+            });
 
-        if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`Request failed with status: ${response.status}`);
+            }
+
+            const users = await response.json();
+            return users;
+        } catch (error) {
+            console.error('Error fetching users:', error);
         }
-
-        const users = await response.json();
-        return users;
-    } catch (error) {
-        console.error('Error fetching users:', error);
     }
 }
 

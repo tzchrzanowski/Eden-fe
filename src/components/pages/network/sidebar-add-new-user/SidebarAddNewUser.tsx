@@ -18,10 +18,12 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
         email: '',
         first_name: '',
         last_name: '',
-        parent: parentNodeInfo.parentId
+        parent: parentNodeInfo.parentId,
+        package: ''
     });
     const [successfullyAddedUser, setSuccessfullyAddedUser] = React.useState<boolean>(false);
     const [unsuccessfulAddUserCall, setUnsuccessfulAddUserCall] = React.useState<boolean>(false);
+    const [selectedPackage, setSelectedPackage] = React.useState<string>('');
 
     /*
     * Update clicked parent node id whenever it changes:
@@ -49,12 +51,15 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
     };
 
     /*
-    * TODO: add endpoint request
+    * Sends add new user request
     * */
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await addNewPackageUser(formData);
+            const response = await addNewPackageUser({
+                ...formData,
+                package: selectedPackage,
+            });
             if (response) {
                 if (response.status === 200) {
                     setSuccessfullyAddedUser(true);
@@ -80,6 +85,21 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
                     <label className={"add-user-form-item"}>
                         <div className={"form-item-caption"}>Username:</div>
                         <input required={true} className={"form-text-input"} type="text" name="username" value={formData.username} onChange={handleChange} />
+                    </label>
+                    <label className={"add-user-form-item"}>
+                        <div className={"form-item-caption"}>Select Package:</div>
+                        <select
+                            required={true}
+                            className={"form-text-input"}
+                            name="package"
+                            value={selectedPackage}
+                            onChange={(e) => setSelectedPackage(e.target.value)}
+                        >
+                            <option value="">Select a package</option>
+                            <option value="Silver">Silver</option>
+                            <option value="Gold">Gold</option>
+                            <option value="Diamond">Diamond</option>
+                        </select>
                     </label>
                     <label className={"add-user-form-item"}>
                         <div className={"form-item-caption"}>Email:</div>

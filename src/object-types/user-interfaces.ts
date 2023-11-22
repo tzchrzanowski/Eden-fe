@@ -1,27 +1,12 @@
 
 /*
-* Used for mocked-up binary tree
+* Used for context
 * */
 export interface User {
     role_id: string;
     username: string;
     user_photo: string;
     user_id: string;
-}
-
-/*
-* Used for mocked-up binary tree
-* */
-export interface UserBinaryTree {
-    email: string,
-    first_name: string,
-    id: number,
-    last_name: string,
-    left_child: UserBinaryTree | null,
-    right_child: UserBinaryTree | null,
-    parent: number,
-    profile_picture_url: string,
-    username: string,
 }
 
 /*
@@ -50,6 +35,8 @@ export interface UserInterface {
     parent: number;
     profile_picture_url: string;
     username: string;
+    points: number;
+    packageType: string;
 }
 
 export interface ParentNodeInfo {

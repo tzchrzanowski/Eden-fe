@@ -102,7 +102,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, setSidebarAd
                     </div>
                 </div>
                 <img className={"node-caption"} src={clearPhotoUrl(node.user.profile_picture_url)} height={"60px"} width={"auto"}/>
-                <div className={"node-caption"}>Lv: {node.nodeLevel}</div>
+                <div className={"node-caption"}>Package: {node.user.packageType}</div>
                 <div className={"node-caption"}>{node.user.first_name}</div>
                 <button disabled={isDisabled} className={"node-caption"} onClick={()=>handleAddPackageButtonClick()}>Add package</button>
             </div>

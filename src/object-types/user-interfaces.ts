@@ -37,6 +37,7 @@ export interface UserInterface {
     username: string;
     points: number;
     packageType: string;
+    money_amount: number;
 }
 
 export interface ParentNodeInfo {

@@ -2,7 +2,7 @@ import {endPointUrl} from "./staticData";
 import {getToken} from "../helpers/Helpers";
 
 export async function getAllUsers() {
-    const apiUrl = endPointUrl + '/api/public/users';
+    const apiUrl = endPointUrl + '/api/public/users/get-all-users';
     const token = getToken();
 
     if (token.length > 0) {

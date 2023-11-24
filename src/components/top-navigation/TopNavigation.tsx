@@ -66,7 +66,7 @@ export function TopNavigation() {
             ) {
                 const currentUserRoleId = contextValue.state.user.role_id;
                 // @ts-ignore
-                return (currentUserRoleId === '1' || currentUserRoleId === '2' || currentUserRoleId === 1 || currentUserRoleId === 2) ?? true;
+                return ( currentUserRoleId === '1' || currentUserRoleId === '2' || currentUserRoleId === '3' || currentUserRoleId === 1 || currentUserRoleId === 2 || currentUserRoleId === 3 ) ?? true;
             } else {
                 return false;
             }
@@ -80,9 +80,6 @@ export function TopNavigation() {
     const handleLeftSideMenu = ()=> {
         setIsleLeftSideMenuVisible(prevState => !prevState);
     }
-
-
-
 
     return (
         <>

@@ -28,6 +28,17 @@ export function Login() {
     }
 
     /*
+    * Redirect to different page, based on user type, 3 means accountant, 1-2 means user
+    * */
+    const redirectToPage = (roleId: string) => {
+        if (roleId === '3') {
+            navigate('/');
+        } else {
+            navigate('/network-chart');
+        }
+    }
+
+    /*
     * Login and Store authentication token into local storage:
     * */
     const sendLoginRequest = async (e: React.FormEvent) => {
@@ -54,9 +65,9 @@ export function Login() {
                         });
                     }
                     /*
-                    * redirect to chart tree:
+                    * redirect after successful login:
                     * */
-                    navigate('/network-chart');
+                    redirectToPage(response.role_id);
                 } else if (response.status === "401") {
                     setLoggedIn(false);
                 }

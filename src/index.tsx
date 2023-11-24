@@ -12,6 +12,7 @@ import Login from "./components/pages/login/Login";
 import { UserProvider } from './context/UserContext'
 import EditProfile from './components/pages/edit-profile/EditProfile';
 import WaysToEarn from "./components/pages/ways-to-earn/WaysToEarn";
+import UsersList from "./components/pages/users-list/UsersList";
 
 const router = createBrowserRouter([
         {
@@ -45,7 +46,11 @@ const router = createBrowserRouter([
         {
             path: "/ways-to-earn",
             element: <WaysToEarn />,
-        }
+        },
+        {
+            path: "/users-list",
+            element: <UsersList />,
+        },
     ]
 );
 

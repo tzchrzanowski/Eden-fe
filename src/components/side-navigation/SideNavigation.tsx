@@ -32,6 +32,11 @@ const sideNavButtons: ButtonsCategory[] = [
         buttonId: "network-id",
     },
     {
+        iconSrc: accountsIcon,
+        caption: "Users List",
+        buttonId: "users-list-id",
+    },
+    {
         iconSrc: maintenanceIcon,
         caption: "Edit Profile",
         buttonId: "edit-profile-id",
@@ -70,6 +75,8 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
             case "network-id":
                 navigate("/network-chart");
                 break;
+            case "users-list-id":
+                navigate("/users-list");
         }
     }
 
@@ -97,6 +104,17 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
         }
     };
 
+    const getUsersRoleId = (): string => {
+        if (contextValue &&
+            contextValue.state &&
+            contextValue.state.user &&
+            contextValue.state.user.role_id
+        ) {
+            return contextValue.state.user.role_id;
+        }
+        return "";
+    }
+
     return (
       <>
           <div
@@ -104,7 +122,20 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
               onMouseLeave={()=> {closeSideNavigation(false)}}
           >
               {sideNavButtons && sideNavButtons.map((category, id) => {
-                  return <SideNavCategory key={id} onClickCallback={onSideNavClickEvent} category={category} />
+                  switch (category.buttonId) {
+                      case "network-id":
+                          if (getUsersRoleId() == "1" || getUsersRoleId() == "2") {
+                              return <SideNavCategory key={id} onClickCallback={onSideNavClickEvent} category={category} />
+                          }
+                          break;
+                      case "users-list-id":
+                          if (getUsersRoleId() == "1" || getUsersRoleId() == "3") {
+                              return <SideNavCategory key={id} onClickCallback={onSideNavClickEvent} category={category} />
+                          }
+                          break;
+                      default:
+                          return <SideNavCategory key={id} onClickCallback={onSideNavClickEvent} category={category} />
+                  }
               })}
           </div>
       </>

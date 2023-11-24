@@ -1,3 +1,5 @@
+import {useContext} from "react";
+import UserContext from "../context/UserContext";
 
 export const clearPhotoUrl = (url: string): string => {
     if (url) {

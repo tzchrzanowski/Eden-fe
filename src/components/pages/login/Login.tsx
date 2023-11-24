@@ -32,7 +32,7 @@ export function Login() {
     * */
     const redirectToPage = (roleId: string) => {
         if (roleId === '3') {
-            navigate('/');
+            navigate('/users-list');
         } else {
             navigate('/network-chart');
         }

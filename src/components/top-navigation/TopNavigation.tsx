@@ -57,21 +57,29 @@ export function TopNavigation() {
     * Display field if is public by default,
     * If field is not public, should be displayed only if user_id type is 1 or 2
     * */
-    const canDisplay = (isPublic: boolean): boolean => {
+    const canDisplay = (isPublic: boolean, caption: string): boolean => {
         if (isPublic == false) {
-            if (contextValue &&
-                contextValue.state &&
-                contextValue.state.user &&
-                contextValue.state.user.role_id
-            ) {
-                const currentUserRoleId = contextValue.state.user.role_id;
-                // @ts-ignore
-                return ( currentUserRoleId === '1' || currentUserRoleId === '2' || currentUserRoleId === '3' || currentUserRoleId === 1 || currentUserRoleId === 2 || currentUserRoleId === 3 ) ?? true;
-            } else {
-                return false;
+            return isUserLoggedIn();
+        } else {
+            if (caption === "Login") {
+                return !isUserLoggedIn();
             }
         }
         return true;
+    }
+
+    const isUserLoggedIn = (): boolean => {
+        if (contextValue &&
+            contextValue.state &&
+            contextValue.state.user &&
+            contextValue.state.user.role_id
+        ) {
+            const currentUserRoleId = contextValue.state.user.role_id;
+            // @ts-ignore
+            return ( currentUserRoleId === '1' || currentUserRoleId === '2' || currentUserRoleId === '3' || currentUserRoleId === 1 || currentUserRoleId === 2 || currentUserRoleId === 3 ) ?? true;
+        } else {
+            return false;
+        }
     }
 
     /*
@@ -92,7 +100,7 @@ export function TopNavigation() {
             <div className={isleLeftSideMenuVisible ? "left-side-menu-container left-side-menu-open" : "left-side-menu-container"}>
                 {buttons && buttons.map((button, id) => {
                     const leftId = id+1;
-                    if (canDisplay(button.public)) {
+                    if (canDisplay(button.public, button.caption)) {
                         return <Link className={"left-side-link"} to={button.route} key={leftId}>
                             <div
                                 className={(hoveredButtons[leftId] ? "isHovered button-box" : "button-box")}
@@ -115,7 +123,7 @@ export function TopNavigation() {
                     </div>
                     {/* ------------------ top nav meno buttons : ------------------------------------------*/}
                     {buttons && buttons.map((button, id) => {
-                        if (canDisplay(button.public)) {
+                        if (canDisplay(button.public, button.caption)) {
                             return <Link className={"top-nav-button"} to={button.route} key={id}>
                                 <div
                                     className={(hoveredButtons[id] ? "isHovered button-box button-box-top" : "button-box button-box-top")}
@@ -131,7 +139,7 @@ export function TopNavigation() {
                 </div>
                 <div className={"menu-container"}>
                     {
-                        canDisplay(false) &&
+                        canDisplay(false, "") &&
                         (<div
                             className={"button-box button-box-top"}
                             onClick={()=> setSideNavOpen((prevState) => !prevState)}

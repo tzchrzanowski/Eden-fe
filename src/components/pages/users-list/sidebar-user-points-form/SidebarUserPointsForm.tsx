@@ -6,10 +6,11 @@ import {addPointsToUser} from "data/patchRequests";
 interface SidebarUserPointsFormProps {
     user: UserNodeSimpleInfo;
     isOpen: boolean;
+    rerenderListCallback: React.Dispatch<React.SetStateAction<boolean>>;
     setSidebarPointsFormOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCallback}: SidebarUserPointsFormProps) {
+export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCallback, rerenderListCallback}: SidebarUserPointsFormProps) {
     const [pointsValue, setPointsValue] = React.useState<number>(0);
     const [successfullyAddedPoints, setSuccessfullyAddedPoints] = React.useState<boolean>(false);
     const [unsuccessfullyAddedPoints, setUnsuccessfullyAddedPoints] = React.useState<boolean>(false);
@@ -34,6 +35,7 @@ export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCal
                 if (response) {
                     if (response === 200) {
                         setSuccessfullyAddedPoints(true);
+                        rerenderListCallback(prevState=> !prevState);
                     } else {
                         setUnsuccessfullyAddedPoints(true);
                     }

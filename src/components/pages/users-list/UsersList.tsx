@@ -2,7 +2,6 @@ import './UsersList.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
 import React, {useContext} from "react";
 import {UserInterface, UserNodeSimpleInfo} from "object-types/user-interfaces";
-import UserContext from "context/UserContext";
 import {getAllUsers} from "data/getRequests";
 import SidebarUserPointsForm from "./sidebar-user-points-form/SidebarUserPointsForm";
 import addPointsIcon from "resources/side-nav-icons/add-points-icon.svg";
@@ -22,9 +21,11 @@ export function UsersList() {
     const [fetchedAllUsers, setFetchedAllUsers] = React.useState<UserInterface[] | null>(null);
     const [isSidebarAddPointsOpen, setSidebarAddPointsOpen] = React.useState(false);
     const [selectedUser, setSelectedUser] = React.useState<UserNodeSimpleInfo>(initialEmptyUser);
+    const [rerender, setRerender] = React.useState<boolean>(false);
+
     React.useEffect(()=>{
         fetchData();
-    }, []);
+    }, [rerender]);
 
     const handleRowClick = (user: UserInterface): void => {
         setSelectedUser({
@@ -52,6 +53,7 @@ export function UsersList() {
                 user={selectedUser}
                 isOpen={isSidebarAddPointsOpen}
                 setSidebarPointsFormOpenCallback={setSidebarAddPointsOpen}
+                rerenderListCallback={setRerender}
             />
             <div className={"users-list-page-content"}>
                 <table className={"mt-5"} style={{ borderCollapse: 'collapse', width: '100%'}}>

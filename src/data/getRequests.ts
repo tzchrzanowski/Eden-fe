@@ -21,6 +21,9 @@ export async function getAllUsers() {
             }
 
             const users = await response.json();
+            console.log("jsonfied users", users);
+            // const allUsersExceptAccountants = users.filter((user: any) => user.role_id !== 3);
+            // return allUsersExceptAccountants;
             return users;
         } catch (error) {
             console.error('Error fetching users:', error);

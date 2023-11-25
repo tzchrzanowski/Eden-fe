@@ -45,6 +45,17 @@ export interface ParentNodeInfo {
     parentUsername: string,
 }
 
+export interface UserNodeSimpleInfo {
+    user_id: number,
+    full_name: string;
+    email: string;
+    profile_picture_url: string;
+    username: string;
+    points: number;
+    packageType: string;
+    money_amount: number;
+}
+
 /*
 * Used to add new user / new package account:
 * */

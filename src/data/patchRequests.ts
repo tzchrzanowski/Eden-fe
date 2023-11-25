@@ -43,3 +43,28 @@ export async function changeUserPasswordRequest(userId: String, newPassword: Str
         console.error('Error on trying to change password url request:', error);
     }
 }
+
+export async function addPointsToUser(userId: Number, points: Number) {
+    const apiUrl = endPointUrl + '/api/public/users/' +userId + '/add-points';
+    const token = localStorage.getItem("token");
+
+    if (typeof token == 'string') {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token,
+                },
+                body: JSON.stringify({points}),
+            });
+            if (!response.ok) {
+                throw new Error(`Authentication failed with status: ${response.status}`);
+            }
+            const resp = await response.json();
+            return resp;
+        } catch (error) {
+            console.error('Error on trying to add-points url request:', error);
+        }
+    }
+}

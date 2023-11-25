@@ -1,6 +1,7 @@
 import './SidebarUserPointsForm.css';
-import {UserNodeSimpleInfo} from "../../../../object-types/user-interfaces";
+import {UserNodeSimpleInfo, UserObject} from "../../../../object-types/user-interfaces";
 import React from "react";
+import {addPointsToUser} from "data/patchRequests";
 
 interface SidebarUserPointsFormProps {
     user: UserNodeSimpleInfo;
@@ -9,11 +10,57 @@ interface SidebarUserPointsFormProps {
 }
 
 export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCallback}: SidebarUserPointsFormProps) {
+    const [pointsValue, setPointsValue] = React.useState<number>(0);
+    const [successfullyAddedPoints, setSuccessfullyAddedPoints] = React.useState<boolean>(false);
+    const [unsuccessfullyAddedPoints, setUnsuccessfullyAddedPoints] = React.useState<boolean>(false);
+
+    React.useEffect(()=>{
+        setSuccessfullyAddedPoints(false);
+        setUnsuccessfullyAddedPoints(false);
+    }, [user]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value === '' ? 0 : parseFloat(e.target.value);
+        if (value >= 0) {
+            setPointsValue(value);
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (pointsValue > 0) {
+            try {
+                const response = await addPointsToUser(user.user_id, pointsValue);
+                if (response) {
+                    if (response === 200) {
+                        setSuccessfullyAddedPoints(true);
+                    } else {
+                        setUnsuccessfullyAddedPoints(true);
+                    }
+                }
+            } catch (error) {
+                console.log("Add points to user error: ", error);
+            }
+        }
+    };
 
     return (
         <div className={(isOpen === true) ? "sidebar-points-form-container sidebar-points-form-open" : "sidebar-points-form-container"}>
-            <div className={"add-points-form-container"}>
-                Add Points Form
+            <form className={"add-points-form-container"} onSubmit={handleSubmit}>
+                <div className={"form-item-caption"}>
+                    Add points to <strong>{user.username}</strong>'s Account:
+                </div>
+                <label className={"add-points-form-item"}>
+                    <div className={"form-item-caption"}>Add Points Amount:</div>
+                    <input
+                        required={true}
+                        className={"form-text-input"}
+                        type="number"
+
+                        name="add-points-amount" value={pointsValue}
+                        onChange={handleChange}
+                    />
+                </label>
                 <div className={"form-buttons-container"}>
                     <button className={"add-points-button"} onClick={()=>setSidebarPointsFormOpenCallback(false)}>
                         <div className={"form-item-caption"}>Cancel</div>
@@ -22,7 +69,17 @@ export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCal
                         <div className={"form-item-caption"}>Submit</div>
                     </button>
                 </div>
-            </div>
+                {
+                    successfullyAddedPoints && (<div className={"add-user-form-item"}>
+                        <div className={"form-item-caption"}>Successfully added points to <strong>{user.username}</strong>'s account.</div>
+                    </div>)
+                }
+                {
+                    unsuccessfullyAddedPoints && (<div className={"add-user-form-item"}>
+                        <div className={"form-item-caption"}>Unsuccessful attempt to add points to <strong>{user.username}</strong>'s account.</div>
+                    </div>)
+                }
+            </form>
         </div>
     );
 }

@@ -21,11 +21,24 @@ const initialEmptyUser = {
 export function UsersList() {
     const [fetchedAllUsers, setFetchedAllUsers] = React.useState<UserInterface[] | null>(null);
     const [isSidebarAddPointsOpen, setSidebarAddPointsOpen] = React.useState(false);
-    const contextValue = useContext(UserContext);
     const [selectedUser, setSelectedUser] = React.useState<UserNodeSimpleInfo>(initialEmptyUser);
     React.useEffect(()=>{
         fetchData();
     }, []);
+
+    const handleRowClick = (user: UserInterface): void => {
+        setSelectedUser({
+            user_id: user.id,
+            full_name: `${user.first_name} ${user.last_name}`,
+            email: user.email,
+            profile_picture_url: user.profile_picture_url,
+            username: user.username,
+            points: user.points,
+            packageType: user.packageType,
+            money_amount: user.money_amount,
+        });
+        setSidebarAddPointsOpen(true)
+    }
 
     const fetchData = async () => {
         const fetchedUsers = await getAllUsers();
@@ -54,14 +67,14 @@ export function UsersList() {
                     </thead>
                     <tbody>
                     {fetchedAllUsers && fetchedAllUsers.map((user, id) => (
-                            <tr key={id} onClick={()=>setSidebarAddPointsOpen(true)} >
+                            <tr key={id} onClick={()=>handleRowClick(user)} >
                                 <td>
                                     <div className={"users-row fb align-items-center"}>
                                         <img
                                             className={"category-icon"}
                                             src={addPointsIcon}
                                             alt={"add points"}
-                                            onClick={()=>setSidebarAddPointsOpen(true)}
+                                            onClick={()=>handleRowClick(user)}
                                         />
                                     </div>
                                 </td>

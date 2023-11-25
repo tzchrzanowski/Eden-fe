@@ -12,7 +12,6 @@ interface SidebarAddNewUserProps {
 }
 
 export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, parentNodeInfo, rerenderCallback}: SidebarAddNewUserProps) {
-    const token = localStorage.getItem("token");
     const [formData, setFormData] = React.useState<UserObject>({
         username: '',
         email: '',
@@ -69,7 +68,7 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
                 }
             }
         } catch (error) {
-            console.log("login error:", error);
+            console.log("Add new package error:", error);
             // setLoggedIn(false);
         }
     };

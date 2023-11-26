@@ -22,10 +22,24 @@ export function UsersList() {
     const [isSidebarAddPointsOpen, setSidebarAddPointsOpen] = React.useState(false);
     const [selectedUser, setSelectedUser] = React.useState<UserNodeSimpleInfo>(initialEmptyUser);
     const [rerender, setRerender] = React.useState<boolean>(false);
+    const [searchTerm, setSearchTerm] = React.useState<string>('');
+    const filteredUsers = fetchedAllUsers
+        ? fetchedAllUsers.filter((user: UserInterface) =>
+            `${user.username} ${user.points} ${user.money_amount} ${user.first_name} ${user.last_name} ${user.email}`
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
+        )
+        : [];
 
     React.useEffect(()=>{
         fetchData();
     }, [rerender]);
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+    };
+
+
 
     const handleRowClick = (user: UserInterface): void => {
         setSelectedUser({
@@ -56,10 +70,16 @@ export function UsersList() {
                 rerenderListCallback={setRerender}
             />
             <div className={"users-list-page-content"}>
+                <div className={"mt-5"} >
+                    <label>
+                        <span>Search user:</span>
+                        <input className={"ml-2"} type="text" value={searchTerm} onChange={handleSearchChange} />
+                    </label>
+                </div>
                 <table className={"mt-5"} style={{ borderCollapse: 'collapse', width: '100%'}}>
                     <thead>
                         <tr>
-                            <th style={{ width: '5%', minWidth: '60px', textAlign: 'left', verticalAlign: 'middle' }}></th>
+                            <th style={{ width: '5%', minWidth: '40px', textAlign: 'left', verticalAlign: 'middle' }}>#</th>
                             <th style={{ width: '22%', minWidth: '100px', textAlign: 'left', verticalAlign: 'middle' }}>Username</th>
                             <th style={{ width: '5%', minWidth: '70px', textAlign: 'left', verticalAlign: 'middle' }}>Points</th>
                             <th style={{ width: '13%', minWidth: '150px', textAlign: 'left', verticalAlign: 'middle' }}>Money Amount</th>
@@ -68,12 +88,11 @@ export function UsersList() {
                         </tr>
                     </thead>
                     <tbody>
-                    {fetchedAllUsers && fetchedAllUsers.map((user, id) => (
+                    {filteredUsers && filteredUsers.map((user: UserInterface, id: number) => (
                             <tr key={id} onClick={()=>handleRowClick(user)} >
                                 <td>
                                     <div className={"users-row fb align-items-center"}>
                                         <img
-                                            className={"category-icon"}
                                             src={addPointsIcon}
                                             alt={"add points"}
                                             onClick={()=>handleRowClick(user)}

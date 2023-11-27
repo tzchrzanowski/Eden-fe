@@ -15,6 +15,7 @@ const initialEmptyUser = {
     points: 0,
     packageType: "",
     money_amount: 0,
+    direct_referral: -1,
 }
 
 export function UsersList() {
@@ -25,7 +26,7 @@ export function UsersList() {
     const [searchTerm, setSearchTerm] = React.useState<string>('');
     const filteredUsers = fetchedAllUsers
         ? fetchedAllUsers.filter((user: UserInterface) =>
-            `${user.username} ${user.points} ${user.money_amount} ${user.first_name} ${user.last_name} ${user.email}`
+            `${user.username} ${user.points} ${user.direct_referral} ${user.money_amount} ${user.first_name} ${user.last_name} ${user.email}`
                 .toLowerCase()
                 .includes(searchTerm.toLowerCase())
         )
@@ -51,6 +52,7 @@ export function UsersList() {
             points: user.points,
             packageType: user.packageType,
             money_amount: user.money_amount,
+            direct_referral: user.direct_referral,
         });
         setSidebarAddPointsOpen(true)
     }
@@ -82,6 +84,7 @@ export function UsersList() {
                             <th style={{ width: '5%', minWidth: '40px', textAlign: 'left', verticalAlign: 'middle' }}>#</th>
                             <th style={{ width: '22%', minWidth: '100px', textAlign: 'left', verticalAlign: 'middle' }}>Username</th>
                             <th style={{ width: '5%', minWidth: '70px', textAlign: 'left', verticalAlign: 'middle' }}>Points</th>
+                            <th style={{ width: '13%', minWidth: '100px', textAlign: 'left', verticalAlign: 'middle' }}>Direct referral</th>
                             <th style={{ width: '13%', minWidth: '150px', textAlign: 'left', verticalAlign: 'middle' }}>Money Amount</th>
                             <th style={{ width: '20%', minWidth: '150px', textAlign: 'left', verticalAlign: 'middle' }}>Full Name</th>
                             <th style={{ width: '40%', minWidth: '220px', textAlign: 'left', verticalAlign: 'middle' }}>Email</th>
@@ -107,6 +110,11 @@ export function UsersList() {
                                 <td>
                                     <div className={"users-row fb align-items-center"}>
                                         {user.points}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className={"users-row fb align-items-center"}>
+                                        {user.direct_referral}
                                     </div>
                                 </td>
                                 <td>

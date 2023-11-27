@@ -13,6 +13,7 @@ interface SidebarAddNewUserProps {
 
 export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, parentNodeInfo, rerenderCallback}: SidebarAddNewUserProps) {
     const [formData, setFormData] = React.useState<UserObject>({
+        direct_referral: '',
         username: '',
         email: '',
         first_name: '',
@@ -81,6 +82,10 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
                     <div className={"form-item-caption mt-1 fb justify-center"}>
                         <strong>{parentNodeInfo.parentUsername}</strong>
                     </div>
+                    <label className={"add-user-form-item"}>
+                        <div className={"form-item-caption"}>Direct referral username:</div>
+                        <input required={true} className={"form-text-input"} type="text" name="direct_referral" value={formData.direct_referral} onChange={handleChange} />
+                    </label>
                     <label className={"add-user-form-item"}>
                         <div className={"form-item-caption"}>Username:</div>
                         <input required={true} className={"form-text-input"} type="text" name="username" value={formData.username} onChange={handleChange} />

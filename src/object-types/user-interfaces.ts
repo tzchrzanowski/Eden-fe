@@ -38,6 +38,7 @@ export interface UserInterface {
     points: number;
     packageType: string;
     money_amount: number;
+    direct_referral: number;
 }
 
 export interface ParentNodeInfo {
@@ -54,12 +55,14 @@ export interface UserNodeSimpleInfo {
     points: number;
     packageType: string;
     money_amount: number;
+    direct_referral: number;
 }
 
 /*
 * Used to add new user / new package account:
 * */
 export interface UserObject {
+    direct_referral: string,
     username: string,
     email: string,
     first_name: string,

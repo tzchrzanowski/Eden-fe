@@ -36,6 +36,7 @@ export interface UserInterface {
     profile_picture_url: string;
     username: string;
     points: number;
+    monthly_points: number;
     packageType: string;
     money_amount: number;
     direct_referral: number;

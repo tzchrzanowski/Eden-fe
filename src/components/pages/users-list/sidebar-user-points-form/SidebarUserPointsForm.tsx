@@ -64,10 +64,10 @@ export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCal
                     />
                 </label>
                 <div className={"form-buttons-container"}>
-                    <button className={"add-points-button"} onClick={()=>setSidebarPointsFormOpenCallback(false)}>
+                    <button className={"add-points-button"} type="reset" onClick={()=>setSidebarPointsFormOpenCallback(false)}>
                         <div className={"form-item-caption"}>Cancel</div>
                     </button>
-                    <button className={"add-points-button"} type="submit">
+                    <button className={"add-points-button"} type={"submit"}>
                         <div className={"form-item-caption"}>Submit</div>
                     </button>
                 </div>

@@ -118,10 +118,10 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
                         <input required={true} className={"form-text-input"} type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
                     </label>
                     <div className={"form-buttons-container"}>
-                        <button className={"add-user-button"} onClick={()=>setSidebarAddNewUserOpenCallback(false)}>
+                        <button className={"add-user-button"} type={"reset"} onClick={()=>setSidebarAddNewUserOpenCallback(false)}>
                             <div className={"form-item-caption"}>Cancel</div>
                         </button>
-                        <button className={"add-user-button"} type="submit">
+                        <button className={"add-user-button"} type={"submit"}>
                             <div className={"form-item-caption"}>Submit</div>
                         </button>
                     </div>

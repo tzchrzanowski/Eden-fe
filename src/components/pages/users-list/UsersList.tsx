@@ -13,6 +13,7 @@ const initialEmptyUser = {
     profile_picture_url: "",
     username: "",
     points: 0,
+    monthly_points: 0,
     packageType: "",
     money_amount: 0,
     direct_referral: -1,
@@ -84,6 +85,7 @@ export function UsersList() {
                             <th style={{ width: '5%', minWidth: '40px', textAlign: 'left', verticalAlign: 'middle' }}>#</th>
                             <th style={{ width: '22%', minWidth: '100px', textAlign: 'left', verticalAlign: 'middle' }}>Username</th>
                             <th style={{ width: '5%', minWidth: '70px', textAlign: 'left', verticalAlign: 'middle' }}>Points</th>
+                            <th style={{ width: '5%', minWidth: '70px', textAlign: 'left', verticalAlign: 'middle' }}>Monthly Points</th>
                             <th style={{ width: '13%', minWidth: '100px', textAlign: 'left', verticalAlign: 'middle' }}>Direct referral</th>
                             <th style={{ width: '13%', minWidth: '150px', textAlign: 'left', verticalAlign: 'middle' }}>Money Amount</th>
                             <th style={{ width: '20%', minWidth: '150px', textAlign: 'left', verticalAlign: 'middle' }}>Full Name</th>
@@ -110,6 +112,11 @@ export function UsersList() {
                                 <td>
                                     <div className={"users-row fb align-items-center"}>
                                         {user.points}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className={"users-row fb align-items-center"}>
+                                        {user.monthly_points}
                                     </div>
                                 </td>
                                 <td>

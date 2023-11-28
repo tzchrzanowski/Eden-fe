@@ -30,9 +30,7 @@ export function TopNavigation() {
     /*
     * Re-render top-navigation if role_id in context was updated
     * */
-    React.useEffect(()=>{
-        console.log("re-render top navigation...", contextValue);
-    }, [roleUpdated]);
+    React.useEffect(()=>{}, [roleUpdated]);
 
     /*
     * If user context contains role_id field, then set trigger for re-render

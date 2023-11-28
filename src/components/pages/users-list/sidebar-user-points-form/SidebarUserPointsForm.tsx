@@ -58,7 +58,6 @@ export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCal
                         required={true}
                         className={"form-text-input"}
                         type="number"
-
                         name="add-points-amount" value={pointsValue}
                         onChange={handleChange}
                     />

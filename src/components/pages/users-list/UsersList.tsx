@@ -5,6 +5,7 @@ import {UserInterface, UserNodeSimpleInfo} from "object-types/user-interfaces";
 import {getAllUsers} from "data/getRequests";
 import SidebarUserPointsForm from "./sidebar-user-points-form/SidebarUserPointsForm";
 import addPointsIcon from "resources/side-nav-icons/add-points-icon.svg";
+import SidebarMonthlyPointsForm from "./sidebar-monthly-points-form/SidebarMonthlyPointsForm";
 
 const initialEmptyUser = {
     user_id: -1,
@@ -21,10 +22,12 @@ const initialEmptyUser = {
 
 export function UsersList() {
     const [fetchedAllUsers, setFetchedAllUsers] = React.useState<UserInterface[] | null>(null);
-    const [isSidebarAddPointsOpen, setSidebarAddPointsOpen] = React.useState(false);
+    const [isSidebarAddPointsOpen, setSidebarAddPointsOpen] = React.useState<boolean>(false);
+    const [isSidebarMonthlyPointsOpen, setSidebarMonthlyPointsOpen] = React.useState<boolean>(false);
     const [selectedUser, setSelectedUser] = React.useState<UserNodeSimpleInfo>(initialEmptyUser);
     const [rerender, setRerender] = React.useState<boolean>(false);
     const [searchTerm, setSearchTerm] = React.useState<string>('');
+
     const filteredUsers = fetchedAllUsers
         ? fetchedAllUsers.filter((user: UserInterface) =>
             `${user.username} ${user.points} ${user.direct_referral} ${user.money_amount} ${user.first_name} ${user.last_name} ${user.email}`
@@ -41,8 +44,6 @@ export function UsersList() {
         setSearchTerm(e.target.value);
     };
 
-
-
     const handleRowClick = (user: UserInterface): void => {
         setSelectedUser({
             user_id: user.id,
@@ -55,12 +56,18 @@ export function UsersList() {
             money_amount: user.money_amount,
             direct_referral: user.direct_referral,
         });
+        setSidebarMonthlyPointsOpen(false);
         setSidebarAddPointsOpen(true)
     }
 
     const fetchData = async () => {
         const fetchedUsers = await getAllUsers();
         setFetchedAllUsers(fetchedUsers)
+    }
+
+    const openMonthPointsForm = (): void => {
+        setSidebarAddPointsOpen(false);
+        setSidebarMonthlyPointsOpen(true);
     }
 
     return (
@@ -72,12 +79,32 @@ export function UsersList() {
                 setSidebarPointsFormOpenCallback={setSidebarAddPointsOpen}
                 rerenderListCallback={setRerender}
             />
+            <SidebarMonthlyPointsForm
+                isOpen={isSidebarMonthlyPointsOpen}
+                setSidebarMonthlyPointsFormOpenCallback={setSidebarMonthlyPointsOpen}
+                rerenderListCallback={setRerender}
+            />
             <div className={"users-list-page-content"}>
-                <div className={"mt-5"} >
-                    <label>
-                        <span>Search user:</span>
-                        <input className={"ml-2"} type="text" value={searchTerm} onChange={handleSearchChange} />
-                    </label>
+                <div className={"fb fb-row"}>
+                    <div className={"mt-5"} >
+                        <label>
+                            <span>Search user:</span>
+                            <input className={"ml-2"} type="text" value={searchTerm} onChange={handleSearchChange} />
+                        </label>
+                    </div>
+                    <div
+                        className={"ml-7 mt-5 fb align-items-center pointer"}
+                        onClick={()=>openMonthPointsForm()}
+                    >
+                        <img
+                            src={addPointsIcon}
+                            alt={"add points"}
+                            onClick={()=>openMonthPointsForm()}
+                        />
+                        <div className={"ml-2 pointer"}>
+                            <span>Add monthly points</span>
+                        </div>
+                    </div>
                 </div>
                 <table className={"mt-5"} style={{ borderCollapse: 'collapse', width: '100%'}}>
                     <thead>

@@ -42,13 +42,14 @@
   margin-bottom: 10px;
 }
 
-.ml-1 {
-  margin-left: 10px;
-}
+.ml-1 { margin-left: 10px; }
+.ml-2 { margin-left: 15px;}
+.ml-3 { margin-left: 20px;}
+.ml-4 { margin-left: 25px;}
+.ml-5 { margin-left: 30px;}
+.ml-6 { margin-left: 35px;}
+.ml-7 { margin-left: 40px;}
 
-.ml-2 {
-  margin-left: 15px;
-}
 .mr-1 {
   margin-right: 10px;
 }

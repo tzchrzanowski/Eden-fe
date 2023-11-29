@@ -15,6 +15,11 @@ export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSideb
     const [successfullyAddedPoints, setSuccessfullyAddedPoints] = React.useState<boolean>(false);
     const [unsuccessfullyAddedPoints, setUnsuccessfullyAddedPoints] = React.useState<boolean>(false);
 
+    React.useEffect(()=>{
+        setSuccessfullyAddedPoints(false);
+        setUnsuccessfullyAddedPoints(false);
+        setRadioValue('all-users');
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
@@ -26,6 +31,14 @@ export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSideb
     const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioValue(e.target.value);
     };
+
+    const handleClose = () => {
+        setSuccessfullyAddedPoints(false);
+        setUnsuccessfullyAddedPoints(false);
+        setRadioValue('all-users');
+        setSidebarMonthlyPointsFormOpenCallback(false)
+    }
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (usernameValue.length > 0) {
@@ -35,9 +48,9 @@ export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSideb
                     if(response ===200) {
                         setSuccessfullyAddedPoints(true);
                         rerenderListCallback(prevState=> !prevState);
-                    } else {
-                        setUnsuccessfullyAddedPoints(true);
                     }
+                } else {
+                    setUnsuccessfullyAddedPoints(true);
                 }
             } catch (error) {
                 console.log("Add monthly points to user error: ", error);
@@ -87,7 +100,7 @@ export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSideb
                     </label>
                 }
                 <div className={"form-buttons-container mt-5"}>
-                    <button className={"add-points-button"} type="reset" onClick={()=>setSidebarMonthlyPointsFormOpenCallback(false)}>
+                    <button className={"add-points-button"} type="reset" onClick={()=>handleClose()}>
                         <div className={"form-item-caption"}>Cancel</div>
                     </button>
                     <button className={"add-points-button"} type={"submit"}>

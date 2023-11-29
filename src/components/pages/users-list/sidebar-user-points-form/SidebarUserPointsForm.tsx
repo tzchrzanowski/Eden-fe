@@ -36,9 +36,9 @@ export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCal
                     if (response === 200) {
                         setSuccessfullyAddedPoints(true);
                         rerenderListCallback(prevState=> !prevState);
-                    } else {
-                        setUnsuccessfullyAddedPoints(true);
                     }
+                } else {
+                    setUnsuccessfullyAddedPoints(true);
                 }
             } catch (error) {
                 console.log("Add points to user error: ", error);

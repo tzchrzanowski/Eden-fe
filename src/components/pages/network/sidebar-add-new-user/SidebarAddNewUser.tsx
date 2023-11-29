@@ -77,7 +77,7 @@ export function SidebarAddNewUser({isOpen, setSidebarAddNewUserOpenCallback, par
     return (
         <>
             <div className={(isOpen === true) ? "side-bar-container sidebar-open" : "side-bar-container"}>
-                <form className={"add-user-form-container"} onSubmit={handleSubmit}>
+                <form className={"mt-5 add-user-form-container"} onSubmit={handleSubmit}>
                     <div className={"form-item-caption"}>Add Package Account under: </div>
                     <div className={"form-item-caption mt-1 fb justify-center"}>
                         <strong>{parentNodeInfo.parentUsername}</strong>

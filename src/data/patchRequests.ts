@@ -68,3 +68,28 @@ export async function addPointsToUser(userId: Number, points: Number) {
         }
     }
 }
+
+export async function addMonthlyPointsToUser(username: string) {
+    const apiUrl = endPointUrl + '/api/public/users/add-monthly-points-for-user';
+    const token = localStorage.getItem("token");
+
+    if (typeof token == 'string') {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token,
+                },
+                body: JSON.stringify({username}),
+            });
+            if (!response.ok) {
+                throw new Error(`Authentication failed with status: ${response.status}`);
+            }
+            const resp = await response.json();
+            return resp;
+        } catch (error) {
+            console.error('Error on trying to add monthly-points url request:', error);
+        }
+    }
+}

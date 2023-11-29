@@ -48,7 +48,7 @@ export function SidebarUserPointsForm({user, isOpen, setSidebarPointsFormOpenCal
 
     return (
         <div className={(isOpen === true) ? "sidebar-points-form-container sidebar-points-form-open" : "sidebar-points-form-container"}>
-            <form className={"add-points-form-container"} onSubmit={handleSubmit}>
+            <form className={"mt-5 add-points-form-container"} onSubmit={handleSubmit}>
                 <div className={"form-item-caption"}>
                     Add points to <strong>{user.username}</strong>'s Account:
                 </div>

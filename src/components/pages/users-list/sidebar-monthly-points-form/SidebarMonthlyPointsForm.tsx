@@ -1,21 +1,22 @@
 import './SidebarMonthlyPointsForm.css';
 import React from 'react';
-import {UserNodeSimpleInfo} from "../../../../object-types/user-interfaces";
+import {UserNodeSimpleInfo} from "object-types/user-interfaces";
+import {addMonthlyPointsToUser} from "data/patchRequests";
 
 interface SidebarMonthlyPointsFormProps {
-    user?: UserNodeSimpleInfo;
     isOpen: boolean;
     rerenderListCallback: React.Dispatch<React.SetStateAction<boolean>>;
     setSidebarMonthlyPointsFormOpenCallback: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function SidebarMonthlyPointsForm({user, isOpen, rerenderListCallback, setSidebarMonthlyPointsFormOpenCallback}: SidebarMonthlyPointsFormProps) {
+export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSidebarMonthlyPointsFormOpenCallback}: SidebarMonthlyPointsFormProps) {
     const [usernameValue, setUsernameValue] = React.useState<string>('');
     const [radioValue, setRadioValue] = React.useState<string>('all-users');
+    const [successfullyAddedPoints, setSuccessfullyAddedPoints] = React.useState<boolean>(false);
+    const [unsuccessfullyAddedPoints, setUnsuccessfullyAddedPoints] = React.useState<boolean>(false);
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // Ensure the input value is a positive number or an empty string
         const inputValue = e.target.value;
         if (inputValue) {
             setUsernameValue(inputValue);
@@ -27,11 +28,26 @@ export function SidebarMonthlyPointsForm({user, isOpen, rerenderListCallback, se
     };
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (usernameValue.length > 0) {
+            try {
+                const response = await addMonthlyPointsToUser(usernameValue);
+                if (response) {
+                    if(response ===200) {
+                        setSuccessfullyAddedPoints(true);
+                        rerenderListCallback(prevState=> !prevState);
+                    } else {
+                        setUnsuccessfullyAddedPoints(true);
+                    }
+                }
+            } catch (error) {
+                console.log("Add monthly points to user error: ", error);
+            }
+        }
 
     }
     return(
         <div className={(isOpen === true) ? "sidebar-monthly-points-form-container sidebar-monthly-points-form-open" : "sidebar-monthly-points-form-container"}>
-            <form className={"add-monthly-points-form-container"} onSubmit={handleSubmit}>
+            <form className={"mt-5 add-monthly-points-form-container"} onSubmit={handleSubmit}>
                 <div className={"form-item-caption"}>
                     Add Monthly Points for:
                 </div>
@@ -61,8 +77,9 @@ export function SidebarMonthlyPointsForm({user, isOpen, rerenderListCallback, se
                 </div>
                 {radioValue == 'single-user' &&
                     <label className={"add-points-form-item"}>
-                        Username:
+                        <div className={"form-item-caption"}>Username:</div>
                         <input
+                            className={"form-text-input"}
                             type="text"
                             value={usernameValue}
                             onChange={handleChange}
@@ -77,6 +94,16 @@ export function SidebarMonthlyPointsForm({user, isOpen, rerenderListCallback, se
                         <div className={"form-item-caption"}>Submit</div>
                     </button>
                 </div>
+                {
+                    successfullyAddedPoints && (<div className={"add-user-form-item"}>
+                        <div className={"form-item-caption"}>Successfully added Monthly points.</div>
+                    </div>)
+                }
+                {
+                    unsuccessfullyAddedPoints && (<div className={"add-user-form-item"}>
+                        <div className={"form-item-caption"}>Unsuccessful attempt to add monthly points.</div>
+                    </div>)
+                }
             </form>
         </div>
     );

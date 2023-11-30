@@ -93,3 +93,29 @@ export async function addMonthlyPointsToUser(username: string) {
         }
     }
 }
+
+export async function addMonthlyPointsToAllUsers() {
+    const apiUrl = endPointUrl + '/api/public/users/add-monthly-points-for-all-users';
+    const token = localStorage.getItem("token");
+
+    if (typeof token == 'string') {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token,
+                },
+                body: JSON.stringify({users: "all-users"}),
+
+            });
+            if (!response.ok) {
+                throw new Error(`Authentication failed with status: ${response.status}`);
+            }
+            const resp = await response.json();
+            return resp;
+        } catch (error) {
+            console.error('Error on trying to add monthly-points url request:', error);
+        }
+    }
+}

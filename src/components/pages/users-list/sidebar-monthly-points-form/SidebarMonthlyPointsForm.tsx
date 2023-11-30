@@ -1,7 +1,7 @@
 import './SidebarMonthlyPointsForm.css';
 import React from 'react';
 import {UserNodeSimpleInfo} from "object-types/user-interfaces";
-import {addMonthlyPointsToUser} from "data/patchRequests";
+import {addMonthlyPointsToAllUsers, addMonthlyPointsToUser} from "data/patchRequests";
 
 interface SidebarMonthlyPointsFormProps {
     isOpen: boolean;
@@ -41,7 +41,7 @@ export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSideb
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (usernameValue.length > 0) {
+        if (radioValue == "single-user" && usernameValue.length > 0) {
             try {
                 const response = await addMonthlyPointsToUser(usernameValue);
                 if (response) {
@@ -55,8 +55,21 @@ export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSideb
             } catch (error) {
                 console.log("Add monthly points to user error: ", error);
             }
+        } else if (radioValue == "all-users") {
+            try {
+                const response = await addMonthlyPointsToAllUsers();
+                if (response) {
+                    if(response ===200) {
+                        setSuccessfullyAddedPoints(true);
+                        rerenderListCallback(prevState=> !prevState);
+                    }
+                } else {
+                    setUnsuccessfullyAddedPoints(true);
+                }
+            } catch (error) {
+                console.log("Add monthly points to user error: ", error);
+            }
         }
-
     }
     return(
         <div className={(isOpen === true) ? "sidebar-monthly-points-form-container sidebar-monthly-points-form-open" : "sidebar-monthly-points-form-container"}>

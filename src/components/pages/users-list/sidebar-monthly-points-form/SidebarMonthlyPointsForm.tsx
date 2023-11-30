@@ -112,6 +112,10 @@ export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSideb
                         />
                     </label>
                 }
+                <div className={"warning-message"}>
+                    <span>Warning note:</span><br/>
+                    <span>Adding monthly points for users that have less than 20 monthly points will reset these points to 0 and monthly bonus will be lost.</span>
+                </div>
                 <div className={"form-buttons-container mt-5"}>
                     <button className={"add-points-button"} type="reset" onClick={()=>handleClose()}>
                         <div className={"form-item-caption"}>Cancel</div>

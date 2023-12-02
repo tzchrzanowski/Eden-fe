@@ -1,6 +1,5 @@
 import './SidebarMonthlyPointsForm.css';
 import React from 'react';
-import {UserNodeSimpleInfo} from "object-types/user-interfaces";
 import {addMonthlyPointsToAllUsers, addMonthlyPointsToUser} from "data/patchRequests";
 
 interface SidebarMonthlyPointsFormProps {
@@ -114,7 +113,9 @@ export function SidebarMonthlyPointsForm({isOpen, rerenderListCallback, setSideb
                 }
                 <div className={"warning-message"}>
                     <span>Warning note:</span><br/>
-                    <span>Adding monthly points for users that have less than 20 monthly points will reset these points to 0 and monthly bonus will be lost.</span>
+                    <span>Adding monthly points will reset monthly points count for user/users to 0 for that given month.</span><br/>
+                    <span>Points will be added to total pool of points for given user/users.</span><br/>
+                    <span>Should be done on last day of the month.</span>
                 </div>
                 <div className={"form-buttons-container mt-5"}>
                     <button className={"add-points-button"} type="reset" onClick={()=>handleClose()}>

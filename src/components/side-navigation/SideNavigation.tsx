@@ -5,6 +5,7 @@ import accountsIcon from "resources/side-nav-icons/accounts-icon.svg";
 import logoutIcon from "resources/side-nav-icons/logout-icon.svg";
 import maintenanceIcon from "resources/side-nav-icons/maintenance-icon.svg";
 import networkIcon from "resources/side-nav-icons/network-icon.svg";
+import cashOutIcon from "resources/side-nav-icons/cash-out-icon.svg";
 import UserContext, {useUser} from 'context/UserContext';
 import {logoutUser} from "../../data/postRequests";
 import {useNavigate} from 'react-router-dom';
@@ -35,6 +36,11 @@ const sideNavButtons: ButtonsCategory[] = [
         iconSrc: accountsIcon,
         caption: "Users List",
         buttonId: "users-list-id",
+    },
+    {
+        iconSrc: cashOutIcon,
+        caption: "Cash Out List",
+        buttonId: "cash-out-list-id",
     },
     {
         iconSrc: maintenanceIcon,
@@ -77,6 +83,10 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
                 break;
             case "users-list-id":
                 navigate("/users-list");
+                break;
+            case "cash-out-list-id":
+                navigate("/cash-out-list");
+                break;
         }
     }
 
@@ -129,6 +139,11 @@ export function SideNavigation({isOpen, setSideNavigationOpenCallback}: SideNavi
                           }
                           break;
                       case "users-list-id":
+                          if (getUsersRoleId() == "1" || getUsersRoleId() == "3") {
+                              return <SideNavCategory key={id} onClickCallback={onSideNavClickEvent} category={category} />
+                          }
+                          break;
+                      case "cash-out-list-id":
                           if (getUsersRoleId() == "1" || getUsersRoleId() == "3") {
                               return <SideNavCategory key={id} onClickCallback={onSideNavClickEvent} category={category} />
                           }

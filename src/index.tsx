@@ -13,6 +13,7 @@ import { UserProvider } from './context/UserContext'
 import EditProfile from './components/pages/edit-profile/EditProfile';
 import WaysToEarn from "./components/pages/ways-to-earn/WaysToEarn";
 import UsersList from "./components/pages/users-list/UsersList";
+import {CashOutList} from "./components/pages/cashout-list/CashOutList";
 
 const router = createBrowserRouter([
         {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         {
             path: "/users-list",
             element: <UsersList />,
+        },
+        {
+          path: "/cash-out-list",
+          element: <CashOutList />,
         },
     ]
 );

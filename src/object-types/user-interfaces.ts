@@ -59,6 +59,15 @@ export interface UserNodeSimpleInfo {
     direct_referral: number;
 }
 
+export interface CashOutUserInfo {
+    user_id: number,
+    full_name: string;
+    email: string;
+    profile_picture_url: string;
+    username: string;
+    money_amount: number;
+}
+
 /*
 * Used to add new user / new package account:
 * */

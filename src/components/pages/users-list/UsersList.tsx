@@ -1,6 +1,6 @@
 import './UsersList.css';
 import TopNavigation from "components/top-navigation/TopNavigation";
-import React, {useContext} from "react";
+import React from "react";
 import {UserInterface, UserNodeSimpleInfo} from "object-types/user-interfaces";
 import {getAllUsers} from "data/getRequests";
 import SidebarUserPointsForm from "./sidebar-user-points-form/SidebarUserPointsForm";

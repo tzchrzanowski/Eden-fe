@@ -30,6 +30,34 @@ export async function getAllUsers() {
     }
 }
 
+export async function getAllCashOutUsers() {
+    const apiUrl = endPointUrl + '/api/public/users/get-all-cash-out-users';
+    const token = getToken();
+
+    if (token.length > 0) {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token
+                },
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`Request to get cash out users failed with status: ${response.status}`);
+            }
+
+            const users = await response.json();
+            // const allUsersExceptAccountants = users.filter((user: any) => user.role_id !== 3);
+            // return allUsersExceptAccountants;
+            return users;
+        } catch (error) {
+            console.error('Error fetching cash out users:', error);
+        }
+    }
+}
 
 export async function getUserNetwork(userId: number) {
     const apiUrl = endPointUrl + '/api/public/users/' +userId + '/get-network';

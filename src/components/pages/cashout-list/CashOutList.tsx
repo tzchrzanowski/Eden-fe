@@ -4,6 +4,7 @@ import TopNavigation from "components/top-navigation/TopNavigation";
 import {CashOutUserInfo, UserInterface} from "object-types/user-interfaces";
 import {getAllCashOutUsers} from "data/getRequests";
 import CashOutIcon from "resources/side-nav-icons/cash-out-icon.svg";
+import SidebarCashOutForm from "./sidebar-cash-out-form/SidebarCashOutForm";
 
 const initialEmptyUser = {
     user_id: -1,
@@ -18,7 +19,6 @@ export function CashOutList() {
     const [searchTerm, setSearchTerm] = React.useState<string>('');
     const [selectedUser, setSelectedUser] = React.useState<CashOutUserInfo>(initialEmptyUser);
     const [isSidebarCashOutUserOpen, setSidebarCashOutUserOpen] = React.useState<boolean>(false);
-
     const [rerender, setRerender] = React.useState<boolean>(false);
     const filteredUsers = fetchedAllCashOutUsers
         ? fetchedAllCashOutUsers.filter((user: UserInterface) =>
@@ -36,8 +36,6 @@ export function CashOutList() {
         const fetchedData = await getAllCashOutUsers();
         setFetchedAllCashOutUsers(fetchedData);
     }
-
-
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
@@ -58,6 +56,12 @@ export function CashOutList() {
     return (
         <div className={"fb fb-column justify-center align-center align-items-center"}>
             <TopNavigation />
+            <SidebarCashOutForm
+                user={selectedUser}
+                isOpen={isSidebarCashOutUserOpen}
+                rerenderCashOutListCallback={setRerender}
+                setSidebarCashOutFormOpenCallback={setSidebarCashOutUserOpen}
+            />
             <div className={"mt-10vh"}>
                 <div className={"fb fb-row mt-5"}>
                     <label>

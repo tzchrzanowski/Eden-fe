@@ -44,6 +44,56 @@ export async function changeUserPasswordRequest(userId: String, newPassword: Str
     }
 }
 
+export async function setCashOutForUser(userId: Number, cash_out_bool: boolean) {
+    const apiUrl = endPointUrl + '/api/public/users/' +userId + '/set_cash_out';
+    const token = localStorage.getItem("token");
+
+    if (typeof token == 'string') {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token,
+                },
+                body: JSON.stringify({cash_out_bool}),
+            });
+            if (!response.ok) {
+                throw new Error(`Authentication failed with status: ${response.status}`);
+            }
+            const resp = await response.json();
+            return resp;
+        } catch (error) {
+            console.error('Error on set cash out url request:', error);
+        }
+    }
+}
+
+export async function setCashOutAmountForUser(userId: Number, cash_out_amount: Number) {
+    const apiUrl = endPointUrl + '/api/public/users/' +userId + '/set_cash_out_amount';
+    const token = localStorage.getItem("token");
+
+    if (typeof token == 'string') {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token,
+                },
+                body: JSON.stringify({cash_out_amount}),
+            });
+            if (!response.ok) {
+                throw new Error(`Authentication failed with status: ${response.status}`);
+            }
+            const resp = await response.json();
+            return resp;
+        } catch (error) {
+            console.error('Error on set cash out amount url request:', error);
+        }
+    }
+}
+
 export async function addPointsToUser(userId: Number, points: Number) {
     const apiUrl = endPointUrl + '/api/public/users/' +userId + '/add-points';
     const token = localStorage.getItem("token");

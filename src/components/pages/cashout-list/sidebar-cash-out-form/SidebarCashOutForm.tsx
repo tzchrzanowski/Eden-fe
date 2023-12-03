@@ -79,12 +79,12 @@ export function SidebarCashOutForm({user, isOpen, rerenderCashOutListCallback, s
                 </div>
                 {
                     successfulRequest && (<div className={"add-user-form-item"}>
-                        <div className={"form-item-caption"}>Successfully added Monthly points.</div>
+                        <div className={"form-item-caption"}>Successfully set cash out.</div>
                     </div>)
                 }
                 {
                     unsuccessfulRequest && (<div className={"add-user-form-item"}>
-                        <div className={"form-item-caption"}>Unsuccessful attempt to add monthly points.</div>
+                        <div className={"form-item-caption"}>Unsuccessful attempt to set cash out.</div>
                     </div>)
                 }
             </form>

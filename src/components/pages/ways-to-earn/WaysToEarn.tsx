@@ -12,9 +12,6 @@ import ways8 from "resources/images/slides/ways_8.jpeg";
 import ways9 from "resources/images/slides/ways_9.jpeg";
 import ways10 from "resources/images/slides/ways_10.jpeg";
 
-
-
-
 export function WaysToEarn() {
     return (
         <div className={"ways-to-earn-page-wrapper"}>

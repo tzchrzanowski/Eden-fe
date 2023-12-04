@@ -14,6 +14,7 @@ const initialEmptyUser = {
     username: "",
     money_amount: 0,
 }
+
 export function CashOutList() {
     const [fetchedAllCashOutUsers, setFetchedAllCashOutUsers] = React.useState<UserInterface[] | null>(null);
     const [searchTerm, setSearchTerm] = React.useState<string>('');

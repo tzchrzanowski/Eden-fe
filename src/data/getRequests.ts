@@ -1,6 +1,33 @@
 import {endPointUrl} from "./staticData";
 import {getToken} from "../helpers/Helpers";
 
+export async function getUser(userId: number | string) {
+    const apiUrl = endPointUrl + '/api/public/users/' + userId + '/get_user_details';
+    const token = getToken();
+
+    if (token.length > 0) {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token
+                },
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`Request failed with status: ${response.status}`);
+            }
+            const user = await response.json();
+            console.log("user: ", user);
+            return user;
+        } catch (error) {
+            console.error('Error fetching single user:', error);
+        }
+    }
+}
+
 export async function getAllUsers() {
     const apiUrl = endPointUrl + '/api/public/users/get-all-users';
     const token = getToken();

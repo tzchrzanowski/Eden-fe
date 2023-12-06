@@ -61,27 +61,48 @@ export function UserDashboard() {
                       <div className={"profile-photo-wrapper"}>
                           <img className={"profile-photo-wrapper"} src={fetchedUser.profile_picture_url} alt={"photo url missing"} />
                       </div>
-                      <div className={"fb fb-column"}>
-                          <div className={"mt-3 form-item-caption"}>
-                              <span>Username: <strong>{fetchedUser.username}</strong></span>
+                      <div className={"fb fb-column min-w-300"}>
+                          <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
+                              <div className={"fb fb-row fb-justify-space-between"}>
+                                  <span>Username: </span>
+                                  <span><strong>{fetchedUser.username}</strong></span>
+                              </div>
                           </div>
-                          <div className={"mt-3 form-item-caption"}>
-                              <span>Amount of money: <strong>{fetchedUser.packageType} php</strong></span>
+                          <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
+                              <div className={"fb fb-row fb-justify-space-between"}>
+                                  <span>Package type:</span>
+                                  <span><strong>{fetchedUser.packageType}</strong></span>
+                              </div>
                           </div>
-                          <div className={"mt-3 form-item-caption"}>
-                              <span>Full name: <strong>{fetchedUser.first_name} {fetchedUser.last_name}</strong></span>
+                          <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
+                              <div className={"fb fb-row fb-justify-space-between"}>
+                                  <span>Full name: </span>
+                                  <span><strong>{fetchedUser.first_name} {fetchedUser.last_name}</strong></span>
+                              </div>
                           </div>
-                          <div className={"mt-3 form-item-caption"}>
-                              <span>email: <strong>{fetchedUser.email}</strong></span>
+                          <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
+                              <div className={"fb fb-row fb-justify-space-between"}>
+                                  <span>email: </span>
+                                  <span><strong>{fetchedUser.email}</strong></span>
+                              </div>
                           </div>
-                          <div className={"mt-3 form-item-caption"}>
-                              <span>Total amount of points: <strong>{fetchedUser.points}</strong></span>
+                          <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
+                              <div className={"fb fb-row fb-justify-space-between"}>
+                                  <span>Total amount of points: </span>
+                                  <span><strong>{fetchedUser.points}</strong></span>
+                              </div>
                           </div>
-                          <div className={"mt-3 form-item-caption"}>
-                              <span>Amount of points this month to collect: <strong>{fetchedUser.monthly_points}</strong></span>
+                          <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
+                              <div className={"fb fb-row fb-justify-space-between"}>
+                                  <span>Amount of points this month: </span>
+                                  <span><strong>{fetchedUser.monthly_points}</strong></span>
+                              </div>
                           </div>
-                          <div className={"mt-3 form-item-caption"}>
-                              <span>Amount of money: <strong>{fetchedUser.money_amount} php</strong></span>
+                          <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
+                              <div className={"fb fb-row fb-justify-space-between"}>
+                                  <span>Amount of money: </span>
+                                  <span><strong>{fetchedUser.money_amount}</strong></span>
+                              </div>
                           </div>
                       </div>
                   </>)

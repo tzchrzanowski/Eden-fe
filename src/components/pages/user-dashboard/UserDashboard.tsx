@@ -4,6 +4,7 @@ import UserContext from "context/UserContext";
 import TopNavigation from "components/top-navigation/TopNavigation";
 import {User, UserInterface} from "object-types/user-interfaces";
 import {getUser} from "data/getRequests";
+import UserCashOutSidebarForm from "./user-cashout-sidebar-form/UserCashOutSidebarForm";
 
 const initialEmptyUser: UserInterface = {
     email: "",
@@ -27,6 +28,7 @@ export function UserDashboard() {
     const contextValue = useContext(UserContext);
     const [rerender, setRerender] = React.useState<boolean>(false);
     const [loading, setLoading] = React.useState<boolean>(true);
+    const [sidebarOpen, setSidebarOpen] = React.useState<boolean>(false);
 
     React.useEffect(()=> {
         if (contextValue?.state?.user) {
@@ -54,6 +56,12 @@ export function UserDashboard() {
     return (
       <>
           <TopNavigation />
+          <UserCashOutSidebarForm
+              user={fetchedUser}
+              isOpen={sidebarOpen}
+              rerenderDashboard={setRerender}
+              setSidebarOpen={setSidebarOpen}
+          />
           <div className={loading ? "justify-center profile-dashboard-wrapper" : "profile-dashboard-wrapper"}>
               {loading && (<div><span>Loading...</span></div>)}
               {!loading && fetchedUser &&
@@ -101,10 +109,11 @@ export function UserDashboard() {
                           <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
                               <div className={"fb fb-row fb-justify-space-between"}>
                                   <span>Amount of money: </span>
-                                  <span><strong>{fetchedUser.money_amount}</strong></span>
+                                  <span><strong>{fetchedUser.money_amount} php</strong></span>
                               </div>
                           </div>
                       </div>
+                      <button className={"node-caption mt-3 pointer"} onClick={()=>setSidebarOpen((prevState) => !prevState)}>Request cash out</button>
                   </>)
               }
           </div>

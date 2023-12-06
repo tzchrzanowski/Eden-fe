@@ -69,6 +69,56 @@ export async function setCashOutForUser(userId: Number, cash_out_bool: boolean) 
     }
 }
 
+export async function setCashOutBool(userId: Number, cash_out_bool: boolean) {
+    const apiUrl = endPointUrl + '/api/public/users/' +userId + '/set_cash_out_bool';
+    const token = localStorage.getItem("token");
+
+    if (typeof token == 'string') {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token,
+                },
+                body: JSON.stringify({cash_out_bool}),
+            });
+            if (!response.ok) {
+                throw new Error(`Authentication failed with status: ${response.status}`);
+            }
+            const resp = await response.json();
+            return resp;
+        } catch (error) {
+            console.error('Error on set cash out amount url request:', error);
+        }
+    }
+}
+
+export async function setCashOutByUser(userId: Number, cash_out_details: String) {
+    const apiUrl = endPointUrl + '/api/public/users/' +userId + '/set_cash_out_by_user';
+    const token = localStorage.getItem("token");
+
+    if (typeof token == 'string') {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'AUTHORIZATION': token,
+                },
+                body: JSON.stringify({cash_out_details}),
+            });
+            if (!response.ok) {
+                throw new Error(`Authentication failed with status: ${response.status}`);
+            }
+            const resp = await response.json();
+            return resp;
+        } catch (error) {
+            console.error('Error on set cash out amount url request:', error);
+        }
+    }
+}
+
 export async function setCashOutAmountForUser(userId: Number, cash_out_amount: Number) {
     const apiUrl = endPointUrl + '/api/public/users/' +userId + '/set_cash_out_amount';
     const token = localStorage.getItem("token");

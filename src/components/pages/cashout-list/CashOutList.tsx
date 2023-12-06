@@ -1,7 +1,7 @@
 import './CashOutList.css';
 import React from 'react';
 import TopNavigation from "components/top-navigation/TopNavigation";
-import {CashOutUserInfo, UserInterface} from "object-types/user-interfaces";
+import {CashOutUserInfo, UserCashOutInterface} from "object-types/user-interfaces";
 import {getAllCashOutUsers} from "data/getRequests";
 import CashOutIcon from "resources/side-nav-icons/cash-out-icon.svg";
 import SidebarCashOutForm from "./sidebar-cash-out-form/SidebarCashOutForm";
@@ -13,16 +13,17 @@ const initialEmptyUser = {
     profile_picture_url: "",
     username: "",
     money_amount: 0,
+    cash_out_details: ""
 }
 
 export function CashOutList() {
-    const [fetchedAllCashOutUsers, setFetchedAllCashOutUsers] = React.useState<UserInterface[] | null>(null);
+    const [fetchedAllCashOutUsers, setFetchedAllCashOutUsers] = React.useState<UserCashOutInterface[] | null>(null);
     const [searchTerm, setSearchTerm] = React.useState<string>('');
     const [selectedUser, setSelectedUser] = React.useState<CashOutUserInfo>(initialEmptyUser);
     const [isSidebarCashOutUserOpen, setSidebarCashOutUserOpen] = React.useState<boolean>(false);
     const [rerender, setRerender] = React.useState<boolean>(false);
     const filteredUsers = fetchedAllCashOutUsers
-        ? fetchedAllCashOutUsers.filter((user: UserInterface) =>
+        ? fetchedAllCashOutUsers.filter((user: UserCashOutInterface) =>
             `${user.username} ${user.points} ${user.direct_referral} ${user.money_amount} ${user.first_name} ${user.last_name} ${user.email}`
                 .toLowerCase()
                 .includes(searchTerm.toLowerCase())
@@ -42,7 +43,7 @@ export function CashOutList() {
         setSearchTerm(e.target.value);
     };
 
-    const handleRowClick = (user: UserInterface): void => {
+    const handleRowClick = (user: UserCashOutInterface): void => {
         setSelectedUser({
             user_id: user.id,
             full_name: `${user.first_name} ${user.last_name}`,
@@ -50,6 +51,7 @@ export function CashOutList() {
             profile_picture_url: user.profile_picture_url,
             username: user.username,
             money_amount: user.money_amount,
+            cash_out_details: user.cash_out_details,
         });
         setSidebarCashOutUserOpen(true);
     }
@@ -75,13 +77,13 @@ export function CashOutList() {
                         <tr>
                             <th style={{ width: '5%', minWidth: '40px', textAlign: 'left', verticalAlign: 'middle' }}>#</th>
                             <th style={{ width: '22%', minWidth: '150px', textAlign: 'left', verticalAlign: 'middle' }}>Username</th>
-                            <th style={{ width: '13%', minWidth: '150px', textAlign: 'left', verticalAlign: 'middle' }}>Total money</th>
+                            <th style={{ width: '13%', minWidth: '100px', textAlign: 'left', verticalAlign: 'middle' }}>Money</th>
                             <th style={{ width: '20%', minWidth: '150px', textAlign: 'left', verticalAlign: 'middle' }}>Full Name</th>
-                            <th style={{ width: '40%', minWidth: '220px', textAlign: 'left', verticalAlign: 'middle' }}>Email</th>
+                            <th style={{ width: '40%', minWidth: '220px', textAlign: 'left', verticalAlign: 'middle' }}>Cash Out Details</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {filteredUsers && filteredUsers.map((user: UserInterface, id: number) => (
+                    {filteredUsers && filteredUsers.map((user: UserCashOutInterface, id: number) => (
                         <tr key={id} onClick={()=> handleRowClick(user)}>
                             <td>
                                 <div className={"cash-out-users-row fb align-items-center"}>
@@ -99,7 +101,7 @@ export function CashOutList() {
                             </td>
                             <td>
                                 <div className={"cash-out-users-row fb align-items-center"}>
-                                    {user.money_amount}
+                                    {user.money_amount} php
                                 </div>
                             </td>
                             <td>
@@ -109,7 +111,7 @@ export function CashOutList() {
                             </td>
                             <td>
                                 <div className={"cash-out-users-row fb align-items-center"}>
-                                    {user.email}
+                                    {user.cash_out_details}
                                 </div>
                             </td>
                         </tr>

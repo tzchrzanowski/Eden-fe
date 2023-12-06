@@ -66,6 +66,11 @@ export interface CashOutUserInfo {
     profile_picture_url: string;
     username: string;
     money_amount: number;
+    cash_out_details: string;
+}
+
+export interface UserCashOutInterface extends UserInterface {
+    cash_out_details: string;
 }
 
 /*

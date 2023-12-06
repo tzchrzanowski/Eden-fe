@@ -50,7 +50,7 @@ export function SidebarCashOutForm({user, isOpen, rerenderCashOutListCallback, s
                     <span>Cash out of user: <strong>{user.username}</strong></span>
                 </div>
                 <div className={"mt-2 form-item-caption"}>
-                    <span><strong>{user.username}</strong> has total amount of : </span>
+                    <span><strong>{user.username}</strong> has total amount of : </span><br/>
                     <strong>{user.money_amount} php</strong>
                 </div>
                 <label className={"add-points-form-item"}>
@@ -64,6 +64,11 @@ export function SidebarCashOutForm({user, isOpen, rerenderCashOutListCallback, s
                         onChange={handleCashOutAmountChange}
                     />
                 </label>
+                <label className={"add-points-form-item"}>
+                    <div className={"form-item-caption"}>Cash out details for <strong>{user.username}</strong>:</div><br/>
+                    <span>{user.cash_out_details}</span>
+                </label>
+
                 <div className={"warning-message"}>
                     <span>Warning note:</span><br/>
                     <span>Submitting this form only updates internal tracking of cash out for given user.</span>

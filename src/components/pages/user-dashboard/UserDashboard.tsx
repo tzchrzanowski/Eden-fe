@@ -2,11 +2,12 @@ import React, {useContext} from 'react';
 import './UserDashboard.css';
 import UserContext from "context/UserContext";
 import TopNavigation from "components/top-navigation/TopNavigation";
-import {User, UserInterface} from "object-types/user-interfaces";
+import {UserCashOutInterface, UserInterface} from "object-types/user-interfaces";
 import {getUser} from "data/getRequests";
 import UserCashOutSidebarForm from "./user-cashout-sidebar-form/UserCashOutSidebarForm";
+import {setCashOutBool} from "data/patchRequests";
 
-const initialEmptyUser: UserInterface = {
+const initialEmptyUser: UserCashOutInterface = {
     email: "",
     first_name: "",
     id: -1,
@@ -21,14 +22,17 @@ const initialEmptyUser: UserInterface = {
     packageType: "",
     money_amount: -1,
     direct_referral: -1,
+    cashOut: false,
+    cash_out_details: "",
 }
 
 export function UserDashboard() {
-    const [fetchedUser, setFetchedUser] = React.useState<UserInterface>(initialEmptyUser);
+    const [fetchedUser, setFetchedUser] = React.useState<UserCashOutInterface>(initialEmptyUser);
     const contextValue = useContext(UserContext);
     const [rerender, setRerender] = React.useState<boolean>(false);
     const [loading, setLoading] = React.useState<boolean>(true);
     const [sidebarOpen, setSidebarOpen] = React.useState<boolean>(false);
+    const [cashOutRequested, setCashOutRequested] = React.useState<boolean>(fetchedUser.cashOut);
 
     React.useEffect(()=> {
         if (contextValue?.state?.user) {
@@ -48,9 +52,25 @@ export function UserDashboard() {
         }
     }, [rerender]);
 
+    React.useEffect(()=> {
+        setCashOutRequested(fetchedUser.cashOut);
+    }, [fetchedUser]);
+
     const fetchUserData = async (user_id: string) => {
         const fetchedUser = await getUser(user_id);
         setFetchedUser(fetchedUser);
+    }
+
+
+    const handleCancelCashOutRequest = async () => {
+        try {
+            const response = await setCashOutBool(fetchedUser.id, false);
+            if (response == 200 || response == "200") {
+                setCashOutRequested(false);
+            }
+        } catch (error) {
+            console.log("Cancel cash out request by user error: ", error);
+        }
     }
 
     return (
@@ -112,8 +132,28 @@ export function UserDashboard() {
                                   <span><strong>{fetchedUser.money_amount} php</strong></span>
                               </div>
                           </div>
+
+                          {cashOutRequested &&
+                              <>
+                                  <div className={"mt-3 form-item-caption bw b-1 bb-solid warning-message"}>
+                                      <div className={"fb fb-row fb-justify-space-between"}>
+                                          <span>Cash out requested: </span>
+                                          <span>Yes</span>
+                                      </div>
+                                  </div>
+                                  <div className={"mt-3 form-item-caption bw b-1 bb-solid warning-message"}>
+                                      <div className={"fb fb-column fb-justify-space-between"}>
+                                          <span>Cash out details: </span>
+                                          <span><strong>{fetchedUser.cash_out_details}</strong></span>
+                                      </div>
+                                  </div>
+                              </>
+                          }
                       </div>
                       <button className={"node-caption mt-3 pointer"} onClick={()=>setSidebarOpen((prevState) => !prevState)}>Request cash out</button>
+                      {cashOutRequested &&
+                          <button className={"node-caption mt-3 pointer"} onClick={()=>handleCancelCashOutRequest()}>Cancel cash out request</button>
+                      }
                   </>)
               }
           </div>

@@ -24,6 +24,7 @@ const initialEmptyUser: UserCashOutInterface = {
     direct_referral: -1,
     cashOut: false,
     cash_out_details: "",
+    gift_certificates_amount: 0,
 }
 
 export function UserDashboard() {
@@ -112,6 +113,12 @@ export function UserDashboard() {
                               <div className={"fb fb-row fb-justify-space-between"}>
                                   <span>email: </span>
                                   <span><strong>{fetchedUser.email}</strong></span>
+                              </div>
+                          </div>
+                          <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>
+                              <div className={"fb fb-row fb-justify-space-between"}>
+                                  <span>Gift certificates: </span>
+                                  <span><strong>{fetchedUser.gift_certificates_amount}</strong></span>
                               </div>
                           </div>
                           <div className={"mt-3 form-item-caption bw b-1 bb-solid"}>

@@ -72,6 +72,7 @@ export interface CashOutUserInfo {
 export interface UserCashOutInterface extends UserInterface {
     cashOut: boolean;
     cash_out_details: string;
+    gift_certificates_amount: number;
 }
 
 /*

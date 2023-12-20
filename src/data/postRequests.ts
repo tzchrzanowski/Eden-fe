@@ -1,6 +1,6 @@
-import {endPointUrl} from "./staticData";
 import {UserObject} from "../object-types/user-interfaces";
 import {getToken} from "../helpers/Helpers";
+import {endPointUrl, isProductionEnvironment, endPointUrlProd} from "./staticData";
 
 interface LoginResponse {
     status: string;
@@ -12,7 +12,9 @@ interface LoginResponse {
 }
 
 export async function loginUser(username: String, password: String) {
-    const apiUrl = endPointUrl + '/api/public/login';
+    const usedEndPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrl;
+
+    const apiUrl = usedEndPointUrl + '/api/public/login';
 
     try {
         const response = await fetch(apiUrl, {

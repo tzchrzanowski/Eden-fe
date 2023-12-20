@@ -1,7 +1,9 @@
-import {endPointUrl} from "./staticData";
+import {endPointUrl, isProductionEnvironment, endPointUrlProd} from "./staticData";
 
 export async function updatePhotoUrlRequest(userId: String, newProfilePictureUrl: String) {
-    const apiUrl = endPointUrl + '/api/public/users/' +userId + '/update-profile-picture';
+    const usedEndPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrl;
+
+    const apiUrl = usedEndPointUrl + '/api/public/users/' +userId + '/update-profile-picture';
     const token = localStorage.getItem("token");
 
     try {

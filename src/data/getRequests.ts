@@ -1,7 +1,8 @@
 import {endPointUrlLocal, isProductionEnvironment, endPointUrlProd} from "./staticData";
 import {getToken} from "../helpers/Helpers";
 
-const endPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrlLocal;
+// const endPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrlLocal;
+const endPointUrl = endPointUrlProd;
 
 export async function getUser(userId: number | string) {
     const apiUrl = endPointUrl + '/api/public/users/' + userId + '/get_user_details';

@@ -1,6 +1,6 @@
 import {UserObject} from "../object-types/user-interfaces";
 import {getToken} from "../helpers/Helpers";
-import {endPointUrl, isProductionEnvironment, endPointUrlProd} from "./staticData";
+import {endPointUrlLocal, isProductionEnvironment, endPointUrlProd} from "./staticData";
 
 interface LoginResponse {
     status: string;
@@ -10,6 +10,8 @@ interface LoginResponse {
     user_id: string;
     username: string;
 }
+
+const endPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrlLocal;
 
 export async function loginUser(username: String, password: String) {
     const usedEndPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrl;

@@ -1,4 +1,6 @@
-import {endPointUrl, isProductionEnvironment, endPointUrlProd} from "./staticData";
+import {endPointUrlLocal, isProductionEnvironment, endPointUrlProd} from "./staticData";
+
+const endPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrlLocal;
 
 export async function updatePhotoUrlRequest(userId: String, newProfilePictureUrl: String) {
     const usedEndPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrl;

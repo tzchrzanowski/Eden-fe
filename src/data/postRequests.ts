@@ -15,8 +15,6 @@ interface LoginResponse {
 const endPointUrl = endPointUrlProd;
 
 export async function loginUser(username: String, password: String) {
-    console.log("endPointUrl post: ", endPointUrl);
-
     const usedEndPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrl;
 
     const apiUrl = usedEndPointUrl + '/api/public/login';

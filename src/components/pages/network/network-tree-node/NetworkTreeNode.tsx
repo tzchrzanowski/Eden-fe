@@ -15,7 +15,7 @@ interface NetworkTreeNodeProps {
 }
 
 export function NetworkTreeNode({node, renderNodeRecursiveCallback, setSidebarAddNewUserOpenCallback, setParentNodeInfo, rerenderNetworkFlag, subTreeDisplayCallback}: NetworkTreeNodeProps) {
-    const [isSliding, setIsSliding] = React.useState(false);
+    const [isSliding, setIsSliding] = React.useState(true);
     const [isTopView, setIsTopView] = React.useState<Boolean>();
     const [slideClass, setSlideClass] = React.useState<string>("");
     const [isDisabled, setIsDisabled] = React.useState<boolean>(true);

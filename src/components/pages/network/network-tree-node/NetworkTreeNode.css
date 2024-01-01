@@ -13,6 +13,7 @@
 
 .slide-right {
     transform: translateX(120px);
+    /*margin-left: 220px;*/
 }
 
 .only-left-child-top-tree {
@@ -29,6 +30,7 @@
 
 .slide-left {
     transform: translateX(-120px);
+    /*margin-right: 220px;*/
 }
 
 /* children node styles : */
@@ -54,6 +56,7 @@
 }
 
 .node-caption {
+    text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
 }

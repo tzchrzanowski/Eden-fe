@@ -15,9 +15,8 @@ interface NetworkTreeNodeProps {
 }
 
 export function NetworkTreeNode({node, renderNodeRecursiveCallback, setSidebarAddNewUserOpenCallback, setParentNodeInfo, rerenderNetworkFlag, subTreeDisplayCallback}: NetworkTreeNodeProps) {
-    const [isSliding, setIsSliding] = React.useState(true);
+    // const [isSliding, setIsSliding] = React.useState(true);
     const [isTopView, setIsTopView] = React.useState<Boolean>();
-    const [slideClass, setSlideClass] = React.useState<string>("");
     const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
 
     /* Constructor: */
@@ -37,22 +36,14 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, setSidebarAd
         if (node.nodeLevel) {
             setIsTopView([0, 1 ].includes(node.nodeLevel));
         }
-        setSlideClass(getSlidingClass);
-
-        /* slide initially if tree already has tier 1 node setup with children: */
-        if (node.nodeLevel == 1 && (node.left !== null || node.right !== null)) {
-            if (isTopView) {
-                setIsSliding(true);
-            }
-        }
     }, [rerenderNetworkFlag]);
 
     const getSlidingClass = (): string => {
         if(isTopView) {
-            if (isSliding == true && node.nodePosition == 'right') {
+            if (node.nodePosition == 'right') {
                 return 'slide-right';
             }
-            if (isSliding == true && node.nodePosition == 'left') {
+            if (node.nodePosition == 'left') {
                 return 'slide-left';
             }
         }
@@ -94,7 +85,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, setSidebarAd
 
     return (
         <>
-            <div className={`root-node-wrapper ${slideClass}`}>
+            <div className={`root-node-wrapper ${getSlidingClass()}`}>
                 <div className={"fb fb-row align-items-center "}>
                     <div className={"node-caption"}>{node.user.username}</div>
                     <div className={"fb align-items-center pointer ml-1 pl-1"} onClick={()=>subTreeDisplayCallback(node.user.id)}>
@@ -106,7 +97,7 @@ export function NetworkTreeNode({node, renderNodeRecursiveCallback, setSidebarAd
                 <div className={"node-caption"}>{node.user.first_name}</div>
                 <button disabled={isDisabled} className={"node-caption"} onClick={()=>handleAddPackageButtonClick()}>Add package</button>
             </div>
-            <div className={`children-nodes-wrapper ${slideClass}`}>
+            <div className={`children-nodes-wrapper ${getSlidingClass()}`}>
                 {node.left !== null &&
                     <div className={`child-node-container ${getSingleChildNodeClass()}`}>
                         <Arrow direction={"left"}/>

@@ -12,7 +12,7 @@ interface LoginResponse {
 }
 
 // const endPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrlLocal;
-const endPointUrl = endPointUrlProd;
+const endPointUrl = endPointUrlLocal;
 
 export async function loginUser(username: String, password: String) {
     const usedEndPointUrl = isProductionEnvironment ? endPointUrlProd : endPointUrl;
